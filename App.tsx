@@ -24,7 +24,6 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
-import {TypographyStyles} from './src/theme/typography';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -89,7 +88,6 @@ function App(): React.JSX.Element {
           </Section>
           <Section title="Learn More">
             Read the docs to discover what to do next:
-            <Text style={styles.make}>Salam</Text>
           </Section>
           <LearnMoreLinks />
         </View>
@@ -114,11 +112,6 @@ const styles = StyleSheet.create({
   },
   highlight: {
     fontWeight: '700',
-  },
-  make: {
-    color: '#000',
-    fontSize: 30,
-    fontFamily: 'Montserrat-SemiBold',
   },
 });
 
