@@ -1,4 +1,4 @@
-import {PixelRatio} from 'react-native';
+import { PixelRatio } from 'react-native';
 
 import {
   windowHeight as deviceHeight,
@@ -17,17 +17,17 @@ const heightScaleFactor = deviceHeight / layoutHeight;
 let maxFont = PixelRatio.getFontScale();
 
 const fontScales = [
-  {limit: 1.28, value: 0},
-  {limit: 1.6, value: 2},
-  {limit: 2, value: 4},
-  {limit: 2.5, value: 5},
-  {limit: 3, value: 7},
-  {limit: 3.5, value: 8},
-  {limit: Infinity, value: 8.8},
+  { limit: 1.28, value: 0 },
+  { limit: 1.6, value: 2 },
+  { limit: 2, value: 4 },
+  { limit: 2.5, value: 5 },
+  { limit: 3, value: 7 },
+  { limit: 3.5, value: 8 },
+  { limit: Infinity, value: 8.8 },
 ];
 
 let fontScaleValue = (
-  fontScales.find(scale => maxFont <= scale.limit) || {value: 0}
+  fontScales.find(scale => maxFont <= scale.limit) || { value: 0 }
 ).value;
 
 /**
