@@ -10,8 +10,19 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors} from './src/theme/colors';
 import Router from 'router/Router';
+import BootSplash from "react-native-bootsplash";
+
 
 function App(): React.JSX.Element {
+  useEffect(() => {
+    const init = async () => {
+      // …do multiple sync or async tasks
+    };
+
+    init().finally(async () => {
+      await BootSplash.hide({ fade: true });
+    });
+  }, []);
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={'dark-content'} backgroundColor={'red'} />
