@@ -1,34 +1,98 @@
-import {View, Text} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  ImageBackground,
+  Dimensions,
+} from 'react-native';
 import React from 'react';
+import {CommonStyles} from 'theme/common.styles';
+import {windowHeight, windowWidth} from 'theme/consts.styles';
+import {Button} from 'components/Button';
 import {TypographyStyles} from 'theme/typography';
 
-export const WelcomeScreen = () => {
+const data = [
+  {
+    title: 'Shop top brands online and in-store',
+    image: require('../../assets/images/onboarding_1.png'),
+    id: 0,
+  },
+  {
+    title: 'Find your best products and look great',
+    image: require('../../assets/images/onboarding_2.png'),
+    id: 1,
+  },
+];
+
+export const WelcomeScreen: React.FC = () => {
+  const renderItem = ({item}: {item: (typeof data)[0]}) => {
+    return (
+      <ImageBackground
+        source={item.image}
+        imageStyle={{
+          resizeMode: item.id === 1 ? 'center' : 'cover',
+          alignItems: item.id === 0 ? 'flex-end' : 'center',
+          width: item.id === 0 ? windowWidth : 328,
+          height: item.id === 0 ? windowHeight : 248,
+        }}
+        style={[
+          styles.background,
+          item.id === 1 && {
+            paddingBottom: 94,
+          },
+          {justifyContent: 'flex-end'},
+        ]}>
+        <Text style={TypographyStyles.title2}>{item.title}</Text>
+
+        <View style={{gap: 16}}>
+          <Button
+            text="Create an account"
+            size="block"
+            types="primary"
+            hasIcon={false}
+          />
+          <Button
+            text="Log in Instead"
+            size="block"
+            types="primary"
+            hasIcon={false}
+          />
+        </View>
+      </ImageBackground>
+    );
+  };
+
   return (
-    <View>
-      <Text style={TypographyStyles.title3}>Welcome.Screen</Text>
-      {/* <Button
-        icon={testIcon}
-        text="Block"
-        size="small"
-        // loading
-        position="right"
-        onPress={() => console.warn('sss')}
-      /> */}
-      {/* <Button
-        icon={testIcon}
-        text=" Large"
-        position="left"
-        size="large"
-        onPress={() => console.warn('sss')}
+    <View style={styles.root}>
+      <FlatList
+        data={data}
+        initialScrollIndex={0}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        pagingEnabled
+        initialNumToRender={1}
+        renderItem={renderItem}
+        contentContainerStyle={styles.contentContainerStyle}
+        style={CommonStyles.flex}
       />
-      <Button
-        icon={testIcon}
-        text="Small"
-        size="small"
-        onPress={() => console.warn('sss')}
-      /> */}
     </View>
   );
 };
 
-const testIcon = require('assets/vectors/message_circle.svg');
+const styles = StyleSheet.create({
+  root: {
+    borderWidth: 1,
+    flex: 1,
+  },
+  contentContainerStyle: {},
+  background: {
+    borderColor: 'blue',
+    borderWidth: 1,
+    width: windowWidth,
+    height: windowHeight,
+    paddingBottom: 37,
+    paddingHorizontal: 24,
+    gap: 64,
+  },
+});
