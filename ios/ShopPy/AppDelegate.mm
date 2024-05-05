@@ -1,7 +1,7 @@
 #import "AppDelegate.h"
+#import "RNBootSplash.h"
 
 #import <React/RCTBundleURLProvider.h>
-#import "RNBootSplash.h"
 
 @implementation AppDelegate
 
