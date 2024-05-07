@@ -4,13 +4,17 @@ import {
   StyleSheet,
   FlatList,
   ImageBackground,
-  Dimensions,
+  Image,
 } from 'react-native';
 import React from 'react';
 import {CommonStyles} from 'theme/common.styles';
 import {windowHeight, windowWidth} from 'theme/consts.styles';
 import {Button} from 'components/Button';
 import {TypographyStyles} from 'theme/typography';
+import {Header} from 'components/Header';
+import ShoppingBag from '../../assets/vectors/shopping-bag.svg';
+import {SvgImage} from 'components/SvgImage';
+import {colors} from 'theme/colors';
 
 const data = [
   {
@@ -44,18 +48,29 @@ export const WelcomeScreen: React.FC = () => {
           {justifyContent: 'flex-end'},
         ]}>
         <Text style={TypographyStyles.title2}>{item.title}</Text>
+        <Header
+          title="Title"
+          type="large"
+          rightActionType="icon"
+          right={{
+            icon: require('../../assets/vectors/shopping-bag.svg'),
+            color: colors.ink.base,
+            width: 29,
+            height: 29,
+          }}
+        />
 
         <View style={{gap: 16}}>
           <Button
             text="Create an account"
             size="block"
-            types="primary"
+            type="primary"
             hasIcon={false}
           />
           <Button
             text="Log in Instead"
             size="block"
-            types="primary"
+            type="primary"
             hasIcon={false}
           />
         </View>
