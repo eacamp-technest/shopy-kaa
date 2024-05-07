@@ -20,7 +20,7 @@ type TIcon = {
 };
 
 interface IHeader {
-  type: TType;
+  type?: TType;
   title?: string;
   left?: TSide;
   right?: TSide;
@@ -31,7 +31,7 @@ interface IHeader {
 }
 
 export const Header: React.FC<IHeader> = ({
-  type,
+  type = 'standard',
   title,
   left,
   right,
@@ -110,29 +110,28 @@ export const Header: React.FC<IHeader> = ({
         </Pressable>
       </View>
     );
-  } else {
-    return (
-      <View style={[styles.root]}>
-        <Pressable
-          disabled={!onLeftPress || leftActionType === 'button'}
-          onPress={onLeftPress}
-          style={[styles.action, !leftActionType && styles.hide]}>
-          {renderActions(leftActionType, left, 'left')}
-        </Pressable>
-        <Text style={TypographyStyles.title3}>{title}</Text>
-        <Pressable
-          disabled={!onRightPress || rightActionType === 'button'}
-          onPress={onRightPress}
-          style={[
-            styles.action,
-            styles.actionRight,
-            !rightActionType && styles.hide,
-          ]}>
-          {renderActions(rightActionType, right, 'right')}
-        </Pressable>
-      </View>
-    );
   }
+  return (
+    <View style={[styles.root]}>
+      <Pressable
+        disabled={!onLeftPress || leftActionType === 'button'}
+        onPress={onLeftPress}
+        style={[styles.action, !leftActionType && styles.hide]}>
+        {renderActions(leftActionType, left, 'left')}
+      </Pressable>
+      <Text style={TypographyStyles.title3}>{title}</Text>
+      <Pressable
+        disabled={!onRightPress || rightActionType === 'button'}
+        onPress={onRightPress}
+        style={[
+          styles.action,
+          styles.actionRight,
+          !rightActionType && styles.hide,
+        ]}>
+        {renderActions(rightActionType, right, 'right')}
+      </Pressable>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({

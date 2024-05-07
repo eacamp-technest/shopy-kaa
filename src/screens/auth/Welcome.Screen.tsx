@@ -50,7 +50,6 @@ export const WelcomeScreen: React.FC = () => {
         <Text style={TypographyStyles.title2}>{item.title}</Text>
         <Header
           title="Title"
-          type="large"
           rightActionType="icon"
           right={{
             icon: require('../../assets/vectors/shopping-bag.svg'),
