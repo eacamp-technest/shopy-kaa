@@ -20,7 +20,7 @@ type TTypes = 'primary' | 'secondary' | 'outlined' | 'transparent';
 interface IButton {
   text: string;
   size?: TSize;
-  types?: TTypes;
+  type?: TTypes;
   disabled?: boolean;
   hasIcon?: boolean;
   icon?: NodeRequire;
@@ -40,11 +40,11 @@ export const Button: React.FC<IButton> = ({
   iconPosition = 'left',
   size = 'block',
   style,
-  types = 'primary',
+  type = 'primary',
 }) => {
   const [pressed, setPressed] = useState<boolean>(false);
 
-  const {component: rootStyles, text: textStyles} = getButtonTheme(types, {
+  const {component: rootStyles, text: textStyles} = getButtonTheme(type, {
     disabled,
     press: pressed,
   });
