@@ -6,11 +6,15 @@ import {
   ImageBackground,
   Dimensions,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {CommonStyles} from 'theme/common.styles';
 import {windowHeight, windowWidth} from 'theme/consts.styles';
 import {Button} from 'components/Button';
 import {TypographyStyles} from 'theme/typography';
+import {Input} from 'components/TextFields';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from 'types/navigation.types';
+import {Routes} from 'router/routes';
 
 const data = [
   {
@@ -25,7 +29,13 @@ const data = [
   },
 ];
 
-export const WelcomeScreen: React.FC = () => {
+export const WelcomeScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, Routes.welcome>
+> = ({navigation}) => {
+
+  const navigateToLogin = () => navigation.navigate(Routes.login);
+  const navigateToRegister = () => navigation.navigate(Routes.register);
+
   const renderItem = ({item}: {item: (typeof data)[0]}) => {
     return (
       <ImageBackground
@@ -43,6 +53,7 @@ export const WelcomeScreen: React.FC = () => {
           },
           {justifyContent: 'flex-end'},
         ]}>
+   
         <Text style={TypographyStyles.title2}>{item.title}</Text>
 
         <View style={{gap: 16}}>
@@ -51,12 +62,14 @@ export const WelcomeScreen: React.FC = () => {
             size="block"
             types="primary"
             hasIcon={false}
+            onPress={navigateToRegister}
           />
           <Button
             text="Log in Instead"
             size="block"
             types="primary"
             hasIcon={false}
+            onPress={navigateToLogin}
           />
         </View>
       </ImageBackground>
