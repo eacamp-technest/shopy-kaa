@@ -25,7 +25,7 @@ class MainActivity : ReactActivity() {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     RNBootSplash.init(this, R.style.BootTheme) 
-    super.onCreate(savedInstanceState) 
+    super.onCreate(null) 
   }
 
 }
