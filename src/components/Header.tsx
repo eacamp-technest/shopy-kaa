@@ -24,6 +24,7 @@ interface IHeader {
   title?: string;
   left?: TSide;
   right?: TSide;
+  caption?: string;
   onLeftPress?: () => void;
   onRightPress?: () => void;
   leftActionType?: TAction;
@@ -35,6 +36,7 @@ export const Header: React.FC<IHeader> = ({
   title,
   left,
   right,
+  caption,
   onLeftPress,
   onRightPress,
   leftActionType,
@@ -97,7 +99,18 @@ export const Header: React.FC<IHeader> = ({
   if (type === 'large') {
     return (
       <View style={[styles.root, styles.large]}>
-        <Text style={TypographyStyles.title2}>{title}</Text>
+        <View style={styles.rightTitle}>
+          <Text style={TypographyStyles.title2}>{title}</Text>
+          {caption ? (
+            <Text
+              style={[
+                TypographyStyles.RegularNoneRegular,
+                {color: colors.ink.base},
+              ]}>
+              {caption}
+            </Text>
+          ) : null}
+        </View>
         <Pressable
           disabled={!onRightPress || rightActionType === 'button'}
           onPress={onRightPress}
@@ -141,6 +154,7 @@ const styles = StyleSheet.create({
   },
   large: {
     paddingVertical: normalize('vertical', 16),
+    height: normalize('height', 60),
   },
   action: {
     flex: 0.4,
@@ -157,5 +171,11 @@ const styles = StyleSheet.create({
   },
   hide: {
     opacity: 0,
+  },
+  rightTitle: {
+    gap: 4,
+    flexDirection: 'column',
+    alignItems: 'flex-start',
+    color: colors.ink.base,
   },
 });
