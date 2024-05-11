@@ -2,8 +2,8 @@ import { StyleSheet, TextStyle } from 'react-native';
 import { colors } from './colors';
 import { normalize } from './metrics';
 
-export const bebeasFonts = {
-  700: 'BebasNeue',
+export const bebasFonts = {
+  700: 'BebasNeue Bold',
 };
 
 export const montserratFonts = {
@@ -36,19 +36,19 @@ export const TypographyStyles = StyleSheet.create({
   title1: {
     fontSize: fontSize46,
     lineHeight: lineHeight56,
-    fontFamily: bebeasFonts[700],
+    fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   title2: {
     fontSize: fontSize32,
     lineHeight: lineHeight36,
-    fontFamily: bebeasFonts[700],
+    fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   title3: {
     fontSize: fontSize24,
     lineHeight: lineHeight32,
-    fontFamily: bebeasFonts[700],
+    fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   LargeNoneBold: {
