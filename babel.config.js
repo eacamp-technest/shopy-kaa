@@ -1,6 +1,7 @@
 module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
+    'react-native-reanimated/plugin',
     [
       'module-resolver',
       {
@@ -25,9 +26,9 @@ module.exports = {
           screens: './src/screens',
           theme: './src/theme',
           types: './src/types',
-          // constants: './src/constants',
+          helpers: './src/helpers',
+          constants: './src/constants',
           // hooks: './src/hooks',
-          // helpers: './src/helpers',
           // services: './src/services',
           // store: './src/store',
           // utils: './src/utils',
