@@ -52,7 +52,7 @@ export const Popover: React.FC<IPopover> = ({
 }) => {
   return (
     <Modal
-      animationType="slide"
+      animationType="fade"
       transparent={true}
       visible={visible}
       onRequestClose={handleReject}>
