@@ -7,4 +7,5 @@ export enum Routes {
   verification = 'verification',
   paymentMethod = 'paymentMethod',
   test = 'test',
+  otp = 'otp',
 }

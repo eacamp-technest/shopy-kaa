@@ -33,8 +33,14 @@ export const RegisterScreen: React.FC<
     },
   });
 
-  const onSubmit = (data: IRegisterForm) =>
-    navigation.navigate(Routes.verification);
+  const navigateToOtp = () => navigation.navigate(Routes.otp);
+
+  const onSubmit = (data: IRegisterForm) => {
+    const registrationSuccessful = true; 
+    if (registrationSuccessful) {
+      navigation.navigate(Routes.otp);
+    }
+  };
 
   return (
     <ScrollView
@@ -70,6 +76,7 @@ export const RegisterScreen: React.FC<
           rules={FormValidate.password}
           name="password"
           label="Password"
+          type='password'
           placeholder="Enter your password"
         />
       </View>

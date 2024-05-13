@@ -11,17 +11,14 @@ import {CommonStyles} from 'theme/common.styles';
 import {windowHeight, windowWidth} from 'theme/consts.styles';
 import {Button} from 'components/Button';
 import {TypographyStyles} from 'theme/typography';
-<<<<<<< input
 import {Input} from 'components/TextFields';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
-=======
 import {Header} from 'components/Header';
 import ShoppingBag from '../../assets/vectors/shopping-bag.svg';
 import {SvgImage} from 'components/SvgImage';
 import {colors} from 'theme/colors';
->>>>>>> main
 
 const data = [
   {
@@ -39,7 +36,6 @@ const data = [
 export const WelcomeScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.welcome>
 > = ({navigation}) => {
-
   const navigateToLogin = () => navigation.navigate(Routes.login);
   const navigateToRegister = () => navigation.navigate(Routes.register);
 
@@ -60,7 +56,6 @@ export const WelcomeScreen: React.FC<
           },
           {justifyContent: 'flex-end'},
         ]}>
-   
         <Text style={TypographyStyles.title2}>{item.title}</Text>
         <Header
           title="Title"

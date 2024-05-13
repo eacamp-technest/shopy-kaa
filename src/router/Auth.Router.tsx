@@ -9,6 +9,7 @@ import {Routes} from './routes';
 import {NavigationParamList} from '../types/navigation.types';
 import {Edges, SafeAreaView} from 'react-native-safe-area-context';
 import {CommonStyles} from 'theme/common.styles';
+import {OtpScreen} from 'screens/auth/Otp.Screen'; // Ekrana ait import
 import {
   authStackScreenOption,
   defaultScreenOptions,
@@ -34,6 +35,8 @@ export const AuthRouter = () => {
         />
         <AuthStack.Screen name={Routes.login} component={LoginScreen} />
         <AuthStack.Screen name={Routes.register} component={RegisterScreen} />
+        <AuthStack.Screen name={Routes.otp} component={OtpScreen} />
+
         <AuthStack.Screen
           name={Routes.verification}
           component={VerificationScreen}
