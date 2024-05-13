@@ -41,7 +41,7 @@ export const RegisterScreen: React.FC<
       keyboardShouldPersistTaps="handled"
       scrollEnabled={false}
       style={CommonStyles.flex}
-      contentContainerStyle={CommonStyles.flex}>
+      contentContainerStyle={CommonStyles.flexGrow}>
       <View style={styles.headers}>
         <Header
           onLeftPress={() => navigation.goBack()}
@@ -53,6 +53,7 @@ export const RegisterScreen: React.FC<
         <InputController
           control={control}
           rules={FormValidate.fullName}
+          type="text"
           name="fullName"
           label="Full Name"
         />
@@ -60,6 +61,7 @@ export const RegisterScreen: React.FC<
         <InputController
           control={control}
           rules={FormValidate.email}
+          type="text"
           name="email"
           label="Email"
           placeholder="Enter your email"
@@ -68,6 +70,7 @@ export const RegisterScreen: React.FC<
         <InputController
           control={control}
           rules={FormValidate.password}
+          type="password"
           name="password"
           label="Password"
           placeholder="Enter your password"

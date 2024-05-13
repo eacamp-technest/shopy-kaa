@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
     marginBottom: normalize('vertical', 48),
   },
   image: {
-    width: screenWidth - 45,
+    width: screenWidth - 48,
     height: screenHeight,
     position: 'absolute',
     right: 0,
