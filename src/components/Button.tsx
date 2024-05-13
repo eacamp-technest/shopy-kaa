@@ -17,7 +17,7 @@ type TIconPosition = 'left' | 'right';
 type TSize = 'small' | 'block' | 'large';
 type TTypes = 'primary' | 'secondary' | 'outlined' | 'transparent';
 
-interface IButton {
+export interface IButton {
   text: string;
   size?: TSize;
   type?: TTypes;
