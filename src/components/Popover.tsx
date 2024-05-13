@@ -14,6 +14,7 @@ import {screenWidth} from 'theme/consts.styles';
 import {TypographyStyles} from 'theme/typography';
 import {Button} from './Button';
 import {Input} from './TextFields';
+import {normalize} from 'theme/metrics';
 
 type TInput = {
   placeholder?: string;
@@ -71,7 +72,7 @@ export const Popover: React.FC<IPopover> = ({
           </Text>
           <Text
             style={
-              (TypographyStyles.RegularNoneSemiBold,
+              (TypographyStyles.RegularNormalSemiBold,
               CommonStyles.textAlignCenter)
             }>
             {description}
