@@ -16,13 +16,12 @@ import {Button} from 'components/Button';
 import {TextLink} from 'components/TextLink';
 import {InputController} from 'components/InputController';
 import {CommonStyles} from 'theme/common.styles';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {normalize} from 'theme/metrics';
 import {FormValidate} from 'constants/formValidation';
 import {SvgImage} from 'components/SvgImage';
 import {TypographyStyles} from 'theme/typography';
 import {Popover} from 'components/Popover';
-import {Overlay} from 'components/Overlay';
 
 interface ILoginForm {
   email: string;
@@ -113,7 +112,6 @@ export const LoginScreen: React.FC<
           {Object.values(vectors).map(renderSocialButtons)}
         </View>
       </View>
-      <Overlay overlay={modalVisible} />
       <Popover
         description={
           <TextLink

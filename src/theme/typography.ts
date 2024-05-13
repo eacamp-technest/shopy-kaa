@@ -26,6 +26,7 @@ const lineHeight56 = normalize('font', 56);
 const lineHeight36 = normalize('font', 36);
 const lineHeight32 = fontSize32;
 const lineHeight20 = fontSize20;
+const lineHeight24 = fontSize24;
 const lineHeight18 = fontSize18;
 const lineHeight16 = fontSize16;
 
@@ -82,6 +83,12 @@ export const TypographyStyles = StyleSheet.create({
     fontSize: fontSize16,
     fontFamily: montserratFonts[400],
     lineHeight: lineHeight16,
+    ...commonFontStyling,
+  },
+  RegularNormalSemiBold: {
+    fontSize: fontSize16,
+    fontFamily: montserratFonts[600],
+    lineHeight: lineHeight24,
     ...commonFontStyling,
   },
   SmallNoneSemibold: {
