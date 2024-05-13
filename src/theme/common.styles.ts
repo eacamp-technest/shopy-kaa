@@ -76,6 +76,11 @@ export const CommonStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   } as ViewStyle,
+  alignCenterJustifyBetweenColumn: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'column',
+  } as ViewStyle,
   justifyEnd: {
     justifyContent: 'flex-end',
   } as ViewStyle,
