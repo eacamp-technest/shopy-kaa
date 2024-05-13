@@ -14,7 +14,6 @@ import {screenWidth} from 'theme/consts.styles';
 import {TypographyStyles} from 'theme/typography';
 import {Button} from './Button';
 import {Input} from './TextFields';
-import {normalize} from 'theme/metrics';
 
 type TInput = {
   placeholder?: string;
@@ -67,14 +66,14 @@ export const Popover: React.FC<IPopover> = ({
             />
           ) : null}
 
-          <Text style={(TypographyStyles.title3, CommonStyles.textAlignCenter)}>
+          <Text style={[TypographyStyles.title3, CommonStyles.textAlignCenter]}>
             {title}
           </Text>
           <Text
-            style={
-              (TypographyStyles.RegularNormalSemiBold,
-              CommonStyles.textAlignCenter)
-            }>
+            style={[
+              TypographyStyles.RegularNormalSemiBold,
+              CommonStyles.textAlignCenter,
+            ]}>
             {description}
           </Text>
 
@@ -117,6 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#13151580',
   },
   modal: {
     ...CommonStyles.alignCenterJustifyBetweenColumn,

@@ -10,8 +10,7 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors} from './src/theme/colors';
 import Router from 'router/Router';
-import BootSplash from "react-native-bootsplash";
-
+import BootSplash from 'react-native-bootsplash';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -20,12 +19,12 @@ function App(): React.JSX.Element {
     };
 
     init().finally(async () => {
-      await BootSplash.hide({ fade: true });
+      await BootSplash.hide({fade: true});
     });
   }, []);
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={'dark-content'} backgroundColor={'red'} />
+      <StatusBar barStyle={'dark-content'} />
       <View style={styles.root}>
         <Router />
       </View>
