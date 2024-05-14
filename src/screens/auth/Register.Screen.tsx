@@ -78,7 +78,6 @@ export const RegisterScreen: React.FC<
           type="password"
           name="password"
           label="Password"
-          type='password'
           placeholder="Enter your password"
         />
       </View>

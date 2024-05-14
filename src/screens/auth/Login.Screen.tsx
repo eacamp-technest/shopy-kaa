@@ -40,7 +40,7 @@ export const LoginScreen: React.FC<
 
   const handleAccept = () => {
     setModalVisible(false);
-    navigation.navigate(Routes.verification);
+    navigation.navigate(Routes.otp);
   };
 
   const handleReject = () => {
