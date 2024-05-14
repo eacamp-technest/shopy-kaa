@@ -2,7 +2,6 @@ import {View, Text, ScrollView, StyleSheet} from 'react-native';
 import React from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
-import {Input} from 'components/TextFields';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
@@ -10,7 +9,7 @@ import {Button} from 'components/Button';
 import {TextLink} from 'components/TextLink';
 import {InputController} from 'components/InputController';
 import {CommonStyles} from 'theme/common.styles';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {normalize} from 'theme/metrics';
 import {FormValidate} from 'constants/formValidation';
 
@@ -47,10 +46,10 @@ export const RegisterScreen: React.FC<
       keyboardShouldPersistTaps="handled"
       scrollEnabled={false}
       style={CommonStyles.flex}
-      contentContainerStyle={CommonStyles.flex}>
+      contentContainerStyle={CommonStyles.flexGrow}>
       <View style={styles.headers}>
         <Header
-          onLeftPress={() => navigation.goBack()}
+          onLeftPress={navigation.goBack}
           leftActionType="icon"
           left={vectors.arrow_left}></Header>
         <Header type="large" title="CREATE ACCOUNT"></Header>
@@ -59,6 +58,7 @@ export const RegisterScreen: React.FC<
         <InputController
           control={control}
           rules={FormValidate.fullName}
+          type="text"
           name="fullName"
           label="Full Name"
         />
@@ -66,6 +66,7 @@ export const RegisterScreen: React.FC<
         <InputController
           control={control}
           rules={FormValidate.email}
+          type="text"
           name="email"
           label="Email"
           placeholder="Enter your email"
@@ -74,6 +75,7 @@ export const RegisterScreen: React.FC<
         <InputController
           control={control}
           rules={FormValidate.password}
+          type="password"
           name="password"
           label="Password"
           type='password'

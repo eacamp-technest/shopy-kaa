@@ -6,7 +6,7 @@ import {
   Pressable,
   Text,
 } from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -16,11 +16,12 @@ import {Button} from 'components/Button';
 import {TextLink} from 'components/TextLink';
 import {InputController} from 'components/InputController';
 import {CommonStyles} from 'theme/common.styles';
-import {useForm, Controller} from 'react-hook-form';
+import {useForm} from 'react-hook-form';
 import {normalize} from 'theme/metrics';
 import {FormValidate} from 'constants/formValidation';
 import {SvgImage} from 'components/SvgImage';
 import {TypographyStyles} from 'theme/typography';
+import {Popover} from 'components/Popover';
 
 interface ILoginForm {
   email: string;
@@ -30,14 +31,25 @@ interface ILoginForm {
 export const LoginScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.login>
 > = ({navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<ILoginForm>();
 
-  const onSubmit = (data: ILoginForm) =>
+  const handleAccept = () => {
+    setModalVisible(false);
     navigation.navigate(Routes.verification);
+  };
+
+  const handleReject = () => {
+    setModalVisible(false);
+  };
+
+  const onSubmit = (data: ILoginForm) => {
+    setModalVisible(true);
+  };
 
   const renderSocialButtons = (icon: NodeRequire, index: number) => {
     if (index === 0) {
@@ -57,7 +69,7 @@ export const LoginScreen: React.FC<
       keyboardShouldPersistTaps="handled"
       scrollEnabled={false}
       style={CommonStyles.flex}
-      contentContainerStyle={CommonStyles.flex}>
+      contentContainerStyle={CommonStyles.flexGrow}>
       <View style={styles.headers}>
         <Header
           onLeftPress={() => navigation.goBack()}
@@ -71,6 +83,7 @@ export const LoginScreen: React.FC<
           rules={FormValidate.email}
           name="email"
           label="Email"
+          type="text"
           placeholder="Enter your email"
         />
 
@@ -79,6 +92,7 @@ export const LoginScreen: React.FC<
           rules={FormValidate.password}
           name="password"
           label="Password"
+          type="password"
           placeholder="Enter your password"
         />
       </View>
@@ -98,6 +112,26 @@ export const LoginScreen: React.FC<
           {Object.values(vectors).map(renderSocialButtons)}
         </View>
       </View>
+      <Popover
+        description={
+          <TextLink
+            style={{textAlign: 'center'}}
+            content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
+            highlighted={[
+              {
+                text: 'Terms of Service and Conditions',
+                callback() {
+                  console.log('Terms of Service and Conditions');
+                },
+              },
+            ]}></TextLink>
+        }
+        visible={modalVisible}
+        handleAccept={handleAccept}
+        handleReject={handleReject}
+        acceptTitle="Agree and continue"
+        rejectTitle="Disagree and close"
+      />
 
       <TextLink
         style={styles.highLight}
