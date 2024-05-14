@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Keyboard,
   NativeSyntheticEvent,
@@ -9,6 +9,8 @@ import {
   TextStyle,
   View,
 } from 'react-native';
+import {colors} from 'theme/colors';
+import {TypographyStyles} from 'theme/typography';
 
 interface IInput {
   inputCount: number;
@@ -122,7 +124,7 @@ export const OtpInput = React.forwardRef<TextInput, IInput>(
       TextInputComponent.push(
         <TextInput
           key={i.toString()}
-          ref={(e) => {
+          ref={e => {
             if (e) {
               inputs[i] = e;
             }
@@ -131,22 +133,19 @@ export const OtpInput = React.forwardRef<TextInput, IInput>(
           autoFocus={i === 0}
           keyboardType="numeric"
           value={otp[i] || ''}
-          style={[
-            styles.input,
-            focusedInput === i && { borderColor: tintColor },
-          ]}
+          style={[styles.input, focusedInput === i && {borderColor: tintColor}]}
           maxLength={inputCellLength}
           onFocus={() => onInputFocusEvent(i)}
-          onChangeText={(txt) => onChangeText(txt, i)}
+          onChangeText={txt => onChangeText(txt, i)}
           multiline={false}
           selectionColor={tintColor}
-          onKeyPress={(e) => onKeyPress(e, i)}
+          onKeyPress={e => onKeyPress(e, i)}
         />,
       );
     }
 
     return <View style={styles.container}>{TextInputComponent}</View>;
-  }
+  },
 );
 
 const styles = StyleSheet.create({
@@ -159,12 +158,11 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderWidth: 1,
-    borderRadius: 13,
-    margin: 5,
+    borderRadius: 8,
+    margin: 15,
     textAlign: 'center',
-    fontSize: 22,
-    fontWeight: '600',
-    color: 'black',
-    borderColor: 'grey',
+    ...TypographyStyles.RegularNoneBold,
+    color: colors.black,
+    borderColor: colors.sky.light,
   },
 });

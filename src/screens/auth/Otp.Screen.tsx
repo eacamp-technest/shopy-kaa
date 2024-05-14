@@ -1,3 +1,4 @@
+import React, {useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,7 +7,6 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
 } from 'react-native';
-import React, {useRef} from 'react';
 import {Header} from 'components/Header';
 import {normalize} from 'theme/metrics';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -23,16 +23,17 @@ export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
 > = ({navigation}) => {
   const otpInputRef = useRef(null);
+
   return (
-    <SafeAreaView style={{flex: 1}}>
+    <SafeAreaView style={styles.root}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView> 
+        <KeyboardAvoidingView style={{marginTop: -60}}>
           <View style={styles.headers}>
             <Header
               onLeftPress={() => navigation.goBack()}
               leftActionType="icon"
-              left={vectors.arrow_left}></Header>
-            {/* <Header type="large" title="WELCOME!"></Header> */}
+              left={vectors.arrow_left}
+            />
           </View>
 
           <Text style={styles.title}>ENTER SMS CODE</Text>
@@ -43,9 +44,11 @@ export const OtpScreen: React.FC<
             handleTextChange={txt => {
               console.log('OTP --', txt);
             }}
-            tintColor={'##DE6053'}
-            inputCellLength={0}
-            defaultValue={''}></OtpInput>
+            tintColor={colors.primary.base}
+            inputCellLength={1}
+            defaultValue={''}
+            offTintColor={colors.sky.light}
+          />
 
           <TextLink
             style={styles.highLight}
@@ -54,7 +57,7 @@ export const OtpScreen: React.FC<
             highlighted={highlighted}
           />
 
-          <Button text="Continue" type="primary"></Button>
+          <Button text="Continue" />
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
     </SafeAreaView>
@@ -64,9 +67,10 @@ export const OtpScreen: React.FC<
 const highlighted = [
   {
     text: 'Resend Code',
-    callback: () => console.log('terms'),
+    callback: () => console.log('ResendCode'),
   },
 ];
+
 const vectors = {
   arrow_left: {
     icon: require('../../assets/vectors/arrow_left.svg'),
@@ -77,6 +81,9 @@ const vectors = {
 };
 
 const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
   headers: {
     gap: 16,
     marginBottom: normalize('vertical', 24),
