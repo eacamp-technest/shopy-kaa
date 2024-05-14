@@ -4,6 +4,27 @@ import {CommonStyles} from 'theme/common.styles';
 import {screenHeight, screenWidth, windowWidth} from 'theme/consts.styles';
 import {Button} from 'components/Button';
 import {TypographyStyles} from 'theme/typography';
+import {Input} from 'components/TextFields';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from 'types/navigation.types';
+import {Routes} from 'router/routes';
+import {Header} from 'components/Header';
+import ShoppingBag from '../../assets/vectors/shopping-bag.svg';
+import {SvgImage} from 'components/SvgImage';
+import {colors} from 'theme/colors';
+
+const data = [
+  {
+    title: 'Shop top brands online and in-store',
+    image: require('../../assets/images/onboarding_1.png'),
+    id: 0,
+  },
+  {
+    title: 'Find your best products and look great',
+    image: require('../../assets/images/onboarding_2.png'),
+    id: 1,
+  },
+];
 import {colors} from 'theme/colors';
 import {Pagination} from 'components/Pagination';
 import {onboarding} from 'constants/onboarding';
@@ -18,6 +39,24 @@ export const WelcomeScreen: React.FC<
   const navigateToLogin = () => navigation.navigate(Routes.login);
   const navigateToRegister = () => navigation.navigate(Routes.register);
 
+
+  const renderItem = ({item}: {item: (typeof data)[0]}) => {
+    return (
+      <ImageBackground
+        source={item.image}
+        imageStyle={{
+          resizeMode: item.id === 1 ? 'center' : 'cover',
+          alignItems: item.id === 0 ? 'flex-end' : 'center',
+          width: item.id === 0 ? windowWidth : 328,
+          height: item.id === 0 ? windowHeight : 248,
+        }}
+        style={[
+          styles.background,
+          item.id === 1 && {
+            paddingBottom: 94,
+          },
+          {justifyContent: 'flex-end'},
+        ]}>
   const renderItem = ({item}: {item: (typeof onboarding)[0]}) => {
     return item.id === 0 ? (
       <View style={styles.background}>

@@ -29,11 +29,17 @@ export const RegisterScreen: React.FC<
   } = useForm<IRegisterForm>({
     defaultValues: {
       fullName: 'Juinal William',
+      email: 'Juinalwilliam@gmail.com',
+      password: 'Ali.12344',
     },
   });
 
-  const onSubmit = (data: IRegisterForm) =>
-    navigation.navigate(Routes.verification);
+  const onSubmit = (data: IRegisterForm) => {
+    const registrationSuccessful = true; 
+    if (registrationSuccessful) {
+      navigation.navigate(Routes.otp);
+    }
+  };
 
   return (
     <ScrollView
@@ -72,6 +78,7 @@ export const RegisterScreen: React.FC<
           type="password"
           name="password"
           label="Password"
+          type='password'
           placeholder="Enter your password"
         />
       </View>
