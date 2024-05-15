@@ -69,11 +69,7 @@ export const Popover: React.FC<IPopover> = ({
           <Text style={[TypographyStyles.title3, CommonStyles.textAlignCenter]}>
             {title}
           </Text>
-          <Text
-            style={[
-              TypographyStyles.RegularNormalSemiBold,
-              CommonStyles.textAlignCenter,
-            ]}>
+          <Text style={[TypographyStyles.RegularNormalSemiBold]}>
             {description}
           </Text>
 
