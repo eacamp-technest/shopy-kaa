@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  ImageSourcePropType,
-  Modal,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import {View, Text, ImageSourcePropType, Modal, StyleSheet} from 'react-native';
 import React from 'react';
 import {ImageRatio, TRatio} from './ImageRatio';
 import {CommonStyles} from 'theme/common.styles';
@@ -69,11 +62,7 @@ export const Popover: React.FC<IPopover> = ({
           <Text style={[TypographyStyles.title3, CommonStyles.textAlignCenter]}>
             {title}
           </Text>
-          <Text
-            style={[
-              TypographyStyles.RegularNormalSemiBold,
-              CommonStyles.textAlignCenter,
-            ]}>
+          <Text style={[TypographyStyles.RegularNormalSemiBold]}>
             {description}
           </Text>
 
