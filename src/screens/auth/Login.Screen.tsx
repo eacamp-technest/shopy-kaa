@@ -115,7 +115,7 @@ export const LoginScreen: React.FC<
       <Popover
         description={
           <TextLink
-            style={{textAlign: 'center'}}
+            center
             content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
             highlighted={[
               {
