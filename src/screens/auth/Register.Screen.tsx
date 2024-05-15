@@ -29,13 +29,13 @@ export const RegisterScreen: React.FC<
   } = useForm<IRegisterForm>({
     defaultValues: {
       fullName: 'Juinal William',
-      email: 'Juinalwilliam@gmail.com',
-      password: 'Ali.12344',
+      email: __DEV__ ? 'Juinalwilliam@gmail.com' : '',
+      password: __DEV__ ? 'Ali.12344' : '',
     },
   });
 
   const onSubmit = (data: IRegisterForm) => {
-    const registrationSuccessful = true; 
+    const registrationSuccessful = true;
     if (registrationSuccessful) {
       navigation.navigate(Routes.otp);
     }
