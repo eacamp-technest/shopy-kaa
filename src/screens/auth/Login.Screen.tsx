@@ -31,7 +31,9 @@ interface ILoginForm {
 export const LoginScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.login>
 > = ({navigation}) => {
+
   const [modalVisible, setModalVisible] = useState(false);
+
   const {
     control,
     handleSubmit,
@@ -48,7 +50,8 @@ export const LoginScreen: React.FC<
   };
 
   const onSubmit = (data: ILoginForm) => {
-    setModalVisible(true);
+    setModalVisible(false);
+    navigation.navigate(Routes.otp)
   };
 
   const renderSocialButtons = (icon: NodeRequire, index: number) => {
@@ -112,26 +115,7 @@ export const LoginScreen: React.FC<
           {Object.values(vectors).map(renderSocialButtons)}
         </View>
       </View>
-      <Popover
-        description={
-          <TextLink
-            center
-            content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
-            highlighted={[
-              {
-                text: 'Terms of Service and Conditions',
-                callback() {
-                  console.log('Terms of Service and Conditions');
-                },
-              },
-            ]}></TextLink>
-        }
-        visible={modalVisible}
-        handleAccept={handleAccept}
-        handleReject={handleReject}
-        acceptTitle="Agree and continue"
-        rejectTitle="Disagree and close"
-      />
+      
 
       <TextLink
         style={styles.highLight}

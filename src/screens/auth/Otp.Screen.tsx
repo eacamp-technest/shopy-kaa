@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -18,19 +18,32 @@ import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {OtpInput} from 'components/OtpInput';
 import {colors} from 'theme/colors';
+import {Popover} from 'components/Popover';
 
 export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
 > = ({navigation}) => {
   const otpInputRef = useRef(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
+  const handleAccept = () => {
+    setModalVisible(false);
+    navigation.navigate(Routes.otp);
+  };
+
+  const handleReject = () => {
+    setModalVisible(false);
+  };
+  const onSubmit = () => {
+    setModalVisible(true);
+  };
   return (
-    <SafeAreaView style={styles.root}>
       <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView style={{marginTop: -60}}>
+        <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
           <View style={styles.headers}>
             <Header
               onLeftPress={() => navigation.goBack()}
+              type='standard'
               leftActionType="icon"
               left={vectors.arrow_left}
             />
@@ -57,10 +70,29 @@ export const OtpScreen: React.FC<
             highlighted={highlighted}
           />
 
-          <Button text="Continue" />
+          <Button onPress={onSubmit} text="Continue" />
+          <Popover
+            description={
+              <TextLink
+                center
+                content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
+                highlighted={[
+                  {
+                    text: 'Terms of Service and Conditions',
+                    callback() {
+                      console.log('Terms of Service and Conditions');
+                    },
+                  },
+                ]}></TextLink>
+            }
+            visible={modalVisible}
+            handleAccept={handleAccept}
+            handleReject={handleReject}
+            acceptTitle="Agree and continue"
+            rejectTitle="Disagree and close"
+          />
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
-    </SafeAreaView>
   );
 };
 
@@ -82,11 +114,14 @@ const vectors = {
 
 const styles = StyleSheet.create({
   root: {
+    borderWidth:1,
     flex: 1,
+  },
+  KeyboardAvoidingView: {
+    gap: 32,
   },
   headers: {
     gap: 16,
-    marginBottom: normalize('vertical', 24),
   },
   title: {
     ...TypographyStyles.title2,
