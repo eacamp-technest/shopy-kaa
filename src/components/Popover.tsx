@@ -1,11 +1,4 @@
-import {
-  View,
-  Text,
-  ImageSourcePropType,
-  Modal,
-  StyleSheet,
-  Pressable,
-} from 'react-native';
+import {View, Text, ImageSourcePropType, Modal, StyleSheet} from 'react-native';
 import React from 'react';
 import {ImageRatio, TRatio} from './ImageRatio';
 import {CommonStyles} from 'theme/common.styles';
