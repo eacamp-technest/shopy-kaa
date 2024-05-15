@@ -8,6 +8,8 @@ import {
 /**
  * Layout height and width from design
  */
+
+export const padding: number = 24;
 const layoutWidth = 375;
 const layoutHeight = 812;
 
