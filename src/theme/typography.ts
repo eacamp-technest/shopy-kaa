@@ -39,43 +39,36 @@ const commonFontStyling: TextStyle = {
 export const TypographyStyles = StyleSheet.create({
   title1: {
     fontSize: fontSize46,
-    lineHeight: lineHeight56,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   title2: {
     fontSize: fontSize32,
-    lineHeight: lineHeight36,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   title3: {
     fontSize: fontSize24,
-    lineHeight: lineHeight32,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   LargeNoneBold: {
     fontSize: fontSize18,
-    lineHeight: lineHeight18,
     fontFamily: montserratFonts[700],
     ...commonFontStyling,
   },
   LargeNoneSemibold: {
     fontSize: fontSize18,
-    lineHeight: lineHeight18,
     fontFamily: montserratFonts[600],
     ...commonFontStyling,
   },
   LargeNoneRegular: {
     fontSize: fontSize18,
-    lineHeight: lineHeight18,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
   },
   RegularNoneSemiBold: {
     fontSize: fontSize16,
-    lineHeight: lineHeight16,
     fontFamily: montserratFonts[600],
     ...commonFontStyling,
   },
@@ -87,30 +80,25 @@ export const TypographyStyles = StyleSheet.create({
   RegularNoneRegular: {
     fontSize: fontSize16,
     fontFamily: montserratFonts[400],
-    lineHeight: lineHeight16,
     ...commonFontStyling,
   },
   RegularNormalSemiBold: {
     fontSize: fontSize16,
     fontFamily: montserratFonts[600],
-    lineHeight: lineHeight24,
     ...commonFontStyling,
   },
   SmallNoneSemibold: {
     fontSize: fontSize14,
     fontFamily: montserratFonts[600],
-    lineHeight: lineHeight20,
     ...commonFontStyling,
   },
   SmallNoneRegular: {
     fontSize: fontSize14,
     fontFamily: montserratFonts[400],
-    lineHeight: lineHeight20,
     ...commonFontStyling,
   },
   TinyNormalRegular: {
     fontSize: fontSize12,
-    lineHeight: lineHeight16,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
   }
