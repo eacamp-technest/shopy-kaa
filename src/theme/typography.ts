@@ -1,10 +1,11 @@
-import { StyleSheet, TextStyle } from 'react-native';
+import { Platform, StyleSheet, TextStyle } from 'react-native';
 import { colors } from './colors';
 import { normalize } from './metrics';
 
 export const bebasFonts = {
-  700: 'BebasNeue Bold',
+  700: Platform.OS === "ios" ? "BebasNeue" : "BebasNeue Bold",
 };
+
 
 export const montserratFonts = {
   400: 'Montserrat-Regular',
@@ -20,15 +21,6 @@ const fontSize18 = normalize('font', 18);
 const fontSize16 = normalize('font', 16);
 const fontSize14 = normalize('font', 14);
 const fontSize12 = normalize('font', 12);
-
-
-const lineHeight56 = normalize('font', 56);
-const lineHeight36 = normalize('font', 36);
-const lineHeight32 = fontSize32;
-const lineHeight20 = fontSize20;
-const lineHeight24 = fontSize24;
-const lineHeight18 = fontSize18;
-const lineHeight16 = fontSize16;
 
 const commonFontStyling: TextStyle = {
   includeFontPadding: false,
