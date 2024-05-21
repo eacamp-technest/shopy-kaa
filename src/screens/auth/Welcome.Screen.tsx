@@ -139,6 +139,7 @@ const styles = StyleSheet.create({
     paddingTop: normalize('vertical', 54),
     ...CommonStyles.alignJustifyCenterRow,
   },
+  
   divider: {
     width: 1,
     height: 15,
