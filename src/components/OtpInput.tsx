@@ -92,6 +92,9 @@ export const OtpInput = React.forwardRef<TextInput, IInput>(
       }
       if (text.length === inputCellLength && i !== inputCount - 1) {
         inputs[i + 1]?.focus();
+      } else {
+        Keyboard.dismiss();
+        setFocusedInput(-1);
       }
 
       handleTextChange(temp.join(''));
