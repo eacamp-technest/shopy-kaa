@@ -17,3 +17,12 @@ export const authStackScreenOption: NativeStackNavigationOptions = {
     paddingHorizontal: normalize('horizontal', padding),
   },
 };
+
+export const modalStackScreenOption: NativeStackNavigationOptions = {
+  ...defaultScreenOptions,
+  presentation:'transparentModal',
+  animation:'fade_from_bottom',
+  contentStyle: {
+    backgroundColor: colors.transparent,
+  },
+}

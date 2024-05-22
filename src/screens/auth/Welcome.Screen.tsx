@@ -11,6 +11,7 @@ import {normalize, padding} from 'theme/metrics';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
+import {Header} from 'components/Header';
 
 export const WelcomeScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.welcome>
@@ -33,6 +34,7 @@ export const WelcomeScreen: React.FC<
             onPress={navigateToRegister}
           />
           <Button
+            style={styles.loginButton}
             text="Log in Instead"
             size="block"
             type="primary"
@@ -57,6 +59,7 @@ export const WelcomeScreen: React.FC<
             onPress={navigateToRegister}
           />
           <Button
+            style={styles.loginButton}
             text="Log in Instead"
             size="block"
             type="primary"
@@ -151,5 +154,8 @@ const styles = StyleSheet.create({
     paddingBottom: bottomSize,
     width: windowWidth,
     backgroundColor: colors.white,
+  },
+  loginButton: {
+    backgroundColor: colors.ink.base,
   },
 });

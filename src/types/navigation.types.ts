@@ -1,3 +1,4 @@
+import { IModal } from 'components/Modal';
 import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
 import { Routes } from 'router/routes';
 
@@ -15,4 +16,5 @@ export type NavigationParamList = {
   [Routes.paymentMethod]: undefined;
   [Routes.test]: undefined;
   [Routes.otp]: undefined;
+  [Routes.modal] : IModal
 };

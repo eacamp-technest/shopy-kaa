@@ -22,15 +22,11 @@ interface IRegisterForm {
 export const RegisterScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.register>
 > = ({navigation}) => {
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-  } = useForm<IRegisterForm>({
+  const {control, handleSubmit} = useForm<IRegisterForm>({
     defaultValues: {
       fullName: 'Juinal William',
       email: __DEV__ ? 'Juinalwilliam@gmail.com' : '',
-      password: __DEV__ ? 'Ali.12344' : '',
+      password: __DEV__ ? '12345678' : '',
     },
   });
 
@@ -70,6 +66,7 @@ export const RegisterScreen: React.FC<
           name="email"
           label="Email"
           placeholder="Enter your email"
+          autoCapitalize="none"
         />
 
         <InputController

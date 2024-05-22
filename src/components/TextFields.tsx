@@ -8,6 +8,7 @@ import {
   KeyboardTypeOptions,
   StyleProp,
   ViewStyle,
+  TextInputProps,
 } from 'react-native';
 import {Dropdown} from 'react-native-element-dropdown';
 import {SvgImage} from './SvgImage';
@@ -16,7 +17,7 @@ import {colors} from 'theme/colors';
 import {standardHitSlopSize} from 'theme/consts.styles';
 import {CommonStyles} from 'theme/common.styles';
 
-export interface IInput {
+export interface IInput extends TextInputProps {
   type?: 'text' | 'phone' | 'password' | 'select';
   label?: string;
   caption?: string;
