@@ -127,6 +127,7 @@ export const Input: React.FC<IInput> = ({
         editable={!props.disabled}
         onFocus={handleFocus}
         onBlur={handleBlur}
+        autoCapitalize={props.autoCapitalize}
         style={[
           styles.input,
           focused && styles.focused,
@@ -140,13 +141,14 @@ export const Input: React.FC<IInput> = ({
   };
 
   return (
-    <View style={[styles.root, props.style]}>
+    <View style={[styles.root]}>
       {props.label && (
         <Text style={TypographyStyles.RegularNoneSemiBold}>{props.label}</Text>
       )}
       <View
         style={[
           styles.wrapper,
+          props.style,
           focused && styles.focused,
           props.disabled && styles.wrapperDisabled,
           icon ? CommonStyles.rowReverse : undefined,
