@@ -13,7 +13,9 @@ import {OtpScreen} from 'screens/auth/Otp.Screen'; // Ekrana ait import
 import {
   authStackScreenOption,
   defaultScreenOptions,
+  modalStackScreenOption,
 } from 'configs/navigation.configs';
+import {ModalScreen} from 'screens/Modal.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -44,6 +46,11 @@ export const AuthRouter = () => {
         <AuthStack.Screen
           name={Routes.paymentMethod}
           component={PaymentMethodScreen}
+        />
+        <AuthStack.Screen
+          name={Routes.modal}
+          component={ModalScreen}
+          options={modalStackScreenOption}
         />
       </AuthStack.Navigator>
     </SafeAreaView>
