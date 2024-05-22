@@ -25,7 +25,7 @@ export const RegisterScreen: React.FC<
   const {control, handleSubmit} = useForm<IRegisterForm>({
     defaultValues: {
       fullName: 'Juinal William',
-      email: __DEV__ ? 'Juinalwilliam@gmail.com' : '',
+      email: __DEV__ ? 'juinalwilliam@gmail.com' : '',
       password: __DEV__ ? '12345678' : '',
     },
   });
@@ -76,6 +76,7 @@ export const RegisterScreen: React.FC<
           name="password"
           label="Password"
           placeholder="Enter your password"
+          style={styles.passwordStyle}
         />
       </View>
       <View style={styles.buttons}>
@@ -131,5 +132,8 @@ const styles = StyleSheet.create({
   },
   highLight: {
     marginBottom: normalize('vertical', 12),
+  },
+  passwordStyle: {
+    flexDirection: 'row-reverse',
   },
 });

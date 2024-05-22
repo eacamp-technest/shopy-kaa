@@ -71,6 +71,7 @@ export const LoginScreen: React.FC<
       </View>
       <View style={styles.inputs}>
         <InputController
+          autoCapitalize="none"
           control={control}
           rules={FormValidate.email}
           name="email"

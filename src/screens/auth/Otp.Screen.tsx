@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useImperativeHandle, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -19,6 +19,7 @@ import {Routes} from 'router/routes';
 import {OtpInput} from 'components/OtpInput';
 import {colors} from 'theme/colors';
 import Modal from 'components/Modal';
+import {isVisible} from 'react-native-bootsplash';
 
 export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
@@ -75,7 +76,6 @@ export const OtpScreen: React.FC<
                   ]}
                 />
               ),
-
               acceptTitle: 'Agree and continue',
               rejectTitle: 'Disagree and close',
               closeable: true,
