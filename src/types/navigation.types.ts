@@ -16,5 +16,6 @@ export type NavigationParamList = {
   [Routes.paymentMethod]: undefined;
   [Routes.test]: undefined;
   [Routes.otp]: undefined;
-  [Routes.modal] : IModal
+  [Routes.modal]: IModal
+  [Routes.AddNewCardScreen]: undefined
 };
