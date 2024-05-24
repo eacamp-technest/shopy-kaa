@@ -9,5 +9,6 @@ export enum Routes {
   test = 'test',
   otp = 'otp',
   modal = 'modal',
-  AddNewCardScreen='AddNewCardScreen'
+  AddNewCardScreen='AddNewCardScreen',
+  cards='cards'
 }
