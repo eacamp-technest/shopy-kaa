@@ -99,5 +99,10 @@ export const TypographyStyles = StyleSheet.create({
     fontSize: fontSize12,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
+  },
+  TinyNoneSemibold: {
+    fontSize: fontSize12,
+    fontFamily: montserratFonts[600],
+    ...commonFontStyling,
   }
 });
