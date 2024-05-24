@@ -21,6 +21,7 @@ import {normalize} from 'theme/metrics';
 import {FormValidate} from 'constants/formValidation';
 import {SvgImage} from 'components/SvgImage';
 import {TypographyStyles} from 'theme/typography';
+import {Popover} from 'components/Popover';
 
 interface ILoginForm {
   email: string;
@@ -30,17 +31,26 @@ interface ILoginForm {
 export const LoginScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.login>
 > = ({navigation}) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   const {
     control,
     handleSubmit,
     formState: {errors},
   } = useForm<ILoginForm>();
 
+  const handleAccept = () => {
+    setModalVisible(false);
+    navigation.navigate(Routes.otp);
+  };
+
+  const handleReject = () => {
+    setModalVisible(false);
+  };
+
   const onSubmit = (data: ILoginForm) => {
-    const loginSuccessful = true;
-    if (loginSuccessful) {
-      navigation.navigate(Routes.otp);
-    }
+    setModalVisible(false);
+    navigation.navigate(Routes.otp);
   };
 
   const renderSocialButtons = (icon: NodeRequire, index: number) => {
@@ -71,7 +81,6 @@ export const LoginScreen: React.FC<
       </View>
       <View style={styles.inputs}>
         <InputController
-          autoCapitalize="none"
           control={control}
           rules={FormValidate.email}
           name="email"
