@@ -34,65 +34,66 @@ export const OtpScreen: React.FC<
   const handleReject = () => {
     setModalVisible(false);
   };
+
   const onSubmit = () => {
     setModalVisible(true);
   };
   return (
-      <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-        <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
-          <View style={styles.headers}>
-            <Header
-              onLeftPress={() => navigation.goBack()}
-              type='standard'
-              leftActionType="icon"
-              left={vectors.arrow_left}
-            />
-          </View>
-
-          <Text style={styles.title}>ENTER SMS CODE</Text>
-
-          <OtpInput
-            inputCount={4}
-            ref={otpInputRef}
-            handleTextChange={txt => {
-              console.log('OTP --', txt);
-            }}
-            tintColor={colors.primary.base}
-            inputCellLength={1}
-            defaultValue={''}
-            offTintColor={colors.sky.light}
+    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+      <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
+        <View style={styles.headers}>
+          <Header
+            onLeftPress={() => navigation.goBack()}
+            type="standard"
+            leftActionType="icon"
+            left={vectors.arrow_left}
           />
+        </View>
 
-          <TextLink
-            style={styles.highLight}
-            content="Didn’t receive code? Resend Code"
-            center
-            highlighted={highlighted}
-          />
+        <Text style={styles.title}>ENTER SMS CODE</Text>
 
-          <Button onPress={onSubmit} text="Continue" />
-          <Popover
-            description={
-              <TextLink
-                center
-                content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
-                highlighted={[
-                  {
-                    text: 'Terms of Service and Conditions',
-                    callback() {
-                      console.log('Terms of Service and Conditions');
-                    },
+        <OtpInput
+          inputCount={4}
+          ref={otpInputRef}
+          handleTextChange={txt => {
+            console.log('OTP --', txt);
+          }}
+          tintColor={colors.primary.base}
+          inputCellLength={1}
+          defaultValue={''}
+          offTintColor={colors.sky.light}
+        />
+
+        <TextLink
+          style={styles.highLight}
+          content="Didn’t receive code? Resend Code"
+          center
+          highlighted={highlighted}
+        />
+
+        <Button onPress={onSubmit} text="Continue" />
+        <Popover
+          description={
+            <TextLink
+              center
+              content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
+              highlighted={[
+                {
+                  text: 'Terms of Service and Conditions',
+                  callback() {
+                    console.log('Terms of Service and Conditions');
                   },
-                ]}></TextLink>
-            }
-            visible={modalVisible}
-            handleAccept={handleAccept}
-            handleReject={handleReject}
-            acceptTitle="Agree and continue"
-            rejectTitle="Disagree and close"
-          />
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+                },
+              ]}></TextLink>
+          }
+          visible={modalVisible}
+          handleAccept={handleAccept}
+          handleReject={handleReject}
+          acceptTitle="Agree and continue"
+          rejectTitle="Disagree and close"
+        />
+      </KeyboardAvoidingView>
+    </TouchableWithoutFeedback>
   );
 };
 
@@ -114,7 +115,7 @@ const vectors = {
 
 const styles = StyleSheet.create({
   root: {
-    borderWidth:1,
+    borderWidth: 1,
     flex: 1,
   },
   KeyboardAvoidingView: {

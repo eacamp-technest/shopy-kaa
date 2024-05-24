@@ -1,6 +1,6 @@
-import { StyleSheet, TextStyle } from 'react-native';
-import { colors } from './colors';
-import { normalize } from './metrics';
+import {StyleSheet, TextStyle} from 'react-native';
+import {colors} from './colors';
+import {normalize} from './metrics';
 
 export const bebasFonts = {
   700: 'BebasNeue Bold',
@@ -20,7 +20,6 @@ const fontSize18 = normalize('font', 18);
 const fontSize16 = normalize('font', 16);
 const fontSize14 = normalize('font', 14);
 const fontSize12 = normalize('font', 12);
-
 
 const lineHeight56 = normalize('font', 56);
 const lineHeight36 = normalize('font', 36);
@@ -82,7 +81,7 @@ export const TypographyStyles = StyleSheet.create({
   RegularNoneBold: {
     fontSize: fontSize16,
     fontFamily: montserratFonts[700],
-    ...commonFontStyling
+    ...commonFontStyling,
   },
   RegularNoneRegular: {
     fontSize: fontSize16,
@@ -94,6 +93,22 @@ export const TypographyStyles = StyleSheet.create({
     fontSize: fontSize16,
     fontFamily: montserratFonts[600],
     lineHeight: lineHeight24,
+    ...commonFontStyling,
+  },
+  RegularNormalRegular: {
+    fontSize: fontSize16,
+    fontFamily: montserratFonts[400],
+    ...commonFontStyling,
+  },
+
+  RegularTightSemibold: {
+    fontSize: fontSize16,
+    fontFamily: montserratFonts[600],
+    ...commonFontStyling,
+  },
+  RegularTightRegular: {
+    fontSize: fontSize16,
+    fontFamily: montserratFonts[400],
     ...commonFontStyling,
   },
   SmallNoneSemibold: {
@@ -113,5 +128,5 @@ export const TypographyStyles = StyleSheet.create({
     lineHeight: lineHeight16,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
-  }
+  },
 });

@@ -31,7 +31,6 @@ interface ILoginForm {
 export const LoginScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.login>
 > = ({navigation}) => {
-
   const [modalVisible, setModalVisible] = useState(false);
 
   const {
@@ -51,7 +50,7 @@ export const LoginScreen: React.FC<
 
   const onSubmit = (data: ILoginForm) => {
     setModalVisible(false);
-    navigation.navigate(Routes.otp)
+    navigation.navigate(Routes.otp);
   };
 
   const renderSocialButtons = (icon: NodeRequire, index: number) => {
@@ -115,7 +114,6 @@ export const LoginScreen: React.FC<
           {Object.values(vectors).map(renderSocialButtons)}
         </View>
       </View>
-      
 
       <TextLink
         style={styles.highLight}
