@@ -1,9 +1,10 @@
-import {Image, Pressable, StyleSheet, Switch, Text, View} from 'react-native';
+import {Pressable, StyleSheet, Switch, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import {TypographyStyles} from '../theme/typography';
 import {colors} from '../theme/colors';
 import {normalize} from '../theme/metrics';
 import {SvgImage} from './SvgImage';
+import {StatusPill} from './StatusPill';
 
 type TLeft = 'icon' | 'image' | 'views';
 type TRight = 'text' | 'icon' | 'button' | 'switch';
@@ -80,7 +81,7 @@ export const Table: React.FC<ITables> = ({
           hasLeftIcon && styles.contentWithLeftIcon,
         ]}>
         <Text style={styles.contentStyle}>{content}</Text>
-        {caption && <Text style={styles.captionStyle}>{caption}</Text>}
+        {caption && <StatusPill content="Primary" type="Success" />}
       </View>
       {rightType && (
         <Pressable style={styles.rightContainer}>
@@ -95,7 +96,6 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: normalize('vertical', 11),
     justifyContent: 'space-between',
   },
   contentContainer: {
@@ -107,10 +107,6 @@ const styles = StyleSheet.create({
   contentStyle: {
     ...TypographyStyles.RegularTightRegular,
     color: colors.ink.darkest,
-  },
-  captionStyle: {
-    ...TypographyStyles.RegularTightRegular,
-    color: colors.ink.lighter,
   },
   rightStyle: {
     ...TypographyStyles.RegularTightSemibold,

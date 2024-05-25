@@ -9,7 +9,7 @@ import {Routes} from './routes';
 import {NavigationParamList} from '../types/navigation.types';
 import {Edges, SafeAreaView} from 'react-native-safe-area-context';
 import {CommonStyles} from 'theme/common.styles';
-import {OtpScreen} from 'screens/auth/Otp.Screen'; 
+import {OtpScreen} from 'screens/auth/Otp.Screen';
 import {
   authStackScreenOption,
   defaultScreenOptions,
@@ -30,7 +30,7 @@ export const AuthRouter = () => {
     <SafeAreaView style={CommonStyles.flex} edges={edges}>
       <AuthStack.Navigator
         screenOptions={authStackScreenOption}
-        initialRouteName={Routes.paymentMethod}>
+        initialRouteName={Routes.welcome}>
         <AuthStack.Screen
           name={Routes.welcome}
           component={WelcomeScreen}

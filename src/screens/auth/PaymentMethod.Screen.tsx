@@ -6,6 +6,7 @@ import {Header} from 'components/Header';
 import {TypographyStyles} from 'theme/typography';
 import {TextLink} from 'components/TextLink';
 import {Button} from 'components/Button';
+import {normalize} from 'theme/metrics';
 
 export const PaymentMethodScreen = () => {
   return (
@@ -13,20 +14,20 @@ export const PaymentMethodScreen = () => {
       <Header
         type="standard"
         leftActionType="icon"
-        left={require('../../assets/vectors/arrow_left.svg')}
+        left={vectors.arrow_left}
         rightActionType="text"
         right="Skip"
         onLeftPress={() => console.log('Left press')}
         onRightPress={() => console.log('Skip press')}
       />
-      <Header type="large" title="Payment Methods" />
       <View style={styles.main}>
+        <Header type="large" title="Payment Methods" />
         <View style={styles.texts}>
           <Text style={TypographyStyles.RegularNormalSemiBold}>
             STORED CARDS
           </Text>
           <TextLink
-            style={TypographyStyles.RegularNormalRegular}
+            style={styles.textLink}
             content="You have stored your card to make shopping with Shoppay even smoother. To enroll in Connected card, view card detail. Learn more"
             center={false}
             highlighted={[
@@ -40,17 +41,18 @@ export const PaymentMethodScreen = () => {
         <View style={styles.cards}>
           <Table
             content="Mastercard * * * * 4 2 1 3"
+            caption="Primary"
             leftType="image"
             rightType="icon"
-            left={require('../../assets/vectors/mastercard.svg')}
-            right={require('../../assets/vectors/arrow_right.svg')}
+            left={vectors.masterCard}
+            right={vectors.arrow_right}
           />
           <Table
             content="Add another card"
             leftType="image"
             rightType="icon"
-            left={require('../../assets/vectors/round_plus.svg')}
-            right={require('../../assets/vectors/arrow_right.svg')}
+            left={vectors.roundPlus}
+            right={vectors.arrow_right}
           />
         </View>
         <View style={styles.texts}>
@@ -60,17 +62,27 @@ export const PaymentMethodScreen = () => {
           <Text style={styles.footerText}>
             You don’t have a connected bank account.
           </Text>
-          <Button style={{marginTop: 12}} text="Connect a bank account" />
         </View>
+        <Button style={{}} text="Connect a bank account" />
       </View>
     </View>
   );
 };
 
-const styles = StyleSheet.create({
-  main: {
-    gap: 32,
+const vectors = {
+  masterCard: require('../../assets/vectors/mastercard.svg'),
+  arrow_right: require('../../assets/vectors/arrow_right.svg'),
+  roundPlus: require('../../assets/vectors/round_plus.svg'),
+  arrow_left: {
+    icon: require('../../assets/vectors/arrow_left.svg'),
+    color: colors.ink.darkest,
+    width: 24,
+    height: 24,
   },
+};
+
+const styles = StyleSheet.create({
+  main: {gap: 24},
   texts: {
     gap: 12,
   },
@@ -78,5 +90,12 @@ const styles = StyleSheet.create({
     ...TypographyStyles.RegularNormalRegular,
     color: colors.ink.lighter,
   },
-  cards: {},
+  cards: {
+    marginVertical: normalize('vertical', 32),
+    gap: 16,
+  },
+  textLink: {
+    ...TypographyStyles.RegularNormalRegular,
+    color: colors.ink.base,
+  },
 });
