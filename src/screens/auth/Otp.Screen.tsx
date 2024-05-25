@@ -59,6 +59,7 @@ export const OtpScreen: React.FC<
           highlighted={highlighted}
         />
 
+
         <Button
           onPress={() =>
             navigation.navigate(Routes.modal, {

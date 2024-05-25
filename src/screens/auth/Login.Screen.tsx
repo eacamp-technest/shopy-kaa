@@ -37,6 +37,7 @@ export const LoginScreen: React.FC<
   } = useForm<ILoginForm>();
 
   const onSubmit = (data: ILoginForm) => {
+
     const loginSuccessful = true;
     if (loginSuccessful) {
       navigation.navigate(Routes.otp);

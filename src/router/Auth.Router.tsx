@@ -30,7 +30,7 @@ export const AuthRouter = () => {
     <SafeAreaView style={CommonStyles.flex} edges={edges}>
       <AuthStack.Navigator
         screenOptions={authStackScreenOption}
-        initialRouteName={Routes.welcome}>
+        initialRouteName={Routes.paymentMethod}>
         <AuthStack.Screen
           name={Routes.welcome}
           component={WelcomeScreen}
