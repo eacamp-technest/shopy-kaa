@@ -9,11 +9,14 @@ import {Routes} from './routes';
 import {NavigationParamList} from '../types/navigation.types';
 import {Edges, SafeAreaView} from 'react-native-safe-area-context';
 import {CommonStyles} from 'theme/common.styles';
-import {OtpScreen} from 'screens/auth/Otp.Screen'; // Ekrana ait import
+import {OtpScreen} from 'screens/auth/Otp.Screen'; 
 import {
   authStackScreenOption,
   defaultScreenOptions,
+  modalStackScreenOption,
 } from 'configs/navigation.configs';
+import {ModalScreen} from 'screens/Modal.Screen';
+import {AddNewCardScreen} from 'screens/auth/AddNewCard.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -44,6 +47,15 @@ export const AuthRouter = () => {
         <AuthStack.Screen
           name={Routes.paymentMethod}
           component={PaymentMethodScreen}
+        />
+        <AuthStack.Screen
+          name={Routes.AddNewCardScreen}
+          component={AddNewCardScreen}
+        />
+        <AuthStack.Screen
+          name={Routes.modal}
+          component={ModalScreen}
+          options={modalStackScreenOption}
         />
       </AuthStack.Navigator>
     </SafeAreaView>

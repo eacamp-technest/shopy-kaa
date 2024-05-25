@@ -8,4 +8,6 @@ export enum Routes {
   paymentMethod = 'paymentMethod',
   test = 'test',
   otp = 'otp',
+  modal = 'modal',
+  AddNewCardScreen='AddNewCardScreen'
 }

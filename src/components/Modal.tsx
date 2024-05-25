@@ -1,5 +1,17 @@
-import {View, Text, ImageSourcePropType, Modal, StyleSheet} from 'react-native';
-import React from 'react';
+import {
+  View,
+  Text,
+  ImageSourcePropType,
+  Modal as NativeModal,
+  StyleSheet,
+  Pressable,
+} from 'react-native';
+import React, {
+  ForwardRefRenderFunction,
+  forwardRef,
+  useImperativeHandle,
+  useState,
+} from 'react';
 import {ImageRatio, TRatio} from './ImageRatio';
 import {CommonStyles} from 'theme/common.styles';
 import {colors} from 'theme/colors';
@@ -20,36 +32,68 @@ type TImageRatio = {
   width?: number;
 };
 
-interface IPopover {
+export interface IModalRefCallbacks {
+  open: () => void;
+  close: () => void;
+  state: boolean;
+}
+
+export interface IModal {
   title?: string;
   description?: string | React.ReactNode;
   input?: TInput;
   acceptTitle?: string;
   rejectTitle?: string;
   image?: TImageRatio;
-  visible: boolean;
+  defaultOpen?: boolean;
+  closeable?: boolean;
+  onClose?: () => void;
   handleAccept?: () => void;
   handleReject?: () => void;
 }
 
-export const Popover: React.FC<IPopover> = ({
-  title,
-  description,
-  input,
-  acceptTitle,
-  rejectTitle,
-  image,
-  visible,
-  handleAccept,
-  handleReject,
-}) => {
+const Modal: ForwardRefRenderFunction<IModalRefCallbacks, IModal> = (
+  props,
+  ref,
+) => {
+  const {
+    title,
+    description,
+    input,
+    acceptTitle,
+    rejectTitle,
+    image,
+    defaultOpen,
+    closeable,
+    onClose,
+    handleAccept,
+    handleReject,
+  } = props;
+
+  const [visible, setVisible] = useState<boolean>(!!defaultOpen);
+
+  useImperativeHandle(ref, () => ({
+    open: () => setVisible(true),
+    close: () => setVisible(false),
+    state: visible,
+  }));
+
+  const closeModal = () => {
+    setVisible(false);
+    onClose?.();
+  };
   return (
-    <Modal
+    <NativeModal
+      onRequestClose={closeModal}
+      onDismiss={closeModal}
       animationType="fade"
-      transparent={true}
-      visible={visible}
-      onRequestClose={handleReject}>
-      <View style={styles.root}>
+      transparent
+      statusBarTranslucent
+      visible={visible}>
+      <Pressable
+        disabled={!closeable}
+        onPress={() => (ref as {current: IModalRefCallbacks})?.current?.close()}
+        style={styles.root}>
         <View style={styles.modal}>
           {image ? (
             <ImageRatio
@@ -95,10 +139,11 @@ export const Popover: React.FC<IPopover> = ({
             />
           ) : null}
         </View>
-      </View>
-    </Modal>
+      </Pressable>
+    </NativeModal>
   );
 };
+export default forwardRef(Modal);
 
 const styles = StyleSheet.create({
   root: {

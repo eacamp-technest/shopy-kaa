@@ -1,9 +1,11 @@
-import {StyleSheet, TextStyle} from 'react-native';
-import {colors} from './colors';
-import {normalize} from './metrics';
+import { StyleSheet, TextStyle } from 'react-native';
+import { colors } from './colors';
+import { normalize } from './metrics';
+import { isIos } from 'constants/common.consts';
+
 
 export const bebasFonts = {
-  700: 'BebasNeue Bold',
+  700: isIos ? 'BebasNeue' : 'BebasNeue Bold',
 };
 
 export const montserratFonts = {
@@ -24,10 +26,7 @@ const fontSize12 = normalize('font', 12);
 const lineHeight56 = normalize('font', 56);
 const lineHeight36 = normalize('font', 36);
 const lineHeight32 = fontSize32;
-const lineHeight20 = fontSize20;
-const lineHeight24 = fontSize24;
 const lineHeight18 = fontSize18;
-const lineHeight16 = fontSize16;
 
 const commonFontStyling: TextStyle = {
   includeFontPadding: false,
@@ -38,43 +37,36 @@ const commonFontStyling: TextStyle = {
 export const TypographyStyles = StyleSheet.create({
   title1: {
     fontSize: fontSize46,
-    lineHeight: lineHeight56,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   title2: {
     fontSize: fontSize32,
-    lineHeight: lineHeight36,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   title3: {
     fontSize: fontSize24,
-    lineHeight: lineHeight32,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
   LargeNoneBold: {
     fontSize: fontSize18,
-    lineHeight: lineHeight18,
     fontFamily: montserratFonts[700],
     ...commonFontStyling,
   },
   LargeNoneSemibold: {
     fontSize: fontSize18,
-    lineHeight: lineHeight18,
     fontFamily: montserratFonts[600],
     ...commonFontStyling,
   },
   LargeNoneRegular: {
     fontSize: fontSize18,
-    lineHeight: lineHeight18,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
   },
   RegularNoneSemiBold: {
     fontSize: fontSize16,
-    lineHeight: lineHeight16,
     fontFamily: montserratFonts[600],
     ...commonFontStyling,
   },
@@ -86,13 +78,11 @@ export const TypographyStyles = StyleSheet.create({
   RegularNoneRegular: {
     fontSize: fontSize16,
     fontFamily: montserratFonts[400],
-    lineHeight: lineHeight16,
     ...commonFontStyling,
   },
   RegularNormalSemiBold: {
     fontSize: fontSize16,
     fontFamily: montserratFonts[600],
-    lineHeight: lineHeight24,
     ...commonFontStyling,
   },
   RegularNormalRegular: {
@@ -114,18 +104,15 @@ export const TypographyStyles = StyleSheet.create({
   SmallNoneSemibold: {
     fontSize: fontSize14,
     fontFamily: montserratFonts[600],
-    lineHeight: lineHeight20,
     ...commonFontStyling,
   },
   SmallNoneRegular: {
     fontSize: fontSize14,
     fontFamily: montserratFonts[400],
-    lineHeight: lineHeight20,
     ...commonFontStyling,
   },
   TinyNormalRegular: {
     fontSize: fontSize12,
-    lineHeight: lineHeight16,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
   },

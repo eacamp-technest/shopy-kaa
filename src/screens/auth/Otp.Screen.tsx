@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useImperativeHandle, useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -18,26 +18,14 @@ import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {OtpInput} from 'components/OtpInput';
 import {colors} from 'theme/colors';
-import {Popover} from 'components/Popover';
+import Modal from 'components/Modal';
+import {isVisible} from 'react-native-bootsplash';
 
 export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
 > = ({navigation}) => {
   const otpInputRef = useRef(null);
-  const [modalVisible, setModalVisible] = useState(false);
 
-  const handleAccept = () => {
-    setModalVisible(false);
-    navigation.navigate(Routes.otp);
-  };
-
-  const handleReject = () => {
-    setModalVisible(false);
-  };
-
-  const onSubmit = () => {
-    setModalVisible(true);
-  };
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
       <KeyboardAvoidingView style={styles.KeyboardAvoidingView}>
@@ -71,26 +59,30 @@ export const OtpScreen: React.FC<
           highlighted={highlighted}
         />
 
-        <Button onPress={onSubmit} text="Continue" />
-        <Popover
-          description={
-            <TextLink
-              center
-              content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
-              highlighted={[
-                {
-                  text: 'Terms of Service and Conditions',
-                  callback() {
-                    console.log('Terms of Service and Conditions');
-                  },
-                },
-              ]}></TextLink>
+
+        <Button
+          onPress={() =>
+            navigation.navigate(Routes.modal, {
+              description: (
+                <TextLink
+                  center
+                  content="Agree to the Terms of Service and Conditions of Use including consent to electronic communications and I affirm that the information provided is my own"
+                  highlighted={[
+                    {
+                      text: 'Terms of Service and Conditions',
+                      callback() {
+                        console.log('Terms of Service and Conditions');
+                      },
+                    },
+                  ]}
+                />
+              ),
+              acceptTitle: 'Agree and continue',
+              rejectTitle: 'Disagree and close',
+              closeable: true,
+            })
           }
-          visible={modalVisible}
-          handleAccept={handleAccept}
-          handleReject={handleReject}
-          acceptTitle="Agree and continue"
-          rejectTitle="Disagree and close"
+          text="Continue"
         />
       </KeyboardAvoidingView>
     </TouchableWithoutFeedback>

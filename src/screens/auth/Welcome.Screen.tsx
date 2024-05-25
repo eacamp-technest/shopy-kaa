@@ -34,6 +34,7 @@ export const WelcomeScreen: React.FC<
             onPress={navigateToRegister}
           />
           <Button
+            style={styles.loginButton}
             text="Log in Instead"
             size="block"
             type="primary"
@@ -58,6 +59,7 @@ export const WelcomeScreen: React.FC<
             onPress={navigateToRegister}
           />
           <Button
+            style={styles.loginButton}
             text="Log in Instead"
             size="block"
             type="primary"
@@ -152,5 +154,8 @@ const styles = StyleSheet.create({
     paddingBottom: bottomSize,
     width: windowWidth,
     backgroundColor: colors.white,
+  },
+  loginButton: {
+    backgroundColor: colors.ink.base,
   },
 });

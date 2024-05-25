@@ -2,7 +2,9 @@ import React from 'react';
 import {Control, Controller, ControllerProps} from 'react-hook-form';
 import {IInput, Input} from './TextFields';
 
-interface IInputController extends IInput, Partial<ControllerProps> {
+interface IInputController
+  extends Omit<IInput, 'defaultValue'>,
+    Partial<ControllerProps> {
   control?: any;
   disabledControl?: boolean;
   errorMessage?: string;
