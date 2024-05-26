@@ -2,7 +2,6 @@ import React, {Fragment, useCallback, useMemo} from 'react';
 import {StyleProp, Text, TextStyle} from 'react-native';
 
 import {colors} from 'theme/colors';
-import {CommonStyles} from 'theme/common.styles';
 import {TypographyStyles} from 'theme/typography';
 
 interface HighlightedText {
@@ -12,7 +11,7 @@ interface HighlightedText {
 
 interface TextLinkProps {
   content: string;
-  highlighted: HighlightedText[];
+  highlighted?: HighlightedText[];
   center?: boolean;
   fontColor?: string;
   style?: StyleProp<TextStyle>;
@@ -29,26 +28,23 @@ export const TextLink: React.FC<TextLinkProps> = ({
     (text: string, callback?: () => void, index?: number) => {
       const key = callback ? `${text}-${index}-highlighted` : 'remaining';
       const color = callback ? fontColor : colors.ink.lighter;
-      const font = callback
-        ? TypographyStyles.SmallNoneSemibold
-        : TypographyStyles.SmallNoneRegular;
 
       return (
         <Text
           key={key}
           onPress={callback}
           disabled={!callback}
-          style={[font, {color}]}>
+          style={[TypographyStyles.SmallNormalRegular, style, {color}]}>
           {text}
         </Text>
       );
     },
-    [fontColor],
+    [fontColor, style],
   );
 
   const renderElements = useMemo(() => {
     let lastIndex = 0;
-    const elements = highlighted.map(({text, callback}, index) => {
+    const elements = highlighted?.map(({text, callback}, index) => {
       const startIndex = content.indexOf(text);
       const endIndex = startIndex + text.length;
       const normalText = content.slice(lastIndex, startIndex);
@@ -62,12 +58,12 @@ export const TextLink: React.FC<TextLinkProps> = ({
       );
     });
 
-    elements.push(createHighlightedText(content.slice(lastIndex)));
+    elements?.push(createHighlightedText(content.slice(lastIndex)));
     return elements;
   }, [content, createHighlightedText, highlighted]);
 
   return (
-    <Text style={[center && CommonStyles.textAlignCenter, style]}>
+    <Text style={[center && TypographyStyles.textAlignCenter, style]}>
       {renderElements}
     </Text>
   );
