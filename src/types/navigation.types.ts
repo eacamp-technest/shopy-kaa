@@ -13,10 +13,11 @@ export type NavigationParamList = {
   [Routes.login]: undefined;
   [Routes.register]: undefined;
   [Routes.verification]: undefined;
-  [Routes.paymentMethod]: undefined;
   [Routes.test]: undefined;
   [Routes.otp]: undefined;
   [Routes.modal]: IModal
+  [Routes.paymentMethod]: undefined;
   [Routes.AddNewCardScreen]: undefined
   [Routes.cards]: undefined
+  [Routes.paymentScreensTab]: undefined;
 };

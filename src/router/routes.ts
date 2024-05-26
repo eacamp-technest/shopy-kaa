@@ -5,10 +5,11 @@ export enum Routes {
   login = 'login',
   register = 'register',
   verification = 'verification',
-  paymentMethod = 'paymentMethod',
   test = 'test',
   otp = 'otp',
   modal = 'modal',
+  paymentScreensTab = 'paymentScreensTab',
+  paymentMethod = 'paymentMethod',
   AddNewCardScreen='AddNewCardScreen',
   cards='cards'
 }

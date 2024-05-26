@@ -4,30 +4,28 @@ import {InputController} from 'components/InputController';
 import {Header} from 'components/Header';
 import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {CommonStyles} from 'theme/common.styles';
 import {FormValidate} from 'constants/formValidation';
 import {useForm, FormProvider} from 'react-hook-form';
 import {Button} from 'components/Button';
-import {Text} from 'react-native-svg';
+import {SceneRendererProps} from 'react-native-tab-view';
+import {useNavigation} from '@react-navigation/native';
 
 interface ICardForm {
   cardNumber: number;
   holderName: string;
   mmyycvv: number;
 }
-export const AddNewCardScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, Routes.AddNewCardScreen>
-> = ({navigation}) => {
+export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
+  const navigation = useNavigation();
   const formMethods = useForm();
   const {control, handleSubmit} = useForm<ICardForm>({});
 
   const onSubmit = (data: ICardForm) => {
     const registrationSuccessful = true;
     if (registrationSuccessful) {
-      navigation.navigate(Routes.otp);
+      jumpTo(Routes.otp);
     }
   };
 

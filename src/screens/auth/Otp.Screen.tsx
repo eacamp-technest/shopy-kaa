@@ -17,7 +17,6 @@ import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {OtpInput} from 'components/OtpInput';
 import {colors} from 'theme/colors';
-import {CardsScreen} from './Cards.Screen';
 
 export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
@@ -57,7 +56,6 @@ export const OtpScreen: React.FC<
           highlighted={highlighted}
         />
 
-
         <Button
           onPress={() =>
             navigation.navigate(Routes.modal, {
@@ -77,7 +75,10 @@ export const OtpScreen: React.FC<
               ),
               handleAccept() {
                 navigation.pop();
-                setTimeout(() => navigation.navigate(Routes.cards), 0);
+                setTimeout(
+                  () => navigation.navigate(Routes.paymentScreensTab),
+                  0,
+                );
               },
               handleReject() {
                 navigation.pop();

@@ -154,7 +154,6 @@ const styles = StyleSheet.create({
   },
   large: {
     paddingVertical: normalize('vertical', 16),
-    height: normalize('height', 60),
   },
   action: {
     flex: 0.4,

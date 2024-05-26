@@ -7,8 +7,12 @@ import {TypographyStyles} from 'theme/typography';
 import {TextLink} from 'components/TextLink';
 import {Button} from 'components/Button';
 import {normalize} from 'theme/metrics';
+import {useNavigation} from '@react-navigation/native';
+import {Routes} from 'router/routes';
+import {SceneRendererProps} from 'react-native-tab-view';
 
-export const PaymentMethodScreen = () => {
+export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
+  const navigation = useNavigation();
   return (
     <View>
       <Header
@@ -17,7 +21,7 @@ export const PaymentMethodScreen = () => {
         left={vectors.arrow_left}
         rightActionType="text"
         right="Skip"
-        onLeftPress={() => console.log('Left press')}
+        onLeftPress={navigation.goBack}
         onRightPress={() => console.log('Skip press')}
       />
       <View style={styles.main}>
@@ -63,7 +67,10 @@ export const PaymentMethodScreen = () => {
             You don’t have a connected bank account.
           </Text>
         </View>
-        <Button style={{}} text="Connect a bank account" />
+        <Button
+          onPress={() => jumpTo(Routes.cards)}
+          text="Connect a bank account"
+        />
       </View>
     </View>
   );
