@@ -7,8 +7,6 @@ import Animated, {
   runOnJS,
 } from 'react-native-reanimated';
 import {BankCard} from 'components/specific/BankCard';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
@@ -17,6 +15,7 @@ import {Button} from 'components/Button';
 import {useForm} from 'react-hook-form';
 import {InputController} from 'components/InputController';
 import {FormValidate} from 'constants/formValidation';
+import {SceneRendererProps} from 'react-native-tab-view';
 
 interface ICardForm {
   cardNumber: string;
@@ -24,9 +23,7 @@ interface ICardForm {
   expirationDate?: string;
 }
 
-export const CardsScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, Routes.cards>
-> = ({navigation}) => {
+export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [isEditing, setIsEditing] = useState(false);
   const {
     control,
@@ -93,7 +90,7 @@ export const CardsScreen: React.FC<
     <View style={styles.root}>
       <Header
         title="your card"
-        onLeftPress={() => navigation.goBack()}
+        onLeftPress={() => jumpTo(Routes.paymentMethod)}
         leftActionType="icon"
         left={vectors.arrow_left}
       />
@@ -109,7 +106,12 @@ export const CardsScreen: React.FC<
       {isEditing ? (
         renderCardEdit()
       ) : (
-        <Button text="Add new card" size="block" type="outlined" />
+        <Button
+          onPress={() => jumpTo(Routes.AddNewCardScreen)}
+          text="Add new card"
+          size="block"
+          type="outlined"
+        />
       )}
     </View>
   );
