@@ -4,7 +4,6 @@ import {WelcomeScreen} from 'screens/auth/Welcome.Screen';
 import {LoginScreen} from 'screens/auth/Login.Screen';
 import {RegisterScreen} from 'screens/auth/Register.Screen';
 import {VerificationScreen} from 'screens/auth/Verification.Screen';
-import {PaymentMethodScreen} from 'screens/auth/PaymentMethod.Screen';
 import {Routes} from './routes';
 import {NavigationParamList} from '../types/navigation.types';
 import {Edges, SafeAreaView} from 'react-native-safe-area-context';
@@ -16,8 +15,7 @@ import {
   modalStackScreenOption,
 } from 'configs/navigation.configs';
 import {ModalScreen} from 'screens/Modal.Screen';
-import {AddNewCardScreen} from 'screens/auth/AddNewCard.Screen';
-import {CardsScreen} from 'screens/auth/Cards.Screen';
+import {PaymentScreensTab} from 'screens/payments';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -46,14 +44,9 @@ export const AuthRouter = () => {
           component={VerificationScreen}
         />
         <AuthStack.Screen
-          name={Routes.paymentMethod}
-          component={PaymentMethodScreen}
+          name={Routes.paymentScreensTab}
+          component={PaymentScreensTab}
         />
-        <AuthStack.Screen
-          name={Routes.AddNewCardScreen}
-          component={AddNewCardScreen}
-        />
-        <AuthStack.Screen name={Routes.cards} component={CardsScreen} />
         <AuthStack.Screen
           name={Routes.modal}
           component={ModalScreen}
