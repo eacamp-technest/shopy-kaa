@@ -34,4 +34,37 @@ export class FormValidate {
             message: 'Password is not valid',
         },
     } as RegisterOptions;
+
+    public static cardNumber = {
+        required: {
+            message: 'Card Number is required',
+            value: true,
+        },
+        pattern: {
+            value: Regexs.cardNumber,
+            message: 'Card Number is not valid',
+        },
+    } as RegisterOptions;
+
+    public static cardHolder = {
+        required: {
+            message: 'Card Holder is required',
+            value: true,
+        },
+        pattern: {
+            value: Regexs.cardHolder,
+            message: 'Card Holder is not valid',
+        },
+    } as RegisterOptions;
+
+    public static expirationDate = {
+        required: {
+            message: 'Expiration Date is required',
+            value: true,
+        },
+        pattern: {
+            value: Regexs.expirationDate,
+            message: 'Expiration Date is not valid',
+        },
+    } as RegisterOptions;
 }

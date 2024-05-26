@@ -1,4 +1,4 @@
-import React, {useImperativeHandle, useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,7 +9,6 @@ import {
 } from 'react-native';
 import {Header} from 'components/Header';
 import {normalize} from 'theme/metrics';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import {TypographyStyles} from 'theme/typography';
 import {Button} from 'components/Button';
 import {TextLink} from 'components/TextLink';
@@ -18,8 +17,7 @@ import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {OtpInput} from 'components/OtpInput';
 import {colors} from 'theme/colors';
-import Modal from 'components/Modal';
-import {isVisible} from 'react-native-bootsplash';
+import {CardsScreen} from './Cards.Screen';
 
 export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
@@ -77,6 +75,13 @@ export const OtpScreen: React.FC<
                   ]}
                 />
               ),
+              handleAccept() {
+                navigation.pop();
+                setTimeout(() => navigation.navigate(Routes.cards), 0);
+              },
+              handleReject() {
+                navigation.pop();
+              },
               acceptTitle: 'Agree and continue',
               rejectTitle: 'Disagree and close',
               closeable: true,
