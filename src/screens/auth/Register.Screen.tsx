@@ -26,7 +26,7 @@ export const RegisterScreen: React.FC<
     defaultValues: {
       fullName: 'Juinal William',
       email: __DEV__ ? 'juinalwilliam@gmail.com' : '',
-      password: __DEV__ ? '12345678' : '',
+      password: __DEV__ ? '122313323A.a' : '',
     },
   });
 

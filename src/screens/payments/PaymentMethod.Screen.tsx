@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import React from 'react';
 import {Table} from 'components/Table';
 import {colors} from 'theme/colors';
@@ -43,21 +43,25 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
           />
         </View>
         <View style={styles.cards}>
-          <Table
-            content="Mastercard * * * * 4 2 1 3"
-            caption="Primary"
-            leftType="image"
-            rightType="icon"
-            left={vectors.masterCard}
-            right={vectors.arrow_right}
-          />
-          <Table
-            content="Add another card"
-            leftType="image"
-            rightType="icon"
-            left={vectors.roundPlus}
-            right={vectors.arrow_right}
-          />
+          <Pressable onPress={() => jumpTo(Routes.cards)}>
+            <Table
+              content="Mastercard * * * * 4 2 1 3"
+              caption="Primary"
+              leftType="image"
+              rightType="icon"
+              left={vectors.masterCard}
+              right={vectors.arrow_right}
+            />
+          </Pressable>
+          <Pressable onPress={() => jumpTo(Routes.cards)}>
+            <Table
+              content="Add another card"
+              leftType="image"
+              rightType="icon"
+              left={vectors.roundPlus}
+              right={vectors.arrow_right}
+            />
+          </Pressable>
         </View>
         <View style={styles.texts}>
           <Text style={TypographyStyles.RegularNormalSemiBold}>
