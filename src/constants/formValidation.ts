@@ -37,6 +37,34 @@ export class FormValidate {
 
     public static cardNumber = {
         required: {
+            message: 'CardNumber is required',
+            value: true,
+        },
+        pattern: {
+            value: Regexs.Visa_Master_Card,
+            message: 'CardNumber is not valid',
+        }
+    } as RegisterOptions;
+
+    public static holderName = {
+        required: {
+            message: 'HolderName is required',
+            value: true,
+        },
+        pattern: {
+            value: Regexs.holderName,
+            message: 'HolderName is not valid',
+        }
+    } as RegisterOptions;
+
+    public static cvv = {
+        required: {
+            message: 'CVV is required',
+            value: true,
+        },
+        pattern: {
+            value: /^[0-9]{3,4}$/,
+            message: 'CVV is not valid',
             message: 'Card Number is required',
             value: true,
         },
