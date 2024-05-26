@@ -2,6 +2,7 @@ import React, {Fragment, useCallback, useMemo} from 'react';
 import {StyleProp, Text, TextStyle} from 'react-native';
 
 import {colors} from 'theme/colors';
+import {CommonStyles} from 'theme/common.styles';
 import {TypographyStyles} from 'theme/typography';
 
 interface HighlightedText {
@@ -63,7 +64,7 @@ export const TextLink: React.FC<TextLinkProps> = ({
   }, [content, createHighlightedText, highlighted]);
 
   return (
-    <Text style={[center && TypographyStyles.textAlignCenter, style]}>
+    <Text style={[center && CommonStyles.textAlignCenter, style]}>
       {renderElements}
     </Text>
   );
