@@ -6,7 +6,7 @@ import {
   StyleSheet,
   ViewStyle,
 } from 'react-native';
-import React, {useCallback, useMemo, useState} from 'react';
+import React, {useCallback, useMemo, useRef, useState} from 'react';
 import {SvgImage} from './SvgImage';
 import {TypographyStyles} from 'theme/typography';
 import {normalize} from 'theme/metrics';

@@ -18,4 +18,5 @@ export type NavigationParamList = {
   [Routes.otp]: undefined;
   [Routes.modal]: IModal
   [Routes.AddNewCardScreen]: undefined
+  [Routes.cards]: undefined
 };

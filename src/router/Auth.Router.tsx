@@ -9,7 +9,7 @@ import {Routes} from './routes';
 import {NavigationParamList} from '../types/navigation.types';
 import {Edges, SafeAreaView} from 'react-native-safe-area-context';
 import {CommonStyles} from 'theme/common.styles';
-import {OtpScreen} from 'screens/auth/Otp.Screen'; 
+import {OtpScreen} from 'screens/auth/Otp.Screen';
 import {
   authStackScreenOption,
   defaultScreenOptions,
@@ -17,6 +17,7 @@ import {
 } from 'configs/navigation.configs';
 import {ModalScreen} from 'screens/Modal.Screen';
 import {AddNewCardScreen} from 'screens/auth/AddNewCard.Screen';
+import {CardsScreen} from 'screens/auth/Cards.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -52,6 +53,7 @@ export const AuthRouter = () => {
           name={Routes.AddNewCardScreen}
           component={AddNewCardScreen}
         />
+        <AuthStack.Screen name={Routes.cards} component={CardsScreen} />
         <AuthStack.Screen
           name={Routes.modal}
           component={ModalScreen}
