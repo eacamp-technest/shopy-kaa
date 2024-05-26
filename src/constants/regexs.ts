@@ -6,4 +6,7 @@ export class Regexs {
   public static numbers = /^[0-9]*$/;
   public static phone = /^\d{3} \d{3} \d{2} \d{2}$/;
   public static includeNumber = /\d/;
+  public static Visa_Master_Card = /[25][1-7][0-9]{14}/;
+  public static holderName = /^((?:[A-Za-z]+ ?){1,3})$/;
+  public static cvv = /^[0-9]{3, 4}$/;
 }
