@@ -46,7 +46,6 @@ export const Input: React.FC<IInput> = ({
   const [secureTextEntry, setSecureTextEntry] = useState(type === 'password');
 
   const isPressable = props.onInputPress instanceof Function;
-  console.log(isPressable);
 
   const handleFocus = () => {
     setFocused(true);
