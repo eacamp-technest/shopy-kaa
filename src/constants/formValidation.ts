@@ -41,12 +41,12 @@ export class FormValidate {
             value: true,
         },
         pattern: {
-            value: Regexs.Visa_Master_Card,
+            value: Regexs.cardNumber,
             message: 'CardNumber is not valid',
         }
     } as RegisterOptions;
 
-    public static holderName = {
+    public static holder = {
         required: {
             message: 'Cardholder is required',
             value: true,

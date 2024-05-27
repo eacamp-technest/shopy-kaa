@@ -10,22 +10,23 @@ import {FormValidate} from 'constants/formValidation';
 import {useForm, FormProvider} from 'react-hook-form';
 import {Button} from 'components/Button';
 import {SceneRendererProps} from 'react-native-tab-view';
-import {useNavigation} from '@react-navigation/native';
 import DatePicker from 'react-native-date-picker';
+import {useUserStoreActions} from 'store/user';
 
 interface ICardForm {
-  cardNumber: number;
-  holderName: string;
-  mmyycvv: number;
+  id: string;
+  cardNumber: string;
+  holder: string;
   expiration: string;
+  cvv: string;
 }
 
 export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [picker, setPicker] = useState<Date | null>(null);
   const [open, setOpen] = useState(false);
-  const navigation = useNavigation();
   const formMethods = useForm();
-  const {control, handleSubmit, setValue} = useForm<ICardForm>({});
+  const {addCard} = useUserStoreActions();
+  const {control, handleSubmit, setValue, reset} = useForm<ICardForm>({});
 
   const onDateConfirm = (date: Date) => {
     const month = date.getMonth() + 1;
@@ -36,10 +37,11 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   };
 
   const onSubmit = (data: ICardForm) => {
-    const registrationSuccessful = true;
-    if (registrationSuccessful) {
-      jumpTo(Routes.otp);
-    }
+    data.id = String(Math.random() * 10000).slice(0, 4);
+    addCard(data);
+    jumpTo(Routes.paymentMethod);
+    reset();
+    console.log(data);
   };
 
   return (
@@ -51,11 +53,10 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
         contentContainerStyle={CommonStyles.flexGrow}>
         <View style={styles.headers}>
           <Header
-            onLeftPress={() => navigation.goBack()}
+            onLeftPress={() => jumpTo(Routes.paymentMethod)}
             type="standard"
             leftActionType="icon"
             left={vectors.arrow_left}
-            rightActionType="text"
             right="Skip"
             onRightPress={() => console.log('Skip')}></Header>
           <Header type="large" title="ADD NEW CARD"></Header>
@@ -73,19 +74,11 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
           />
           <InputController
             control={control}
-            rules={FormValidate.holderName}
+            rules={FormValidate.holder}
             type="text"
             name="holderName"
             label="Cardholder Name"
             placeholder="Enter your Holder Name"
-          />
-          <InputController
-            control={control}
-            rules={FormValidate.cvv}
-            label="CVV"
-            type="phone"
-            name="cvv"
-            placeholder="CVV"
           />
           <InputController
             rules={FormValidate.expirationDate}
@@ -97,14 +90,18 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             name="expiration"
             placeholder="MM  /  YY"
           />
+
+          <InputController
+            control={control}
+            rules={FormValidate.cvv}
+            label="CVV"
+            name="cvv"
+            placeholder="CVV"
+          />
         </View>
 
         <View style={styles.buttons}>
-          <Button
-            onPress={handleSubmit(onSubmit)}
-            text="Add card"
-            type="primary"
-            size="block"></Button>
+          <Button onPress={handleSubmit(onSubmit)} text="Add card"></Button>
         </View>
         <DatePicker
           modal={true}
