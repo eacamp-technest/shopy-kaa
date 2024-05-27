@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import {Control, Controller, ControllerProps} from 'react-hook-form';
 import {IInput, Input} from './TextFields';
+import {Manipulators} from 'utils/manipulator';
 
 interface IInputController
   extends Omit<IInput, 'defaultValue'>,
@@ -8,6 +9,7 @@ interface IInputController
   control?: any;
   disabledControl?: boolean;
   errorMessage?: string;
+  manipulator?: 'cardNumber';
 }
 
 export const InputController: React.FC<IInputController> = ({
@@ -18,8 +20,19 @@ export const InputController: React.FC<IInputController> = ({
   disabled,
   disabledControl,
   errorMessage,
+  manipulator,
   ...inputProps
 }) => {
+  const handleValueChange = useCallback(
+    (value: string, onChange: (value: string) => void) => {
+      if (manipulator === 'cardNumber') {
+        onChange(Manipulators.cardNumber(value));
+      } else {
+        onChange(value);
+      }
+    },
+    [manipulator],
+  );
   return (
     <Controller
       disabled={disabledControl}
@@ -30,7 +43,7 @@ export const InputController: React.FC<IInputController> = ({
       render={({field, fieldState: {error}}) => (
         <Input
           disabled={disabled}
-          setValue={field.onChange}
+          setValue={value => handleValueChange(value, field.onChange)}
           value={field.value}
           onBlur={field.onBlur}
           errorMessage={error?.message || errorMessage}

@@ -6797,6 +6797,11 @@ react-native-bootsplash@^5.5.3:
     ts-dedent "^2.2.0"
     xml-formatter "^3.6.0"
 
+react-native-date-picker@^5.0.3:
+  version "5.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-5.0.3.tgz#8fc5a3e2dc62ad689cb54f7a1a8083db269212ae"
+  integrity sha512-pA/HcnB7RBac/CigQcqvM95JiD4c7mN5DPie3c/LFBol55ntvpxyxxr5ixAonB5PYLTjop21EIajAHKAP7/JeQ==
+
 react-native-element-dropdown@^2.12.0:
   version "2.12.0"
   resolved "https://registry.yarnpkg.com/react-native-element-dropdown/-/react-native-element-dropdown-2.12.0.tgz#6d1f47384fe3924a435d482449d430b53bc4cd4c"

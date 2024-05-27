@@ -22,6 +22,7 @@ export interface IInput extends TextInputProps {
   label?: string;
   caption?: string;
   value?: string;
+  maxLegth?: number;
   placeholder?: string;
   disabled?: boolean;
   keyboardType?: KeyboardTypeOptions;
@@ -31,6 +32,7 @@ export interface IInput extends TextInputProps {
   setValue?: (value: string) => void;
   onFocus?: () => void;
   onBlur?: () => void;
+  onInputPress?: () => void;
 }
 
 export const Input: React.FC<IInput> = ({
@@ -42,6 +44,9 @@ export const Input: React.FC<IInput> = ({
 }) => {
   const [focused, setFocused] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(type === 'password');
+
+  const isPressable = props.onInputPress instanceof Function;
+  console.log(isPressable);
 
   const handleFocus = () => {
     setFocused(true);
@@ -122,9 +127,11 @@ export const Input: React.FC<IInput> = ({
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
         value={value}
+        maxLength={props.maxLegth}
         onChangeText={setValue}
         secureTextEntry={secureTextEntry}
-        editable={!props.disabled}
+        onPressIn={props.onInputPress}
+        editable={!props.disabled ?? !isPressable}
         onFocus={handleFocus}
         onBlur={handleBlur}
         autoCapitalize={props.autoCapitalize}
