@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -22,6 +22,15 @@ export const OtpScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.otp>
 > = ({navigation}) => {
   const otpInputRef = useRef(null);
+  const [otp, setOtp] = useState('');
+
+  const isOtpComplete = otp.length === 4;
+
+  const onSubmit = () => {
+    if (isOtpComplete) {
+      navigation.navigate(Routes.paymentScreensTab);
+    }
+  };
 
   return (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -40,8 +49,8 @@ export const OtpScreen: React.FC<
         <OtpInput
           inputCount={4}
           ref={otpInputRef}
-          handleTextChange={txt => {
-            console.log('OTP --', txt);
+          handleTextChange={txt => { 
+            setOtp(txt);
           }}
           tintColor={colors.primary.base}
           inputCellLength={1}
@@ -57,6 +66,7 @@ export const OtpScreen: React.FC<
         />
 
         <Button
+          disabled={!isOtpComplete}
           onPress={() =>
             navigation.navigate(Routes.modal, {
               description: (
@@ -75,10 +85,7 @@ export const OtpScreen: React.FC<
               ),
               handleAccept() {
                 navigation.pop();
-                setTimeout(
-                  () => navigation.navigate(Routes.paymentScreensTab),
-                  0,
-                );
+                setTimeout(() => onSubmit(), 0);
               },
               handleReject() {
                 navigation.pop();
