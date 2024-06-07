@@ -93,7 +93,7 @@ export const LoginScreen: React.FC<
       <View style={styles.footer}>
         <Button
           onPress={handleSubmit(onSubmit)}
-          text="Create an account"
+          text="Login"
           type="primary"
           size="block"></Button>
         <Text
