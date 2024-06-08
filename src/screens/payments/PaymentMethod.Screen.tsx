@@ -11,9 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Routes} from 'router/routes';
 import {SceneRendererProps} from 'react-native-tab-view';
 import {useUserStore} from 'store/user/user.store';
-import {ICardForm} from 'types/card-types';
-import {SvgImage} from 'components/SvgImage';
-import {CommonStyles} from 'theme/common.styles';
+import {ICardInputForm} from 'types/card-types';
 
 export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const navigation = useNavigation();
@@ -22,27 +20,21 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
     actions: {selectCard},
   } = useUserStore(state => state);
 
-  const renderCards = (data: ICardForm) => {
+  const renderCards = (data: ICardInputForm) => {
     const onPress = () => {
       selectCard(data.id);
       jumpTo(Routes.cards);
     };
 
     return (
-      <Pressable key={data.id} style={styles.component} onPress={onPress}>
-        <SvgImage source={vectors.masterCard} />
-        <Text
-          style={[
-            TypographyStyles.RegularNormalSemiBold,
-            CommonStyles.flexGrow,
-          ]}>
-          Mastercard * * * * {'\b \b'} {data.cardNumber.slice(-4)}
-        </Text>
-        <SvgImage
-          source={vectors.arrow_right}
-          // isPressable
-          onPress={() => console.log('-->')}
-          color={colors.ink.darkest}
+      <Pressable key={data.id} onPress={onPress}>
+        <Table
+          content={`Mastercard * * * * ${data.cardNumber.slice(-4)}`}
+          caption="Primary"
+          leftType="image"
+          rightType="icon"
+          left={vectors.masterCard}
+          right={vectors.arrow_right}
         />
       </Pressable>
     );
@@ -79,17 +71,9 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         </View>
         <View style={styles.cards}>
           {cards.map(renderCards)}
-          <Pressable onPress={() => jumpTo(Routes.cards)}>
-            <Table
-              content="Mastercard * * * * 4 2 1 3"
-              caption="Primary"
-              leftType="image"
-              rightType="icon"
-              left={vectors.masterCard}
-              right={vectors.arrow_right}
-            />
-          </Pressable>
-          <Pressable onPress={() => jumpTo(Routes.cards)}>
+          <Pressable
+            disabled={cards.length === 3}
+            onPress={() => jumpTo(Routes.cards)}>
             <Table
               content="Add another card"
               leftType="image"
