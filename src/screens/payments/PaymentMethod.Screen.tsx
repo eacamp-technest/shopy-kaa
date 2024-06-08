@@ -15,6 +15,7 @@ import {ICardInputForm} from 'types/card-types';
 
 export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const navigation = useNavigation();
+
   const {
     cards,
     actions: {selectCard},
@@ -71,17 +72,17 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         </View>
         <View style={styles.cards}>
           {cards.map(renderCards)}
-          <Pressable
-            disabled={cards.length === 3}
-            onPress={() => jumpTo(Routes.cards)}>
-            <Table
-              content="Add another card"
-              leftType="image"
-              rightType="icon"
-              left={vectors.roundPlus}
-              right={vectors.arrow_right}
-            />
-          </Pressable>
+          {cards.length < 3 && (
+            <Pressable onPress={() => jumpTo(Routes.cards)}>
+              <Table
+                content="Add another card"
+                leftType="image"
+                rightType="icon"
+                left={vectors.roundPlus}
+                right={vectors.arrow_right}
+              />
+            </Pressable>
+          )}
         </View>
         <View style={styles.texts}>
           <Text style={TypographyStyles.RegularNormalSemiBold}>
