@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   contentStyle: {
-    ...TypographyStyles.RegularTightRegular,
+    ...TypographyStyles.RegularNoneSemiBold,
     color: colors.ink.darkest,
   },
   rightStyle: {

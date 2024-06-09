@@ -1,7 +1,7 @@
-export interface ICardForm {
-    id: string;
-    cardNumber: string;
-    holder: string;
-    expiration: string;
-    cvv: string;
-  }
+export interface ICardInputForm {
+  id: string;
+  cardNumber: string;
+  holderName: string;
+  expiration: string;
+  cvv: string;
+}

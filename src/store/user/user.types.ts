@@ -1,15 +1,15 @@
-import { ICardForm } from 'types/card-types';
+import {ICardInputForm} from 'types/card-types';
 
 interface IUserStoreActions {
-    addCard: (card: ICardForm) => void;
-    removeCard: (id: string) => void;
-    selectCard: (id: string | null) => void;
-    reset: () => void;
+  addCard: (card: ICardInputForm) => void;
+  removeCard: (id: string) => void;
+  selectCard: (id: string) => void;
+  reset: () => void;
 }
 
 export interface IUserStore {
-    user: null | undefined;
-    cards: ICardForm[];
-    selectedCard: ICardForm | null;
-    actions: IUserStoreActions;
+  user: null | undefined;
+  cards: ICardInputForm[];
+  selectedCard: ICardInputForm | null;
+  actions: IUserStoreActions;
 }

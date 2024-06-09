@@ -15,9 +15,9 @@ import {TypographyStyles} from 'theme/typography';
 
 interface IBankCard {
   name?: string;
-  holder: string;
-  cardNumber: string;
-  expirationDate: string;
+  holder?: string;
+  cardNumber?: string;
+  expirationDate?: string;
   cardIcon?: NodeRequire;
   onCardPress?: () => void;
   style?: StyleProp<ViewStyle>;
@@ -40,8 +40,8 @@ const FooterItem = ({title, subtitle}: IFooterItem) => (
 export const BankCard: React.FC<IBankCard> = ({
   name,
   cardNumber,
-  expirationDate,
-  holder,
+  expirationDate = '',
+  holder = '',
   cardIcon,
   style,
   onCardPress,

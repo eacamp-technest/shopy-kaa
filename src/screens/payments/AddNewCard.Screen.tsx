@@ -12,21 +12,14 @@ import {Button} from 'components/Button';
 import {SceneRendererProps} from 'react-native-tab-view';
 import DatePicker from 'react-native-date-picker';
 import {useUserStoreActions} from 'store/user';
-
-interface ICardForm {
-  id: string;
-  cardNumber: string;
-  holder: string;
-  expiration: string;
-  cvv: string;
-}
+import {ICardInputForm} from 'types/card-types';
 
 export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [picker, setPicker] = useState<Date | null>(null);
   const [open, setOpen] = useState(false);
   const formMethods = useForm();
   const {addCard} = useUserStoreActions();
-  const {control, handleSubmit, setValue, reset} = useForm<ICardForm>({});
+  const {control, handleSubmit, setValue, reset} = useForm<ICardInputForm>({});
 
   const onDateConfirm = (date: Date) => {
     const month = date.getMonth() + 1;
@@ -36,7 +29,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
     setOpen(false);
   };
 
-  const onSubmit = (data: ICardForm) => {
+  const onSubmit = (data: ICardInputForm) => {
     data.id = String(Math.random() * 10000).slice(0, 4);
     addCard(data);
     jumpTo(Routes.paymentMethod);
