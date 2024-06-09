@@ -73,7 +73,7 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         <View style={styles.cards}>
           {cards.map(renderCards)}
           {cards.length < 3 && (
-            <Pressable onPress={() => jumpTo(Routes.cards)}>
+            <Pressable onPress={() => jumpTo(Routes.AddNewCardScreen)}>
               <Table
                 content="Add another card"
                 leftType="image"
