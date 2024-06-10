@@ -45,7 +45,7 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   };
 
   const onAddNewMethod = () => {
-    if (cards.length >= 3) {
+    if (cards.length >= 2) {
       showToast('error', 'You can only store up to 3 cards. ');
 
       return;
