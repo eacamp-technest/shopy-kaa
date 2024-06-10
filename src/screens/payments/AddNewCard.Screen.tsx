@@ -19,8 +19,22 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [open, setOpen] = useState(false);
   const formMethods = useForm();
   const {addCard} = useUserStoreActions();
-  const {control, handleSubmit, setValue, reset} = useForm<ICardInputForm>({});
-
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: {errors},
+  } = useForm<ICardInputForm>({
+    defaultValues: __DEV__
+      ? {
+          cardNumber: '4169 1234 1341 8912',
+          holderName: 'Ali Hilalov',
+          cvv: '123',
+          expiration: '12 / 29',
+        }
+      : {},
+  });
   const onDateConfirm = (date: Date) => {
     const month = date.getMonth() + 1;
     const year = String(date.getFullYear()).slice(2);

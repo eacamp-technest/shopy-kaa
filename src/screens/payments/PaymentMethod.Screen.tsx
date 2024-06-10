@@ -12,6 +12,7 @@ import {Routes} from 'router/routes';
 import {SceneRendererProps} from 'react-native-tab-view';
 import {useUserStore} from 'store/user/user.store';
 import {ICardInputForm} from 'types/card-types';
+import {useToast} from 'store/toast';
 
 export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const navigation = useNavigation();
@@ -20,6 +21,8 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
     cards,
     actions: {selectCard},
   } = useUserStore(state => state);
+
+  const showToast = useToast();
 
   const renderCards = (data: ICardInputForm) => {
     const onPress = () => {
@@ -39,6 +42,16 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         />
       </Pressable>
     );
+  };
+
+  const onAddNewMethod = () => {
+    if (cards.length >= 3) {
+      showToast('error', 'You can only store up to 3 cards. ');
+
+      return;
+    }
+
+    jumpTo(Routes.AddNewCardScreen);
   };
 
   return (
@@ -72,17 +85,16 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         </View>
         <View style={styles.cards}>
           {cards.map(renderCards)}
-          {cards.length < 3 && (
-            <Pressable onPress={() => jumpTo(Routes.AddNewCardScreen)}>
-              <Table
-                content="Add another card"
-                leftType="image"
-                rightType="icon"
-                left={vectors.roundPlus}
-                right={vectors.arrow_right}
-              />
-            </Pressable>
-          )}
+
+          <Pressable onPress={onAddNewMethod}>
+            <Table
+              content="Add another card"
+              leftType="image"
+              rightType="icon"
+              left={vectors.roundPlus}
+              right={vectors.arrow_right}
+            />
+          </Pressable>
         </View>
         <View style={styles.texts}>
           <Text style={TypographyStyles.RegularNormalSemiBold}>
