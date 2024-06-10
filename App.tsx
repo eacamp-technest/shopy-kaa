@@ -11,6 +11,8 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors} from './src/theme/colors';
 import Router from 'router/Router';
 import BootSplash from 'react-native-bootsplash';
+import {Toast} from 'components/Toast';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -23,12 +25,15 @@ function App(): React.JSX.Element {
     });
   }, []);
   return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={'dark-content'} />
-      <View style={styles.root}>
-        <Router />
-      </View>
-    </SafeAreaProvider>
+    <GestureHandlerRootView style={{flex: 1}}>
+      <SafeAreaProvider>
+        <Toast />
+        <StatusBar barStyle={'dark-content'} />
+        <View style={styles.root}>
+          <Router />
+        </View>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
 }
 

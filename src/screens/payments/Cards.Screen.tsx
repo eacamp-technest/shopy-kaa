@@ -27,6 +27,7 @@ interface ICardForm {
 export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const {
     selectedCard,
+    cards,
     actions: {selectCard},
   } = useUserStore(state => state);
   const onLeftPress = () => {
@@ -115,6 +116,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
           text="Add new card"
           size="block"
           type="outlined"
+          disabled={cards.length >= 2}
         />
       )}
     </View>

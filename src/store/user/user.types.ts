@@ -3,7 +3,7 @@ import {ICardInputForm} from 'types/card-types';
 interface IUserStoreActions {
   addCard: (card: ICardInputForm) => void;
   removeCard: (id: string) => void;
-  selectCard: (id: string) => void;
+  selectCard: (id: string | null) => void;
   reset: () => void;
 }
 
