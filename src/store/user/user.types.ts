@@ -5,6 +5,7 @@ interface IUserStoreActions {
   removeCard: (id: string) => void;
   selectCard: (id: string | null) => void;
   reset: () => void;
+  initialize: () => void;
 }
 
 export interface IUserStore {
