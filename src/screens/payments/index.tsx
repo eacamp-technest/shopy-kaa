@@ -26,7 +26,7 @@ export const PaymentScreensTab = () => {
     <TabView
       navigationState={{index, routes}}
       renderScene={renderScene}
-      swipeEnabled={true}
+      swipeEnabled={false}
       renderTabBar={() => null}
       animationEnabled={true}
       onIndexChange={setIndex}
