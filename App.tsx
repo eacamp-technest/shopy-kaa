@@ -12,7 +12,10 @@ import {colors} from './src/theme/colors';
 import Router from 'router/Router';
 import BootSplash from 'react-native-bootsplash';
 import {Toast} from 'components/Toast';
-import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {
+  GestureHandlerRootView,
+  gestureHandlerRootHOC,
+} from 'react-native-gesture-handler';
 
 function App(): React.JSX.Element {
   useEffect(() => {
@@ -25,15 +28,13 @@ function App(): React.JSX.Element {
     });
   }, []);
   return (
-    <GestureHandlerRootView style={{flex: 1}}>
-      <SafeAreaProvider>
-        <Toast />
-        <StatusBar barStyle={'dark-content'} />
-        <View style={styles.root}>
-          <Router />
-        </View>
-      </SafeAreaProvider>
-    </GestureHandlerRootView>
+    <SafeAreaProvider>
+      <Toast />
+      <StatusBar barStyle={'dark-content'} />
+      <View style={styles.root}>
+        <Router />
+      </View>
+    </SafeAreaProvider>
   );
 }
 
@@ -44,4 +45,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default gestureHandlerRootHOC(App);
