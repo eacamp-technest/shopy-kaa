@@ -6,7 +6,7 @@ import {
   Pressable,
   Text,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -24,6 +24,7 @@ import {TypographyStyles} from 'theme/typography';
 import axios from 'axios';
 import {EndpointResources} from 'services/EndpointResources';
 import {useToast} from 'store/toast';
+import {useUserStoreActions} from 'store/user';
 
 interface ILoginForm {
   email: string;
@@ -45,6 +46,8 @@ export const LoginScreen: React.FC<
   });
   const showToast = useToast();
 
+  const {initUser} = useUserStoreActions();
+
   const onSubmit = async (data: ILoginForm) => {
     const res = await axios({
       url: EndpointResources.auth.login,
@@ -55,7 +58,9 @@ export const LoginScreen: React.FC<
       },
     });
     if (res.status === 200) {
-      navigation.navigate(Routes.otp);
+      initUser(res.data);
+      showToast('success', 'Login successful');
+      // navigation.navigate(Routes.otp);
     } else {
       showToast('error', 'Login failed');
     }
