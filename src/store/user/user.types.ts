@@ -1,4 +1,5 @@
 import {ICardInputForm} from 'types/card-types';
+import {IUser} from 'types/user';
 
 interface IUserStoreActions {
   addCard: (card: ICardInputForm) => void;
@@ -6,10 +7,11 @@ interface IUserStoreActions {
   selectCard: (id: string | null) => void;
   reset: () => void;
   initialize: () => void;
+  initUser: (user: IUser) => void;
 }
 
 export interface IUserStore {
-  user: null | undefined;
+  user: IUser | null;
   cards: ICardInputForm[];
   selectedCard: ICardInputForm | null;
   actions: IUserStoreActions;

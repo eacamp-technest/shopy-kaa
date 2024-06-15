@@ -10,4 +10,5 @@ export type TFunctionalMethod = 'set' | 'get';
 
 export enum StorageKeys {
   cards = 'cards',
+  user = 'user',
 }

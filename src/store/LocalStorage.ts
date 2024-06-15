@@ -6,6 +6,7 @@ import {
   StorageMethodsKeys,
   TFunctionalMethod,
 } from 'types/local.storage.types';
+import {IUser} from 'types/user';
 
 const storage = new MMKV();
 
@@ -47,5 +48,13 @@ export class LocalStorage {
       return cards ? JSON.parse(cards) : null;
     }
     this.set(StorageKeys.cards, 'array', data);
+  }
+
+  public static user(method: TFunctionalMethod, data?: IUser) {
+    if (method === 'get') {
+      const user = storage.getString(StorageKeys.user);
+      return user ? JSON.parse(user) : null;
+    }
+    this.set(StorageKeys.user, 'object', data);
   }
 }

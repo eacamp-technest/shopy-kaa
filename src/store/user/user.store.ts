@@ -14,9 +14,13 @@ export const useUserStore = create<IUserStore>((set, get) => ({
   actions: {
     initialize: () => {
       const cards = LocalStorage.cards('get');
+      const user = LocalStorage.user('get');
 
       if (cards) {
         set({cards: cards});
+      }
+      if (user) {
+        set({user: user});
       }
     },
     addCard: card => {
@@ -45,6 +49,10 @@ export const useUserStore = create<IUserStore>((set, get) => ({
       } else {
         LocalStorage.cards('set', state);
       }
+    },
+    initUser: user => {
+      set({user});
+      LocalStorage.user('set', user);
     },
     reset: () => set({...initial}),
   },
