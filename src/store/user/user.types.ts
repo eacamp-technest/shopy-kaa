@@ -8,6 +8,7 @@ interface IUserStoreActions {
   reset: () => void;
   initialize: () => void;
   initUser: (user: IUser) => void;
+  logout: () => void;
 }
 
 export interface IUserStore {

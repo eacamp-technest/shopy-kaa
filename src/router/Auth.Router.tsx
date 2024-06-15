@@ -25,7 +25,6 @@ const edges: Edges = {
 };
 
 export const AuthRouter = () => {
-  console.log('AUTH');
   return (
     <SafeAreaView style={CommonStyles.flex} edges={edges}>
       <AuthStack.Navigator
