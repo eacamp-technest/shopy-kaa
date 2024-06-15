@@ -15,10 +15,8 @@ export const useUserStore = create<IUserStore>((set, get) => ({
     initialize: () => {
       const cards = LocalStorage.cards('get');
       const user = LocalStorage.user('get');
+      set({cards});
 
-      if (cards) {
-        set({cards: cards});
-      }
       if (user) {
         set({user: user});
       }
