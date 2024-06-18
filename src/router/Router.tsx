@@ -27,7 +27,6 @@ const Router = () => {
   if (!ready) {
     return null;
   }
-
   if (user === undefined) {
     return null;
   }

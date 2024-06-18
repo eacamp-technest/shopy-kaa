@@ -1,8 +1,8 @@
 import {create} from 'zustand';
 import {IUserStore} from './user.types';
 import {LocalStorage} from 'store/LocalStorage';
-import {StorageKeys} from 'types/local.storage.types';
 import {useToastStore} from 'store/toast/toast.store';
+import {StorageKeys} from 'types/local.storage.types';
 
 const {showToast} = useToastStore.getState().actions;
 
@@ -18,11 +18,20 @@ export const useUserStore = create<IUserStore>((set, get) => ({
     initialize: () => {
       const cards = LocalStorage.cards('get');
       const user = LocalStorage.user('get');
-      set({cards});
+      set({user});
 
-      if (user) {
-        set({user: user});
+      if (cards) {
+        set({cards});
       }
+    },
+    logout: () => {
+      LocalStorage.clean([StorageKeys.user, StorageKeys.cards]);
+      get().actions.reset();
+      showToast('success', 'Logged out successfully');
+    },
+    initUser: user => {
+      set({user});
+      LocalStorage.user('set', user);
     },
     addCard: card => {
       const isExist = get().cards.find(info => info.id === card.id);
@@ -50,17 +59,6 @@ export const useUserStore = create<IUserStore>((set, get) => ({
       } else {
         LocalStorage.cards('set', state);
       }
-    },
-
-    logout: () => {
-      LocalStorage.clean([StorageKeys.user, StorageKeys.cards]);
-      get().actions.reset();
-      showToast('success', 'Logged out successfully!');
-    },
-
-    initUser: user => {
-      set({user});
-      LocalStorage.user('set', user);
     },
     reset: () => set({...initial}),
   },
