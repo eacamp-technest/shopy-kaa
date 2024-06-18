@@ -116,7 +116,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
           text="Add new card"
           size="block"
           type="outlined"
-          disabled={cards.length >= 2}
+          disabled={cards?.length >= 2}
         />
       )}
     </View>

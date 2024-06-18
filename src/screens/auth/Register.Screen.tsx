@@ -33,6 +33,7 @@ export const RegisterScreen: React.FC<
   const onSubmit = (data: IRegisterForm) => {
     const registrationSuccessful = true;
     if (registrationSuccessful) {
+      console.log(data);
       navigation.navigate(Routes.otp);
     }
   };

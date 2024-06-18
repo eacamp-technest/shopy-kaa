@@ -5,14 +5,14 @@ interface IUserStoreActions {
   addCard: (card: ICardInputForm) => void;
   removeCard: (id: string) => void;
   selectCard: (id: string | null) => void;
-  reset: () => void;
   initialize: () => void;
   initUser: (user: IUser) => void;
   logout: () => void;
+  reset: () => void;
 }
 
 export interface IUserStore {
-  user: IUser | null;
+  user: IUser | null | undefined;
   cards: ICardInputForm[];
   selectedCard: ICardInputForm | null;
   actions: IUserStoreActions;

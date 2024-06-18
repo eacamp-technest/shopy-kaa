@@ -17,7 +17,7 @@ function App(): React.JSX.Element {
   return (
     <SafeAreaProvider>
       <Toast />
-      <StatusBar barStyle={'dark-content'} />
+      <StatusBar barStyle="dark-content" />
       <View style={styles.root}>
         <Router />
       </View>
