@@ -26,17 +26,18 @@ export const useSetStatusBar = (
     }
   }, [content, statusBarColorAndroid]);
 
-  useFocusEffect(
-    useCallback(() => {
-      console.log('useFocusEffect triggered');
-      setStatusBar();
-      return () => {
-        console.log('Cleaning up status bar');
-        StatusBar.setBarStyle('default');
-        if (isAndroid) {
-          StatusBar.setBackgroundColor(colors.white);
-        }
-      };
-    }, [setStatusBar]),
-  );
+  useFocusEffect(setStatusBar);
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     console.log('useFocusEffect triggered');
+  //     setStatusBar();
+  //     return () => {
+  //       console.log('Cleaning up status bar');
+  //       StatusBar.setBarStyle('default');
+  //       if (isAndroid) {
+  //         StatusBar.setBackgroundColor(colors.white);
+  //       }
+  //     };
+  //   }, [setStatusBar]),
+  // );
 };
