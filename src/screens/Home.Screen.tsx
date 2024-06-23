@@ -5,6 +5,9 @@ import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useFocusEffect} from '@react-navigation/native';
 import {Input} from 'components/TextFields';
+import {Table} from 'components/Table';
+import {normalize} from 'theme/metrics';
+import {TypographyStyles} from 'theme/typography';
 
 export const HomeScreen: React.FC = () => {
   const {top} = useSafeAreaInsets();
@@ -30,19 +33,20 @@ export const HomeScreen: React.FC = () => {
           rightActionType="icon"
           right={vectors.shoppingBag}
         />
-        {/* <Input
-          style={styles.inner}
-          type="text"
-          placeholder="Search brand, products..."
-          
-          icon={vectors.search}
-        /> */}
         <Input
           style={styles.inner}
           type="text"
           placeholder="Search brand, products..."
           icon={vectors.search}
           inputStyle={styles.inputstyle}
+        />
+      </View>
+      <View style={styles.table}>
+        <Table
+          content="Categories"
+          leftType="views"
+          rightType="text"
+          right="See All"
         />
       </View>
     </View>
@@ -76,5 +80,10 @@ const styles = StyleSheet.create({
   },
   inputstyle: {
     backgroundColor: colors.white,
+  },
+  table: {
+    paddingHorizontal: 24,
+    height: normalize('height', 64),
+    justifyContent: 'center',
   },
 });
