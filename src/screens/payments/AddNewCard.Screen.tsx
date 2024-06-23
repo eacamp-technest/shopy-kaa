@@ -12,22 +12,29 @@ import {Button} from 'components/Button';
 import {SceneRendererProps} from 'react-native-tab-view';
 import DatePicker from 'react-native-date-picker';
 import {useUserStoreActions} from 'store/user';
-
-interface ICardForm {
-  id: string;
-  cardNumber: string;
-  holder: string;
-  expiration: string;
-  cvv: string;
-}
+import {ICardInputForm} from 'types/card-types';
 
 export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [picker, setPicker] = useState<Date | null>(null);
   const [open, setOpen] = useState(false);
   const formMethods = useForm();
   const {addCard} = useUserStoreActions();
-  const {control, handleSubmit, setValue, reset} = useForm<ICardForm>({});
-
+  const {
+    control,
+    handleSubmit,
+    setValue,
+    reset,
+    formState: {errors},
+  } = useForm<ICardInputForm>({
+    defaultValues: __DEV__
+      ? {
+          cardNumber: '4169 1234 1341 8912',
+          holderName: 'Ali Hilalov',
+          cvv: '123',
+          expiration: '12 / 29',
+        }
+      : {},
+  });
   const onDateConfirm = (date: Date) => {
     const month = date.getMonth() + 1;
     const year = String(date.getFullYear()).slice(2);

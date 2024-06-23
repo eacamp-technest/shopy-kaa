@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet} from 'react-native';
 import {TabView, SceneMap} from 'react-native-tab-view';
 import {windowWidth} from 'theme/consts.styles';
@@ -6,6 +6,7 @@ import {Routes} from 'router/routes';
 import {PaymentMethodScreen} from './PaymentMethod.Screen';
 import {CardsScreen} from './Cards.Screen';
 import {AddNewCard} from './AddNewCard.Screen';
+import {useUserStoreActions} from 'store/user';
 
 const renderScene = SceneMap({
   [Routes.paymentMethod]: PaymentMethodScreen,
@@ -21,12 +22,15 @@ const routes = [
 
 export const PaymentScreensTab = () => {
   const [index, setIndex] = useState(0);
-
+  const {initialize} = useUserStoreActions();
+  useEffect(() => {
+    initialize();
+  }, []);
   return (
     <TabView
       navigationState={{index, routes}}
       renderScene={renderScene}
-      swipeEnabled={true}
+      swipeEnabled={false}
       renderTabBar={() => null}
       animationEnabled={true}
       onIndexChange={setIndex}

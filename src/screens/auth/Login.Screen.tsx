@@ -6,7 +6,7 @@ import {
   Pressable,
   Text,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
@@ -21,6 +21,10 @@ import {normalize} from 'theme/metrics';
 import {FormValidate} from 'constants/formValidation';
 import {SvgImage} from 'components/SvgImage';
 import {TypographyStyles} from 'theme/typography';
+import axios from 'axios';
+import {EndpointResources} from 'services/EndpointResources';
+import {useToast} from 'store/toast';
+import {useUserStoreActions} from 'store/user';
 
 interface ILoginForm {
   email: string;
@@ -34,13 +38,31 @@ export const LoginScreen: React.FC<
     control,
     handleSubmit,
     formState: {errors},
-  } = useForm<ILoginForm>();
+  } = useForm<ILoginForm>({
+    defaultValues: {
+      email: __DEV__ ? 'emilys@gmail.com' : '',
+      password: __DEV__ ? 'emilyspass' : '',
+    },
+  });
+  const showToast = useToast();
 
-  const onSubmit = (data: ILoginForm) => {
+  const {initUser} = useUserStoreActions();
 
-    const loginSuccessful = true;
-    if (loginSuccessful) {
-      navigation.navigate(Routes.otp);
+  const onSubmit = async (data: ILoginForm) => {
+    const res = await axios({
+      url: EndpointResources.auth.login,
+      method: 'POST',
+      data: {
+        username: 'emilys',
+        password: data.password,
+      },
+    });
+    if (res.status === 200) {
+      initUser(res.data);
+      showToast('success', 'Login successful');
+      // navigation.navigate(Routes.otp);
+    } else {
+      showToast('error', 'Login failed');
     }
   };
 
@@ -83,7 +105,7 @@ export const LoginScreen: React.FC<
 
         <InputController
           control={control}
-          rules={FormValidate.password}
+          // rules={FormValidate.password}
           name="password"
           label="Password"
           type="password"

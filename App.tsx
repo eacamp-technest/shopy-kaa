@@ -5,26 +5,19 @@
  * @format
  */
 
-import React, {useEffect} from 'react';
+import React from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors} from './src/theme/colors';
 import Router from 'router/Router';
-import BootSplash from 'react-native-bootsplash';
+import {Toast} from 'components/Toast';
+import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 
 function App(): React.JSX.Element {
-  useEffect(() => {
-    const init = async () => {
-      // …do multiple sync or async tasks
-    };
-
-    init().finally(async () => {
-      await BootSplash.hide({fade: true});
-    });
-  }, []);
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={'dark-content'} />
+      <Toast />
+      <StatusBar barStyle="dark-content" />
       <View style={styles.root}>
         <Router />
       </View>
@@ -39,4 +32,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default gestureHandlerRootHOC(App);

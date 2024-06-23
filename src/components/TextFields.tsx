@@ -1,33 +1,41 @@
-import React, {useState} from 'react';
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  Pressable,
   KeyboardTypeOptions,
   StyleProp,
   ViewStyle,
-  TextInputProps,
+  Pressable,
+  TextStyle,
 } from 'react-native';
-import {Dropdown} from 'react-native-element-dropdown';
+import React, {useMemo, useState} from 'react';
 import {SvgImage} from './SvgImage';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
 import {standardHitSlopSize} from 'theme/consts.styles';
 import {CommonStyles} from 'theme/common.styles';
 
-export interface IInput extends TextInputProps {
+type TIcon = {
+  source: NodeRequire;
+  color?: string;
+  width?: number;
+  height?: number;
+  position?: 'left' | 'right';
+};
+
+export interface IInput {
   type?: 'text' | 'phone' | 'password' | 'select';
   label?: string;
   caption?: string;
   value?: string;
-  maxLegth?: number;
   placeholder?: string;
   disabled?: boolean;
   keyboardType?: KeyboardTypeOptions;
-  icon?: {source: NodeRequire; color?: string; width?: number; height?: number};
+  icon?: TIcon | NodeRequire;
+  maxLength?: number;
   errorMessage?: string;
+  inputStyle?: StyleProp<TextStyle>;
   style?: StyleProp<ViewStyle>;
   setValue?: (value: string) => void;
   onFocus?: () => void;
@@ -36,33 +44,30 @@ export interface IInput extends TextInputProps {
 }
 
 export const Input: React.FC<IInput> = ({
-  type = 'text',
   value,
+  type = 'text',
   setValue,
   icon,
   ...props
 }) => {
-  const [focused, setFocused] = useState(false);
-  const [secureTextEntry, setSecureTextEntry] = useState(type === 'password');
+  const [focused, setFocused] = useState<boolean>(false);
+  const [secureTextEntry, setSecureTextEntry] = useState<boolean>(
+    type === 'password',
+  );
+
+  const isMoreIcon = useMemo(
+    () =>
+      ('position' in (icon ?? {}) && (icon as TIcon)?.position === 'right') ||
+      type === 'password',
+    [icon, type],
+  );
 
   const isPressable = props.onInputPress instanceof Function;
 
-  const handleFocus = () => {
-    setFocused(true);
-    props.onFocus?.();
-  };
-
-  const handleBlur = () => {
-    setFocused(false);
-    props.onBlur?.();
-  };
-
-  const renderIcon = () => {
+  const renderIcon = useMemo(() => {
     if (type === 'password') {
       return (
-        <Pressable
-          hitSlop={standardHitSlopSize}
-          onPress={() => setSecureTextEntry(!secureTextEntry)}>
+        <Pressable hitSlop={standardHitSlopSize}>
           <SvgImage
             source={
               secureTextEntry
@@ -72,95 +77,75 @@ export const Input: React.FC<IInput> = ({
             color={colors.ink.base}
             width={24}
             height={24}
+            onPress={() => setSecureTextEntry(state => !state)}
           />
         </Pressable>
       );
     }
 
-    if (icon) {
+    if (!icon) {
+      return null;
+    }
+
+    if ('source' in icon) {
       return (
         <SvgImage
           source={icon.source}
-          color={icon.color ?? colors.ink.base}
-          width={icon.width ?? 24}
-          height={icon.height ?? 24}
-        />
-      );
-    }
-
-    return null;
-  };
-
-  const renderContent = () => {
-    if (type === 'select') {
-      return (
-        <Dropdown
-          data={[
-            {label: 'Item 1', value: '1'},
-            {label: 'Item 2', value: '2'},
-            {label: 'Item 3', value: '3'},
-            {label: 'Item 4', value: '4'},
-            {label: 'Item 5', value: '5'},
-            {label: 'Item 6', value: '6'},
-            {label: 'Item 7', value: '7'},
-            {label: 'Item 8', value: '8'},
-          ]}
-          labelField="label"
-          valueField="value"
-          placeholder="Select an item"
-          value={value}
-          onChange={item => setValue?.(item.value)}
-          style={[
-            styles.dropdown,
-            focused && styles.focused,
-            props.disabled && styles.wrapperDisabled,
-          ]}
-          onFocus={handleFocus}
-          onBlur={handleBlur}
+          width={icon.width}
+          color={icon.color}
+          height={icon.height}
         />
       );
     }
 
     return (
-      <TextInput
-        placeholder={props.placeholder}
-        keyboardType={props.keyboardType}
-        value={value}
-        maxLength={props.maxLegth}
-        onChangeText={setValue}
-        secureTextEntry={secureTextEntry}
-        onPressIn={props.onInputPress}
-        editable={!props.disabled ?? !isPressable}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        autoCapitalize={props.autoCapitalize}
-        style={[
-          styles.input,
-          focused && styles.focused,
-          props.disabled && styles.wrapperDisabled,
-        ]}
-        placeholderTextColor={
-          props.disabled ? colors.sky.base : colors.ink.lighter
-        }
+      <SvgImage
+        source={icon}
+        color={props.disabled ? colors.sky.base : colors.ink.base}
       />
     );
+  }, [icon, props.disabled, secureTextEntry, type]);
+
+  const handleOnFocused = () => {
+    setFocused(true);
+    props?.onFocus?.();
+  };
+  const handleOnBlur = () => {
+    setFocused(false);
+    props?.onBlur?.();
   };
 
   return (
-    <View style={[styles.root]}>
-      {props.label && (
+    <View style={[styles.root, props?.style]}>
+      {props.label ? (
         <Text style={TypographyStyles.RegularNoneSemiBold}>{props.label}</Text>
-      )}
+      ) : null}
       <View
         style={[
           styles.wrapper,
-          props.style,
           focused && styles.focused,
           props.disabled && styles.wrapperDisabled,
-          icon ? CommonStyles.rowReverse : undefined,
+          isMoreIcon && CommonStyles.rowReverse,
+          props?.inputStyle,
         ]}>
-        {renderIcon()}
-        {renderContent()}
+        {renderIcon}
+        <TextInput
+          placeholder={props.placeholder}
+          keyboardType={props.keyboardType}
+          value={value}
+          maxLength={props.maxLength}
+          onFocus={handleOnFocused}
+          onBlur={handleOnBlur}
+          onPressIn={props.onInputPress}
+          autoCapitalize="none"
+          editable={!isPressable ?? !props.disabled}
+          secureTextEntry={secureTextEntry}
+          onChangeText={setValue}
+          placeholderTextColor={
+            props.disabled ? colors.sky.base : colors.ink.lighter
+          }
+          style={styles.input}
+        />
       </View>
       {props.caption || props.errorMessage ? (
         <Text
@@ -178,10 +163,22 @@ export const Input: React.FC<IInput> = ({
 const styles = StyleSheet.create({
   root: {
     gap: 12,
-    flexGrow: 1,
   },
   focused: {
+    borderWidth: 2,
     borderColor: colors.primary.base,
+  },
+  wrapperDisabled: {
+    backgroundColor: colors.sky.lighter,
+    borderColor: colors.sky.lighter,
+    color: colors.sky.base,
+  },
+  error: {
+    color: colors.primary.base,
+  },
+  caption: {
+    ...TypographyStyles.SmallNormalRegular,
+    color: colors.ink.lighter,
   },
   wrapper: {
     flexDirection: 'row',
@@ -193,27 +190,11 @@ const styles = StyleSheet.create({
     gap: 12,
     height: 48,
   },
-  wrapperDisabled: {
-    backgroundColor: colors.sky.lighter,
-    borderColor: colors.sky.lighter,
-  },
   input: {
-    flex: 1,
     height: '100%',
-    ...TypographyStyles.RegularNoneRegular,
-  },
-  error: {
-    color: colors.primary.base,
-  },
-  caption: {
-    ...TypographyStyles.SmallNoneRegular,
-    color: colors.ink.lighter,
-  },
-  dropdown: {
-    height: 48,
-    borderColor: colors.sky.light,
-    borderRadius: 8,
     flex: 1,
-    paddingHorizontal: 16,
+    flexGrow: 1,
+    borderColor: 'red',
+    ...TypographyStyles.RegularNoneRegular,
   },
 });

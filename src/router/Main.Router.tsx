@@ -1,15 +1,18 @@
 import React from 'react';
 import {Routes} from './routes';
 import {NavigationParamList} from 'types/navigation.types';
-import {TestScreen} from 'screens/TestScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {TabRouter} from './Tab.Router';
+import {defaultScreenOptions} from 'configs/navigation.configs';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
 export const MainRouter = () => {
   return (
-    <MainStack.Navigator initialRouteName={Routes.test}>
-      <MainStack.Screen name={Routes.test} component={TestScreen} />
+    <MainStack.Navigator
+      initialRouteName={Routes.test}
+      screenOptions={defaultScreenOptions}>
+      <MainStack.Screen name={Routes.tab} component={TabRouter} />
     </MainStack.Navigator>
   );
 };

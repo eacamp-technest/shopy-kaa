@@ -29,11 +29,13 @@ interface IHeader {
   onRightPress?: () => void;
   leftActionType?: TAction;
   rightActionType?: TAction;
+  titleColor?: string;
 }
 
 export const Header: React.FC<IHeader> = ({
   type = 'standard',
   title,
+  titleColor,
   left,
   right,
   caption,
@@ -132,7 +134,10 @@ export const Header: React.FC<IHeader> = ({
         style={[styles.action, !leftActionType && styles.hide]}>
         {renderActions(leftActionType, left, 'left')}
       </Pressable>
-      <Text style={TypographyStyles.title3}>{title}</Text>
+      <Text
+        style={[TypographyStyles.title3, !!titleColor && {color: titleColor}]}>
+        {title}
+      </Text>
       <Pressable
         disabled={!onRightPress || rightActionType === 'button'}
         onPress={onRightPress}
