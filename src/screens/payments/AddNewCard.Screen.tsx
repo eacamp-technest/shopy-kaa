@@ -33,16 +33,21 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
     const year = String(date.getFullYear()).slice(2);
     const formattedMonth = month < 10 ? `0${month}` : month;
     setValue('expiration', `${formattedMonth}/${year}`);
+    setPicker(date);
     setOpen(false);
   };
 
   const onSubmit = (data: ICardForm) => {
+    const month = picker ? picker.getMonth() + 1 : '';
+    const year = picker ? String(picker.getFullYear()).slice(2) : '';
+    data.expiration = `${month}/${year}`;
     data.id = String(Math.random() * 10000).slice(0, 4);
     addCard(data);
     jumpTo(Routes.paymentMethod);
     reset();
     console.log(data);
   };
+
   const cardMaxLength = 19;
   const cvvMaxLength = 3;
 
@@ -146,3 +151,5 @@ const styles = StyleSheet.create({
     marginTop: normalize('vertical', 32),
   },
 });
+
+export default AddNewCard;
