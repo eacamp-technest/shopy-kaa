@@ -101,7 +101,6 @@ export const HomeScreen: React.FC = () => {
         animationEnabled={true}
         onIndexChange={setIndex}
       />
-
       <View style={styles.table}></View>
     </View>
   );
