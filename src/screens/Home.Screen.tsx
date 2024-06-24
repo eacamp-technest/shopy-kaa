@@ -9,6 +9,7 @@ import {Table} from 'components/Table';
 import {normalize} from 'theme/metrics';
 import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
+import {ChipPill} from 'components/ChipPill';
 
 const InStore: React.FC = () => {
   return (
@@ -20,13 +21,22 @@ const InStore: React.FC = () => {
 
 const AllStore: React.FC = () => {
   return (
-    <View style={styles.table}>
-      <Table
-        title3
-        content="Categories"
-        leftType="views"
-        rightType="text"
-        right="See All"
+    <View>
+      <View style={styles.table}>
+        <Table
+          title3
+          content="Categories"
+          leftType="views"
+          rightType="text"
+          right="See All"
+        />
+      </View>
+      <ChipPill
+        content="Chip"
+        icon={require('../assets/vectors/menu.svg')}
+        type="solid"
+        size="auto layout"
+        onPress={() => console.log('Chip pressed')}
       />
     </View>
   );
