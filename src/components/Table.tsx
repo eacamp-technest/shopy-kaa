@@ -16,6 +16,7 @@ interface ITables {
   rightType?: TRight;
   leftType: TLeft;
   right?: string | React.ReactNode;
+  title3?: boolean;
 }
 
 const renderRight = (value: TRight, right: string | React.ReactNode) => {
@@ -65,6 +66,7 @@ export const Table: React.FC<ITables> = ({
   right,
   rightType,
   leftType,
+  title3,
 }) => {
   const hasLeftIcon = leftType === 'icon' || leftType === 'image';
 
@@ -80,7 +82,9 @@ export const Table: React.FC<ITables> = ({
           styles.contentContainer,
           hasLeftIcon && styles.contentWithLeftIcon,
         ]}>
-        <Text style={styles.contentStyle}>{content}</Text>
+        <Text style={[styles.contentStyle, title3 && TypographyStyles.title3]}>
+          {content}
+        </Text>
         {caption && <StatusPill content="Primary" type="Success" />}
       </View>
       {rightType && (
@@ -105,7 +109,7 @@ const styles = StyleSheet.create({
     marginLeft: 12,
   },
   contentStyle: {
-    ...TypographyStyles.title3,
+    ...TypographyStyles.RegularNoneSemiBold,
     color: colors.ink.darkest,
   },
   rightStyle: {
