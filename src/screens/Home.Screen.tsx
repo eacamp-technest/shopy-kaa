@@ -32,8 +32,9 @@ const AllStore: React.FC = () => {
         />
       </View>
       <ChipPill
+        selected
+        iconPosition="left"
         content="Chip"
-        icon={require('../assets/vectors/menu.svg')}
         type="solid"
         size="auto layout"
         onPress={() => console.log('Chip pressed')}
