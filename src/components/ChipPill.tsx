@@ -41,11 +41,7 @@ export const ChipPill: React.FC<IChipPill> = ({
       style={[
         styles.chipPill,
         type === 'transparent' ? styles.outline : styles.solid,
-        size === 'full width'
-          ? styles.fullWidth
-          : icon
-          ? styles.autoLayoutWithIcon
-          : styles.autoLayoutWithoutIcon,
+        size === 'full width' ? styles.fullWidth : styles.autoLayout,
         isSelected && styles.selected,
       ]}>
       {icon && iconPosition === 'left' && (
@@ -80,15 +76,11 @@ const styles = StyleSheet.create({
     backgroundColor: colors.sky.light,
   },
   fullWidth: {
-    width: 'auto',
+    width: '100%',
   },
-  autoLayoutWithIcon: {
-    width: normalize('width', 89),
-    paddingHorizontal: 8,
-  },
-  autoLayoutWithoutIcon: {
-    width: normalize('width', 69),
-    paddingHorizontal: 8,
+  autoLayout: {
+    alignSelf: 'flex-start',
+    paddingHorizontal: normalize('horizontal', 16),
   },
   icon: {
     width: 20,

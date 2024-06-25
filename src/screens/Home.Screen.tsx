@@ -32,9 +32,15 @@ const AllStore: React.FC = () => {
         />
       </View>
       <ChipPill
-        selected
         iconPosition="left"
-        content="Chip"
+        content="All"
+        type="solid"
+        size="auto layout"
+        onPress={() => console.log('Chip pressed')}
+      />
+      <ChipPill
+        iconPosition="left"
+        content="Shoes"
         type="solid"
         size="auto layout"
         onPress={() => console.log('Chip pressed')}
