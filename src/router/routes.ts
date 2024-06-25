@@ -18,4 +18,5 @@ export enum Routes {
   bookmarks = 'bookmarks',
   notification = 'notification',
   account = 'account',
+  search = 'search',
 }
