@@ -38,7 +38,24 @@ export const tabBarScreenOptions: BottomTabNavigationOptions = {
   tabBarActiveTintColor: colors.primary.base,
   tabBarInactiveTintColor: colors.sky.dark,
 };
+interface ISearchScreenOptions extends NativeStackNavigationOptions {
+  items?: string | null;
+}
 
+export const searchScreenOptions: ISearchScreenOptions = {
+  ...defaultScreenOptions,
+  presentation: 'formSheet',
+  headerTitle: 'Search Product',
+  headerShown: true,
+  headerSearchBarOptions: {
+    inputType: 'text',
+    autoFocus: true,
+    onChangeText(e) {
+      const text = e.nativeEvent.text;
+      console.log(text);
+    },
+  },
+};
 const tabIconConfig: {[key: string]: NodeRequire} = {
   [Routes.home]: require('../assets/vectors/home.svg'),
   [Routes.discover]: require('../assets/vectors/search.svg'),
