@@ -10,6 +10,9 @@ import {normalize} from 'theme/metrics';
 import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
 import {ChipPill} from 'components/ChipPill';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from 'types/navigation.types';
+import {Routes} from 'router/routes';
 
 const InStore: React.FC = () => {
   return (
@@ -59,7 +62,9 @@ const routes = [
   {key: 'inStore', title: 'In-Store'},
 ];
 
-export const HomeScreen: React.FC = () => {
+export const HomeScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, Routes.home>
+> = ({navigation}) => {
   const [index, setIndex] = useState<number>(0);
 
   const {top} = useSafeAreaInsets();
@@ -91,6 +96,11 @@ export const HomeScreen: React.FC = () => {
           icon={vectors.search}
           style={styles.inner}
           placeholder="Search brand, products..."
+          onInputPress={() =>
+            navigation.navigate(Routes.search, {
+              items: ['item1', 'item2', 'item3', 'item4'],
+            })
+          }
         />
         <View />
       </View>

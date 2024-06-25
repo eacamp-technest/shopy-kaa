@@ -44,7 +44,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
     setOpen(false);
   };
 
-  const onSubmit = (data: ICardForm) => {
+  const onSubmit = (data: ICardInputForm) => {
     const month = picker ? picker.getMonth() + 1 : '';
     const year = picker ? String(picker.getFullYear()).slice(2) : '';
     data.expiration = `${month}/${year}`;

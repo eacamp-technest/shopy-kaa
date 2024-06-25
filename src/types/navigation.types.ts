@@ -26,5 +26,7 @@ export type NavigationParamList = {
   [Routes.bookmarks]: undefined;
   [Routes.notification]: undefined;
   [Routes.account]: undefined;
-  [Routes.search]: undefined;
+  [Routes.search]: {
+    items?: string[];
+  };
 };
