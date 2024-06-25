@@ -1,18 +1,22 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {normalize} from 'theme/metrics';
 import {SvgImage} from './SvgImage';
+import {colors} from 'theme/colors';
+import {TypographyStyles} from 'theme/typography';
 
-type TType = 'outline' | 'solid';
+type TType = 'transparent' | 'solid';
 type TSize = 'auto layout' | 'full width';
 type TIconPosition = 'left' | 'right';
 
 interface IChipPill {
   content: string;
-  icon?: NodeRequire; // Optional icon
+  icon?: NodeRequire;
+  iconPosition: TIconPosition;
   type: TType;
   onPress: () => void;
   size: TSize;
+  selected?: boolean; // Making selected optional
 }
 
 export const ChipPill: React.FC<IChipPill> = ({
@@ -21,23 +25,38 @@ export const ChipPill: React.FC<IChipPill> = ({
   type,
   onPress,
   size,
+  selected = false, // Default value set to false
+  iconPosition,
 }) => {
+  const [isSelected, setIsSelected] = useState(selected);
+
+  const handlePress = () => {
+    setIsSelected(!isSelected);
+    onPress();
+  };
+
   return (
     <Pressable
-      onPress={onPress}
+      onPress={handlePress}
       style={[
         styles.chipPill,
-        type === 'outline' ? styles.outline : styles.solid,
-        size === 'full width' ? styles.fullWidth : styles.autoLayout,
+        type === 'transparent' ? styles.outline : styles.solid,
+        size === 'full width'
+          ? styles.fullWidth
+          : icon
+          ? styles.autoLayoutWithIcon
+          : styles.autoLayoutWithoutIcon,
+        isSelected && styles.selected,
       ]}>
-      {icon && <SvgImage source={icon} style={styles.icon} />}
-      <Text
-        style={[
-          styles.content,
-          type === 'outline' ? styles.outlineText : styles.solidText,
-        ]}>
+      {icon && iconPosition === 'left' && (
+        <SvgImage source={icon} style={styles.icon} />
+      )}
+      <Text style={[styles.content, isSelected && styles.contentSelect]}>
         {content}
       </Text>
+      {icon && iconPosition === 'right' && (
+        <SvgImage source={icon} style={[styles.icon, styles.iconRight]} />
+      )}
     </Pressable>
   );
 };
@@ -47,38 +66,47 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingVertical: 6,
-    paddingHorizontal: 12,
+    paddingVertical: normalize('vertical', 6),
+    paddingHorizontal: normalize('horizontal', 12),
     borderRadius: 20,
-    borderWidth: 1,
-    margin: 4, // Add margin for spacing between chips
+    margin: 4,
   },
   outline: {
-    borderColor: '#000',
+    borderColor: colors.ink.darkest,
+    borderWidth: 1,
     backgroundColor: 'transparent',
   },
   solid: {
-    borderColor: 'transparent',
-    backgroundColor: '#000',
+    backgroundColor: colors.sky.light,
   },
   fullWidth: {
-    width: '100%',
-  },
-  autoLayout: {
     width: 'auto',
+  },
+  autoLayoutWithIcon: {
+    width: normalize('width', 89),
+    paddingHorizontal: 8,
+  },
+  autoLayoutWithoutIcon: {
+    width: normalize('width', 69),
+    paddingHorizontal: 8,
   },
   icon: {
     width: 20,
     height: 20,
     marginRight: 8,
   },
+  iconRight: {
+    marginRight: 0,
+    marginLeft: 8,
+  },
   content: {
-    fontSize: 16,
+    ...TypographyStyles.RegularNoneRegular,
   },
-  outlineText: {
-    color: '#000',
+  selected: {
+    backgroundColor: colors.primary.lightest,
   },
-  solidText: {
-    color: '#fff',
+  contentSelect: {
+    ...TypographyStyles.RegularNoneRegular,
+    color: colors.primary.base,
   },
 });
