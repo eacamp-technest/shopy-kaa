@@ -10,6 +10,7 @@ export enum Routes {
   modal = 'modal',
   paymentScreensTab = 'paymentScreensTab',
   paymentMethod = 'paymentMethod',
-  AddNewCardScreen='AddNewCardScreen',
-  cards='cards'
+  AddNewCardScreen = 'AddNewCardScreen',
+  cards = 'cards',
+  filterScreen = 'filterScreen'
 }

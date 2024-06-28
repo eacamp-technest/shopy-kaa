@@ -20,4 +20,5 @@ export type NavigationParamList = {
   [Routes.AddNewCardScreen]: undefined
   [Routes.cards]: undefined
   [Routes.paymentScreensTab]: undefined;
+  [Routes.filterScreen]: undefined;
 };

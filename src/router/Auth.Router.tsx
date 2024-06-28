@@ -16,6 +16,7 @@ import {
 } from 'configs/navigation.configs';
 import {ModalScreen} from 'screens/Modal.Screen';
 import {PaymentScreensTab} from 'screens/payments';
+import {FilterScreen} from 'screens/Filter.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -52,6 +53,7 @@ export const AuthRouter = () => {
           component={ModalScreen}
           options={modalStackScreenOption}
         />
+        <AuthStack.Screen name={Routes.filterScreen} component={FilterScreen} />
       </AuthStack.Navigator>
     </SafeAreaView>
   );
