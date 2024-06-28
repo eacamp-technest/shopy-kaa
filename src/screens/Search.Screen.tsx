@@ -1,4 +1,11 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  NativeSyntheticEvent,
+  Pressable,
+  StyleSheet,
+  Text,
+  TextInputFocusEventData,
+  View,
+} from 'react-native';
 import React, {useCallback, useEffect} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
@@ -10,6 +17,10 @@ export const SearchScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.search>
 > = ({route, navigation}) => {
   const {items, onItemPress, ...props} = route.params;
+  const onChangeText = useCallback(
+    (text: NativeSyntheticEvent<TextInputFocusEventData>) => {},
+    [],
+  );
 
   const renderItem = useCallback(
     ({item}: any) => {
@@ -29,13 +40,17 @@ export const SearchScreen: React.FC<
   useEffect(() => {
     navigation.setOptions({
       ...searchScreenOptions,
+      headerSearchBarOptions: {
+        ...searchScreenOptions.headerSearchBarOptions,
+        onChangeText,
+      },
       ...props,
     });
 
     return () => {
       console.log('cleanup');
     };
-  }, [navigation, props]);
+  }, [navigation, onChangeText, props]);
 
   return (
     <View style={{flex: 1}}>
