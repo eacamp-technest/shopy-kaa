@@ -47,7 +47,9 @@ export const searchScreenOptions: ISearchScreenOptions = {
   presentation: 'formSheet',
   headerTitle: 'Search Product',
   headerShown: true,
+  headerLargeTitle: true,
   headerSearchBarOptions: {
+    hideWhenScrolling: false,
     inputType: 'text',
     autoFocus: true,
     onChangeText(e) {

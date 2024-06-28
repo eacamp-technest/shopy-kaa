@@ -28,5 +28,7 @@ export type NavigationParamList = {
   [Routes.account]: undefined;
   [Routes.search]: {
     items?: string[];
+    onItemPress?: (item: string) => void;
+    headerTitle?: string;
   };
 };
