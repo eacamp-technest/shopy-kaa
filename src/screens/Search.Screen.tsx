@@ -6,7 +6,7 @@ import {
   TextInputFocusEventData,
   View,
 } from 'react-native';
-import React, {useCallback, useEffect} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
@@ -17,8 +17,16 @@ export const SearchScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.search>
 > = ({route, navigation}) => {
   const {items, onItemPress, ...props} = route.params;
+  const [data, setData] = useState<string[]>(items ?? []);
+
   const onChangeText = useCallback(
-    (text: NativeSyntheticEvent<TextInputFocusEventData>) => {},
+    (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
+      const text = event.nativeEvent.text;
+      const filtered = items?.filter(item => {
+        return item.toLowerCase().includes(text.toLowerCase());
+      });
+      setData(filtered ?? []);
+    },
     [],
   );
 
@@ -55,7 +63,7 @@ export const SearchScreen: React.FC<
   return (
     <View style={{flex: 1}}>
       <FlatList
-        data={items || []}
+        data={data}
         contentInsetAdjustmentBehavior="automatic"
         contentContainerStyle={{gap: 5}}
         renderItem={renderItem}
