@@ -100,7 +100,7 @@ export const HomeScreen: React.FC<
             navigation.navigate(Routes.search, {
               items: ['item1', 'item2', 'item3', 'item4', 'item5', 'item6'],
               onItemPress: item => console.log('item pressed: -', item),
-              headerTitle: 'ITems',
+              headerTitle: 'Items',
             })
           }
         />
