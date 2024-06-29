@@ -13,6 +13,7 @@ import {FlatList} from 'react-native-gesture-handler';
 import {Routes} from 'router/routes';
 import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
+import {TypographyStyles} from 'theme/typography';
 
 export interface ICardProduct {
   id: number;
@@ -26,6 +27,8 @@ export const SearchScreen: React.FC<
 > = ({route, navigation}) => {
   const {items, onItemPress, ...props} = route.params;
   const [data, setData] = useState<ICardProduct[]>(items ?? []);
+  const [numColumns, setNumColumns] = useState(2);
+  const [flatListKey, setFlatListKey] = useState('flatList-2');
 
   const onChangeText = useCallback(
     (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -42,14 +45,14 @@ export const SearchScreen: React.FC<
     ({item}: {item: ICardProduct}) => {
       return (
         <Pressable
-          style={{padding: 10, borderWidth: 1}}
+          style={styles.renderItem}
           onPress={() => {
             onItemPress?.(item);
             navigation.pop();
           }}>
-          <Image source={item.image} style={{width: 50, height: 50}} />
-          <Text>{item.title}</Text>
-          <Text>Price: ${item.price}</Text>
+          <Image source={item.image} style={styles.image} />
+          <Text style={styles.text}>{item.title}</Text>
+          <Text style={styles.textPrice}>{item.price}$</Text>
         </Pressable>
       );
     },
@@ -72,15 +75,41 @@ export const SearchScreen: React.FC<
   }, [navigation, onChangeText, props]);
 
   return (
-    <View style={{flex: 1}}>
+    <View style={styles.root}>
       <FlatList
+        key={flatListKey}
         data={data}
+        numColumns={numColumns}
         contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={{gap: 5}}
+        contentContainerStyle={styles.flatListContent}
         renderItem={renderItem}
+        ItemSeparatorComponent={() => <View style={{height: 24}} />}
       />
     </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  root: {
+    flex: 1,
+  },
+  flatListContent: {},
+  renderItem: {
+    // borderWidth: 1,
+    // justifyContent: 'center',
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
+  },
+  image: {
+    width: 156,
+    height: 141,
+    borderRadius: 8,
+  },
+  text: {
+    ...TypographyStyles.RegularNoneSemiBold,
+  },
+  textPrice: {
+    ...TypographyStyles.TinyNoneBold,
+  },
+});

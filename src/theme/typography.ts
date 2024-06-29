@@ -124,4 +124,9 @@ export const TypographyStyles = StyleSheet.create({
     fontFamily: montserratFonts[600],
     ...commonFontStyling,
   },
+  TinyNoneBold: {
+    fontSize: fontSize12,
+    fontFamily: montserratFonts[700],
+    ...commonFontStyling,
+  },
 });

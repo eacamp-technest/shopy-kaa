@@ -101,7 +101,7 @@ export const HomeScreen: React.FC<
             navigation.navigate(Routes.search, {
               items: product,
               onItemPress: item => console.log('item pressed: -', item),
-              headerTitle: 'Items',
+              headerTitle: 'Mock items',
             })
           }
         />
