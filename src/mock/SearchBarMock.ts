@@ -1,4 +1,4 @@
-interface ICardProduct {
+export interface ICardProduct {
   id: number;
   title: string;
   price: number;
