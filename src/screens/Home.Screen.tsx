@@ -13,6 +13,7 @@ import {ChipPill} from 'components/ChipPill';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
+import {product} from 'mock/SearchBarMock';
 
 const InStore: React.FC = () => {
   return (
@@ -98,7 +99,7 @@ export const HomeScreen: React.FC<
           placeholder="Search brand, products..."
           onInputPress={() =>
             navigation.navigate(Routes.search, {
-              items: ['item1', 'item2', 'item3', 'item4', 'item5', 'item6'],
+              items: product,
               onItemPress: item => console.log('item pressed: -', item),
               headerTitle: 'Items',
             })

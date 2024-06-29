@@ -1,4 +1,5 @@
 import {IModal} from 'components/Modal';
+import {ICardProduct} from 'mock/SearchBarMock';
 import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
 import {Routes} from 'router/routes';
 
@@ -27,8 +28,8 @@ export type NavigationParamList = {
   [Routes.notification]: undefined;
   [Routes.account]: undefined;
   [Routes.search]: {
-    items?: string[];
-    onItemPress?: (item: string) => void;
+    items?: ICardProduct[];
+    onItemPress?: (item: ICardProduct) => void;
     headerTitle?: string;
   };
 };
