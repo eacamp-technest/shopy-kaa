@@ -36,7 +36,10 @@ const AllStore: React.FC = () => {
           right="See All"
         />
       </View>
-      <ScrollView horizontal={true} style={styles.chip}>
+      <ScrollView
+        horizontal={true}
+        style={styles.chip}
+        showsHorizontalScrollIndicator={false}>
         <ChipPill
           iconPosition="left"
           content="All"

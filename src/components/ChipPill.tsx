@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   solid: {
-    backgroundColor: colors.sky.lightest,
+    backgroundColor: colors.sky.lighter,
   },
   fullWidth: {
     width: '100%',
