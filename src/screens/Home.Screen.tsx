@@ -14,6 +14,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {product} from 'mock/SearchBarMock';
+import {ScrollView} from 'react-native-gesture-handler';
 
 const InStore: React.FC = () => {
   return (
@@ -35,20 +36,43 @@ const AllStore: React.FC = () => {
           right="See All"
         />
       </View>
-      <ChipPill
-        iconPosition="left"
-        content="All"
-        type="solid"
-        size="auto layout"
-        onPress={() => console.log('Chip pressed')}
-      />
-      <ChipPill
-        iconPosition="left"
-        content="Shoes"
-        type="solid"
-        size="auto layout"
-        onPress={() => console.log('Chip pressed')}
-      />
+      <ScrollView horizontal={true} style={styles.chip}>
+        <ChipPill
+          iconPosition="left"
+          content="All"
+          type="solid"
+          size="auto layout"
+          onPress={() => console.log('Chip pressed')}
+        />
+        <ChipPill
+          iconPosition="left"
+          content="Shoes"
+          type="solid"
+          size="auto layout"
+          onPress={() => console.log('Chip pressed')}
+        />
+        <ChipPill
+          iconPosition="left"
+          content="T-Shirt"
+          type="solid"
+          size="auto layout"
+          onPress={() => console.log('Chip pressed')}
+        />
+        <ChipPill
+          iconPosition="left"
+          content="Tops"
+          type="solid"
+          size="auto layout"
+          onPress={() => console.log('Chip pressed')}
+        />
+        <ChipPill
+          iconPosition="left"
+          content="Kids"
+          type="solid"
+          size="auto layout"
+          onPress={() => console.log('Chip pressed')}
+        />
+      </ScrollView>
     </View>
   );
 };
@@ -173,4 +197,5 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     backgroundColor: colors.bdazzledBlue.darkest,
   },
+  chip: {},
 });
