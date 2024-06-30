@@ -1,14 +1,23 @@
-import {View, Text, StyleSheet, Alert, Linking} from 'react-native';
-import React, {useEffect} from 'react';
+import {View, StyleSheet, Alert, Linking} from 'react-native';
+import React, {useEffect, useMemo} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from 'components/Button';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {Header} from 'components/Header';
 import {useUserStoreActions} from 'store/user';
+import {
+  Camera,
+  useCameraDevice,
+  useCodeScanner,
+} from 'react-native-vision-camera';
 
 export const AccountScreen = () => {
   const {top} = useSafeAreaInsets();
   const {logout} = useUserStoreActions();
+  const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
+    'back',
+  );
+  const device = useCameraDevice('back');
 
   const checkCameraPermission = async () => {
     const checkCamera = await check(PERMISSIONS.IOS.CAMERA);
@@ -31,6 +40,13 @@ export const AccountScreen = () => {
     }
   };
 
+  const codeScanner = useCodeScanner({
+    codeTypes: ['qr', 'ean-13'],
+    onCodeScanned: codes => {
+      console.log(`Scanned ${codes.length} codes!`);
+    },
+  });
+
   const requestCameraPermission = async () => {
     const permissionResult = await request(PERMISSIONS.IOS.CAMERA);
     console.log(permissionResult);
@@ -49,8 +65,8 @@ export const AccountScreen = () => {
           size="small"
           onPress={requestCameraPermission}
         />
-        <Button text="Ask permission: Media" size="small" type="outlined" />
         <Button text="Logout" onPress={logout} />
+        {/* <Camera isActive device={device} codeScanner={codeScanner} /> */}
       </View>
     </View>
   );
