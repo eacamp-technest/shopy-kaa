@@ -12,5 +12,13 @@ export enum Routes {
   paymentMethod = 'paymentMethod',
   AddNewCardScreen = 'AddNewCardScreen',
   cards = 'cards',
-  filterScreen = 'filterScreen'
+  filterScreen = 'filterScreen',
+  searchScreen = 'searchScreen'
+}
+
+export enum StackRoutes {
+  WomenLists = 'WomenLists',
+  MenLists = 'MenLists',
+  KidsLists = 'KidsLists',
+  TeensLists = 'TeensLists',
 }

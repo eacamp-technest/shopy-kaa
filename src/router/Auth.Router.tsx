@@ -4,7 +4,7 @@ import {WelcomeScreen} from 'screens/auth/Welcome.Screen';
 import {LoginScreen} from 'screens/auth/Login.Screen';
 import {RegisterScreen} from 'screens/auth/Register.Screen';
 import {VerificationScreen} from 'screens/auth/Verification.Screen';
-import {Routes} from './routes';
+import {Routes, StackRoutes} from './routes';
 import {NavigationParamList} from '../types/navigation.types';
 import {Edges, SafeAreaView} from 'react-native-safe-area-context';
 import {CommonStyles} from 'theme/common.styles';
@@ -17,6 +17,11 @@ import {
 import {ModalScreen} from 'screens/Modal.Screen';
 import {PaymentScreensTab} from 'screens/payments';
 import {FilterScreen} from 'screens/Filter.Screen';
+import {SearchScreen} from 'screens/Search.Screen';
+import {KidsListsScreen} from 'screens/category-lists/KidsLists.Screen';
+import { WomenListsScreen } from 'screens/category-lists/WomenLists.Screen';
+import { MenListsScreen } from 'screens/category-lists/MenLists.Screen';
+import { TeensListsScreen } from 'screens/category-lists/TeensLists.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -54,6 +59,23 @@ export const AuthRouter = () => {
           options={modalStackScreenOption}
         />
         <AuthStack.Screen name={Routes.filterScreen} component={FilterScreen} />
+        <AuthStack.Screen name={Routes.searchScreen} component={SearchScreen} />
+        <AuthStack.Screen
+          name={StackRoutes.KidsLists}
+          component={KidsListsScreen}
+        />
+          <AuthStack.Screen
+          name={StackRoutes.WomenLists}
+          component={WomenListsScreen}
+        />
+          <AuthStack.Screen
+          name={StackRoutes.MenLists}
+          component={MenListsScreen}
+        />
+          <AuthStack.Screen
+          name={StackRoutes.TeensLists}
+          component={TeensListsScreen}
+        />
       </AuthStack.Navigator>
     </SafeAreaView>
   );

@@ -1,7 +1,6 @@
-import {View, Text, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
-import {SvgProps} from 'react-native-svg';
-import {SvgImage, SvgImageProps} from './SvgImage';
+import {View, Text, Pressable, StyleSheet} from 'react-native';
+import {SvgImage} from './SvgImage';
 import {TypographyStyles} from 'theme/typography';
 import {CommonStyles} from 'theme/common.styles';
 import {Button} from './Button';
@@ -22,6 +21,7 @@ type TIcon = {
 interface IHeader {
   type?: TType;
   title?: string;
+  titleColor?: string;
   left?: TSide;
   right?: TSide;
   caption?: string;
@@ -34,6 +34,7 @@ interface IHeader {
 export const Header: React.FC<IHeader> = ({
   type = 'standard',
   title,
+  titleColor,
   left,
   right,
   caption,
@@ -100,7 +101,9 @@ export const Header: React.FC<IHeader> = ({
     return (
       <View style={[styles.root, styles.large]}>
         <View style={styles.rightTitle}>
-          <Text style={TypographyStyles.title2}>{title}</Text>
+          <Text style={[TypographyStyles.title2, {color: titleColor}]}>
+            {title}
+          </Text>
           {caption ? (
             <Text
               style={[
@@ -132,7 +135,9 @@ export const Header: React.FC<IHeader> = ({
         style={[styles.action, !leftActionType && styles.hide]}>
         {renderActions(leftActionType, left, 'left')}
       </Pressable>
-      <Text style={TypographyStyles.title3}>{title}</Text>
+      <Text style={[TypographyStyles.title3, {color: titleColor}]}>
+        {title}
+      </Text>
       <Pressable
         disabled={!onRightPress || rightActionType === 'button'}
         onPress={onRightPress}

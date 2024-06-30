@@ -28,7 +28,7 @@ export const OtpScreen: React.FC<
 
   const onSubmit = () => {
     if (isOtpComplete) {
-      navigation.navigate(Routes.filterScreen);
+      navigation.navigate(Routes.paymentScreensTab);
     }
   };
 

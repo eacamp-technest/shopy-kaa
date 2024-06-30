@@ -1,6 +1,6 @@
 import { IModal } from 'components/Modal';
 import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
-import { Routes } from 'router/routes';
+import { Routes, StackRoutes } from 'router/routes';
 
 export type AppNavigation = NativeStackNavigationProp<NavigationParamList>;
 
@@ -21,4 +21,9 @@ export type NavigationParamList = {
   [Routes.cards]: undefined
   [Routes.paymentScreensTab]: undefined;
   [Routes.filterScreen]: undefined;
+  [Routes.searchScreen]: undefined;
+  [StackRoutes.KidsLists]: undefined;
+  [StackRoutes.MenLists]: undefined;
+  [StackRoutes.WomenLists]: undefined;
+  [StackRoutes.TeensLists]: undefined;
 };
