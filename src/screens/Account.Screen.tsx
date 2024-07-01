@@ -1,5 +1,5 @@
 import {View, StyleSheet, Alert, Linking} from 'react-native';
-import React, {useEffect, useMemo} from 'react';
+import React, {useEffect} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from 'components/Button';
 import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
@@ -41,11 +41,17 @@ export const AccountScreen = () => {
   };
 
   const codeScanner = useCodeScanner({
-    codeTypes: ['qr', 'ean-13'],
+    codeTypes: ['qr'],
     onCodeScanned: codes => {
-      console.log(`Scanned ${codes.length} codes!`);
+      console.log('Scanned QR code:', codes);
+      showScanAlert();
     },
   });
+  const showScanAlert = () => {
+    Alert.alert('QR Code Scanned!', 'QR code has been successfully scanned.', [
+      {text: 'OK', onPress: () => console.log('OK Pressed')},
+    ]);
+  };
 
   const requestCameraPermission = async () => {
     const permissionResult = await request(PERMISSIONS.IOS.CAMERA);
@@ -66,7 +72,12 @@ export const AccountScreen = () => {
           onPress={requestCameraPermission}
         />
         <Button text="Logout" onPress={logout} />
-        {/* <Camera isActive device={device} codeScanner={codeScanner} /> */}
+        {/* <Camera
+          style={StyleSheet.absoluteFill}
+          device={device}
+          isActive={true}
+          codeScanner={codeScanner}
+        /> */}
       </View>
     </View>
   );
