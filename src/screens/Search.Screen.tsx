@@ -95,8 +95,6 @@ const styles = StyleSheet.create({
   },
   flatListContent: {},
   renderItem: {
-    // borderWidth: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',

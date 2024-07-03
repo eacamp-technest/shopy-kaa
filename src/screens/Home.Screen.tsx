@@ -1,4 +1,12 @@
-import {StyleSheet, StatusBar, View, TextStyle, Text} from 'react-native';
+import {
+  StyleSheet,
+  StatusBar,
+  View,
+  TextStyle,
+  Text,
+  FlatList,
+  Pressable,
+} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
@@ -13,8 +21,9 @@ import {ChipPill} from 'components/ChipPill';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
-import {product} from 'mock/SearchBarMock';
+import {ICardProduct, product} from 'mock/SearchBarMock';
 import {ScrollView} from 'react-native-gesture-handler';
+import {Product} from 'components/Product';
 
 const InStore: React.FC = () => {
   return (
@@ -25,6 +34,16 @@ const InStore: React.FC = () => {
 };
 
 const AllStore: React.FC = () => {
+  const [data, setData] = useState<ICardProduct[]>();
+  const [numColumns, setNumColumns] = useState(2);
+  const [flatListKey, setFlatListKey] = useState('flatList-2');
+
+  const renderItem = () => {
+    return (
+      <Product price={13} title="Megan" url="sadasd" source={image.image} />
+    );
+  };
+
   return (
     <View>
       <View style={styles.table}>
@@ -78,8 +97,22 @@ const AllStore: React.FC = () => {
           style={styles.chip}
         />
       </ScrollView>
+      <View>
+        <FlatList
+          key={flatListKey}
+          data={data}
+          numColumns={numColumns}
+          contentInsetAdjustmentBehavior="automatic"
+          renderItem={renderItem}
+          ItemSeparatorComponent={() => <View style={{height: 24}} />}
+        />
+      </View>
     </View>
   );
+};
+
+const image = {
+  image: require('../assets/images/product1.png'),
 };
 
 const renderScene = SceneMap({
@@ -206,5 +239,10 @@ const styles = StyleSheet.create({
     ...TypographyStyles.RegularNoneRegular,
     backgroundColor: colors.primary.base,
     color: colors.white,
+  },
+  renderItem: {
+    alignItems: 'center',
+    flex: 1,
+    flexDirection: 'column',
   },
 });
