@@ -1,4 +1,11 @@
-import {Pressable, StyleSheet, Text, View} from 'react-native';
+import {
+  Pressable,
+  StyleProp,
+  StyleSheet,
+  Text,
+  View,
+  ViewStyle,
+} from 'react-native';
 import React, {useState} from 'react';
 import {normalize} from 'theme/metrics';
 import {SvgImage} from './SvgImage';
@@ -16,7 +23,8 @@ interface IChipPill {
   type: TType;
   onPress: () => void;
   size: TSize;
-  selected?: boolean; // Making selected optional
+  selected?: boolean;
+  style?: StyleProp<ViewStyle>;
 }
 
 export const ChipPill: React.FC<IChipPill> = ({
@@ -25,8 +33,9 @@ export const ChipPill: React.FC<IChipPill> = ({
   type,
   onPress,
   size,
-  selected = false, // Default value set to false
+  selected = false,
   iconPosition,
+  style,
 }) => {
   const [isSelected, setIsSelected] = useState(selected);
 
@@ -42,12 +51,13 @@ export const ChipPill: React.FC<IChipPill> = ({
         styles.chipPill,
         type === 'transparent' ? styles.outline : styles.solid,
         size === 'full width' ? styles.fullWidth : styles.autoLayout,
-        isSelected && styles.selected,
+        isSelected && [styles.selected, style],
       ]}>
       {icon && iconPosition === 'left' && (
         <SvgImage source={icon} style={styles.icon} />
       )}
-      <Text style={[styles.content, isSelected && styles.contentSelect]}>
+      <Text
+        style={[styles.content, isSelected && [styles.contentSelect, style]]}>
         {content}
       </Text>
       {icon && iconPosition === 'right' && (
