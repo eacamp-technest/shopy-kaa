@@ -36,16 +36,14 @@ const AllStore: React.FC = () => {
           right="See All"
         />
       </View>
-      <ScrollView
-        horizontal={true}
-        style={styles.chip}
-        showsHorizontalScrollIndicator={false}>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
         <ChipPill
           iconPosition="left"
           content="All"
           type="solid"
           size="auto layout"
           onPress={() => console.log('Chip pressed')}
+          style={styles.chip}
         />
         <ChipPill
           iconPosition="left"
@@ -53,6 +51,7 @@ const AllStore: React.FC = () => {
           type="solid"
           size="auto layout"
           onPress={() => console.log('Chip pressed')}
+          style={styles.chip}
         />
         <ChipPill
           iconPosition="left"
@@ -60,6 +59,7 @@ const AllStore: React.FC = () => {
           type="solid"
           size="auto layout"
           onPress={() => console.log('Chip pressed')}
+          style={styles.chip}
         />
         <ChipPill
           iconPosition="left"
@@ -67,6 +67,7 @@ const AllStore: React.FC = () => {
           type="solid"
           size="auto layout"
           onPress={() => console.log('Chip pressed')}
+          style={styles.chip}
         />
         <ChipPill
           iconPosition="left"
@@ -74,6 +75,7 @@ const AllStore: React.FC = () => {
           type="solid"
           size="auto layout"
           onPress={() => console.log('Chip pressed')}
+          style={styles.chip}
         />
       </ScrollView>
     </View>
@@ -200,5 +202,9 @@ const styles = StyleSheet.create({
   contentContainerStyle: {
     backgroundColor: colors.bdazzledBlue.darkest,
   },
-  chip: {},
+  chip: {
+    ...TypographyStyles.RegularNoneRegular,
+    backgroundColor: colors.primary.base,
+    color: colors.white,
+  },
 });
