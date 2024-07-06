@@ -1,13 +1,12 @@
+import React, {useCallback, useState} from 'react';
 import {
   StyleSheet,
   StatusBar,
   View,
   TextStyle,
   Text,
-  FlatList,
-  Pressable,
+  ScrollView,
 } from 'react-native';
-import React, {useCallback, useState} from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -22,28 +21,40 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {ICardProduct, product} from 'mock/SearchBarMock';
-import {ScrollView} from 'react-native-gesture-handler';
+import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
 
 const InStore: React.FC = () => {
   return (
     <View>
-      <Text> In Store</Text>
+      <Text>In Store</Text>
     </View>
   );
 };
 
-const AllStore: React.FC = () => {
-  const [data, setData] = useState<ICardProduct[]>();
-  const [numColumns, setNumColumns] = useState(2);
-  const [flatListKey, setFlatListKey] = useState('flatList-2');
+const ItemSeparatorComponent = () => {
+  return <View style={styles.flashVertical} />;
+};
 
-  const renderItem = () => {
-    return <Product price={13} title="Megan" url="s" source={image.image} />;
+const AllStore: React.FC = () => {
+  const [data, setData] = useState<ICardProduct[]>(product); // Ensure data is correctly assigned
+
+  const renderItem = ({item}: {item: ICardProduct}) => {
+    return (
+      <View style={styles.renderItem}>
+        <Product
+          source={item.image}
+          price={item.price}
+          key={item.id}
+          title={item.title}
+          url={item.url}
+        />
+      </View>
+    );
   };
 
   return (
-    <View>
+    <View style={styles.content}>
       <View style={styles.table}>
         <Table
           title3
@@ -53,65 +64,33 @@ const AllStore: React.FC = () => {
           right="See All"
         />
       </View>
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        <ChipPill
-          iconPosition="left"
-          content="All"
-          type="solid"
-          size="auto layout"
-          onPress={() => console.log('Chip pressed')}
-          style={styles.chip}
-        />
-        <ChipPill
-          iconPosition="left"
-          content="Shoes"
-          type="solid"
-          size="auto layout"
-          onPress={() => console.log('Chip pressed')}
-          style={styles.chip}
-        />
-        <ChipPill
-          iconPosition="left"
-          content="T-Shirt"
-          type="solid"
-          size="auto layout"
-          onPress={() => console.log('Chip pressed')}
-          style={styles.chip}
-        />
-        <ChipPill
-          iconPosition="left"
-          content="Tops"
-          type="solid"
-          size="auto layout"
-          onPress={() => console.log('Chip pressed')}
-          style={styles.chip}
-        />
-        <ChipPill
-          iconPosition="left"
-          content="Kids"
-          type="solid"
-          size="auto layout"
-          onPress={() => console.log('Chip pressed')}
-          style={styles.chip}
-        />
+      <ScrollView
+        style={{flexGrow: 0.06}}
+        horizontal
+        showsHorizontalScrollIndicator={false}>
+        {['All', 'Shoes', 'T-Shirt', 'Tops', 'Kids'].map(category => (
+          <ChipPill
+            key={category}
+            iconPosition="left"
+            content={category}
+            type="solid"
+            size="auto layout"
+            onPress={() => console.log(`${category} pressed`)}
+            style={styles.chip}
+          />
+        ))}
       </ScrollView>
-      <View>
-        <FlatList
-          key={flatListKey}
-          data={data}
-          numColumns={numColumns}
-          contentInsetAdjustmentBehavior="automatic"
-          renderItem={renderItem}
-          ItemSeparatorComponent={() => <View style={{height: 24}} />}
-        />
-        <Product price={12} title="NIKe" url="nike.com" source={image.image} />
-      </View>
+      <FlashList
+        data={data}
+        numColumns={2}
+        estimatedItemSize={200}
+        renderItem={renderItem}
+        keyExtractor={item => item.id.toString()}
+        contentContainerStyle={styles.listContent}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+      />
     </View>
   );
-};
-
-const image = {
-  image: require('../assets/images/product2.png'),
 };
 
 const renderScene = SceneMap({
@@ -166,12 +145,11 @@ export const HomeScreen: React.FC<
             })
           }
         />
-        <View />
       </View>
       <TabView
         navigationState={{index, routes}}
         renderScene={renderScene}
-        swipeEnabled={true}
+        swipeEnabled
         renderTabBar={props => (
           <TabBar
             {...props}
@@ -189,13 +167,13 @@ export const HomeScreen: React.FC<
             contentContainerStyle={styles.contentContainerStyle}
           />
         )}
-        animationEnabled={true}
+        animationEnabled
         onIndexChange={setIndex}
       />
-      <View style={styles.table}></View>
     </View>
   );
 };
+
 const vectors = {
   menu: {
     icon: require('assets/vectors/menu.svg'),
@@ -216,18 +194,15 @@ const vectors = {
 const styles = StyleSheet.create({
   root: {flex: 1},
   header: {
-    paddingHorizontal: 18,
+    paddingHorizontal: normalize('horizontal', 18),
     gap: 24,
     backgroundColor: colors.bdazzledBlue.darkest,
   },
   inner: {
     backgroundColor: colors.white,
   },
-  inputstyle: {
-    backgroundColor: colors.white,
-  },
   table: {
-    paddingHorizontal: 24,
+    paddingHorizontal: normalize('horizontal', 24),
     height: normalize('height', 64),
     justifyContent: 'center',
   },
@@ -243,5 +218,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
+  },
+  content: {
+    flex: 1,
+  },
+  listContent: {},
+  flashVertical: {
+    height: normalize('height', 24),
   },
 });
