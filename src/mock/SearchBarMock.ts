@@ -1,8 +1,10 @@
+import {ImageSourcePropType} from 'react-native';
+
 export interface ICardProduct {
   id: number;
   title: string;
   price: number;
-  image: NodeRequire;
+  image: ImageSourcePropType | undefined;
   url: string;
 }
 

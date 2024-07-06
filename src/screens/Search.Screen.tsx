@@ -15,6 +15,8 @@ import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
 import {TypographyStyles} from 'theme/typography';
 import {Product} from 'components/Product';
+import {FlashList} from '@shopify/flash-list';
+import {normalize} from 'theme/metrics';
 
 export interface ICardProduct {
   id: number;
@@ -23,14 +25,15 @@ export interface ICardProduct {
   image: any;
   url: string;
 }
+const ItemSeparatorComponent = () => {
+  return <View style={styles.flashVertical} />;
+};
 
 export const SearchScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.search>
 > = ({route, navigation}) => {
   const {items, onItemPress, ...props} = route.params;
   const [data, setData] = useState<ICardProduct[]>(items ?? []);
-  const [numColumns, setNumColumns] = useState(2);
-  const [flatListKey, setFlatListKey] = useState('flatList-2');
 
   const onChangeText = useCallback(
     (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -46,20 +49,19 @@ export const SearchScreen: React.FC<
   const renderItem = useCallback(
     ({item}: {item: ICardProduct}) => {
       return (
-        <Pressable
-          style={styles.renderItem}
-          onPress={() => {
-            onItemPress?.(item);
-            navigation.pop();
-          }}>
+        <View style={styles.renderItem}>
           <Product
             source={item.image}
             price={item.price}
             key={item.id}
             title={item.title}
             url={item.url}
+            onPress={() => {
+              onItemPress?.(item);
+              navigation.pop();
+            }}
           />
-        </Pressable>
+        </View>
       );
     },
     [onItemPress, navigation],
@@ -82,14 +84,15 @@ export const SearchScreen: React.FC<
 
   return (
     <View style={styles.root}>
-      <FlatList
-        key={flatListKey}
+      <FlashList
         data={data}
-        numColumns={numColumns}
-        contentInsetAdjustmentBehavior="automatic"
-        contentContainerStyle={styles.flatListContent}
         renderItem={renderItem}
-        ItemSeparatorComponent={() => <View style={{height: 24}} />}
+        estimatedItemSize={50}
+        numColumns={2}
+        showsVerticalScrollIndicator={false}
+        contentInsetAdjustmentBehavior={'automatic'}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+        contentContainerStyle={styles.contentContainerStyle}
       />
     </View>
   );
@@ -104,5 +107,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
+  },
+  contentContainerStyle: {
+    paddingVertical: normalize('vertical', 20),
+  },
+  flashVertical: {
+    height: normalize('height', 24),
   },
 });
