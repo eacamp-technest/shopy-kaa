@@ -5,10 +5,8 @@ import {Category} from 'components/specific/Category';
 import {teens, woman} from 'mocks/category-lists';
 import React from 'react';
 import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {StackRoutes} from 'router/routes';
 import {colors} from 'theme/colors';
-import {normalize} from 'theme/metrics';
 import {NavigationParamList} from 'types/navigation.types';
 
 export const TeensListsScreen: React.FC<
@@ -31,7 +29,6 @@ export const TeensListsScreen: React.FC<
       <View style={Styles.test}>
         <View style={Styles.header}>
           <Header
-            leftActionColor={colors.white}
             titleColor={colors.white}
             leftActionType="icon"
             onLeftPress={navigation.goBack}

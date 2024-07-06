@@ -32,7 +32,6 @@ export const WomenListsScreen: React.FC<
       <View style={Styles.test}>
         <View style={Styles.header}>
           <Header
-            leftActionColor={colors.white}
             titleColor={colors.white}
             leftActionType="icon"
             onLeftPress={navigation.goBack}
