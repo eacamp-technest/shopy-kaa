@@ -39,9 +39,7 @@ const AllStore: React.FC = () => {
   const [flatListKey, setFlatListKey] = useState('flatList-2');
 
   const renderItem = () => {
-    return (
-      <Product price={13} title="Megan" url="sadasd" source={image.image} />
-    );
+    return <Product price={13} title="Megan" url="s" source={image.image} />;
   };
 
   return (
@@ -106,13 +104,14 @@ const AllStore: React.FC = () => {
           renderItem={renderItem}
           ItemSeparatorComponent={() => <View style={{height: 24}} />}
         />
+        <Product price={12} title="NIKe" url="nike.com" source={image.image} />
       </View>
     </View>
   );
 };
 
 const image = {
-  image: require('../assets/images/product1.png'),
+  image: require('../assets/images/product2.png'),
 };
 
 const renderScene = SceneMap({
