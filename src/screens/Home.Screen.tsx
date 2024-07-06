@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
   },
   inner: {
     backgroundColor: colors.white,
+    marginBottom: normalize('width', 24),
   },
   table: {
     paddingHorizontal: normalize('horizontal', 24),
