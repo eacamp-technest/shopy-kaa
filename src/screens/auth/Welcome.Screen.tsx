@@ -1,4 +1,4 @@
-import {View, Text, StyleSheet, FlatList, Image} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Image, LogBox} from 'react-native';
 import React from 'react';
 import {CommonStyles} from 'theme/common.styles';
 import {screenHeight, screenWidth, windowWidth} from 'theme/consts.styles';
@@ -11,7 +11,8 @@ import {normalize, padding} from 'theme/metrics';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
-import {Header} from 'components/Header';
+
+LogBox.ignoreAllLogs();
 
 export const WelcomeScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.welcome>
