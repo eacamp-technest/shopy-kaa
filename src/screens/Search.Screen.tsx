@@ -14,12 +14,14 @@ import {Routes} from 'router/routes';
 import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
 import {TypographyStyles} from 'theme/typography';
+import {Product} from 'components/Product';
 
 export interface ICardProduct {
   id: number;
   title: string;
   price: number;
   image: any;
+  url: string;
 }
 
 export const SearchScreen: React.FC<
@@ -50,9 +52,13 @@ export const SearchScreen: React.FC<
             onItemPress?.(item);
             navigation.pop();
           }}>
-          <Image source={item.image} style={styles.image} />
-          <Text style={styles.text}>{item.title}</Text>
-          <Text style={styles.textPrice}>{item.price}$</Text>
+          <Product
+            source={item.image}
+            price={item.price}
+            key={item.id}
+            title={item.title}
+            url={item.url}
+          />
         </Pressable>
       );
     },
@@ -95,21 +101,8 @@ const styles = StyleSheet.create({
   },
   flatListContent: {},
   renderItem: {
-    // borderWidth: 1,
-    // justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
-  },
-  image: {
-    width: 156,
-    height: 141,
-    borderRadius: 8,
-  },
-  text: {
-    ...TypographyStyles.RegularNoneSemiBold,
-  },
-  textPrice: {
-    ...TypographyStyles.TinyNoneBold,
   },
 });
