@@ -1,4 +1,4 @@
-import {View, StyleSheet, Alert, Linking} from 'react-native';
+import {View, StyleSheet, Alert, Linking, Pressable} from 'react-native';
 import React, {useEffect} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from 'components/Button';
@@ -10,6 +10,10 @@ import {
   useCameraDevice,
   useCodeScanner,
 } from 'react-native-vision-camera';
+import {colors} from 'theme/colors';
+import {Table} from 'components/Table';
+import {normalize} from 'theme/metrics';
+import {FlatList} from 'react-native-gesture-handler';
 
 export const AccountScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -62,15 +66,43 @@ export const AccountScreen = () => {
     checkCameraPermission();
   }, []);
 
+  const tableData = [
+    {id: '1', content: 'Profile 1', leftIcon: vectors.avatar},
+    {id: '2', content: 'Profile 2', leftIcon: vectors.avatar},
+  ];
+
+  const renderTableItem = ({item}: any) => (
+    <Table
+      content={item.content}
+      leftType="icon"
+      left={item.leftIcon}
+      rightType="icon"
+      right={vectors.arrow_right}
+    />
+  );
   return (
     <View style={[styles.root, {paddingTop: top}]}>
-      <Header title="Settings" type="standard" />
+      <Header
+        type="standard"
+        title="Settings"
+        leftActionType="icon"
+        left={vectors.arrow_left}
+      />
       <View style={styles.main}>
+        <Pressable>
+          <FlatList
+            data={tableData}
+            renderItem={renderTableItem}
+            keyExtractor={item => item.id}
+            ItemSeparatorComponent={() => <View />}
+          />
+        </Pressable>
         <Button
           text="Ask permission: Camera"
           size="small"
           onPress={requestCameraPermission}
         />
+
         <Button text="Logout" onPress={logout} />
         {/* <Camera
           style={StyleSheet.absoluteFill}
@@ -83,10 +115,21 @@ export const AccountScreen = () => {
   );
 };
 
+const vectors = {
+  arrow_left: {
+    icon: require('assets/vectors/arrow_left.svg'),
+    color: colors.ink.darkest,
+    width: 24,
+    height: 24,
+  },
+  avatar: require('assets/vectors/avatar.svg'),
+  arrow_right: require('assets/vectors/arrow_right.svg'),
+};
+
 const styles = StyleSheet.create({
   root: {
-    borderWidth: 1,
     flex: 1,
+    paddingHorizontal: normalize('horizontal', 24),
   },
   main: {
     flex: 1,
