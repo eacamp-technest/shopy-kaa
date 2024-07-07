@@ -20,3 +20,10 @@ export enum Routes {
   account = 'account',
   search = 'search',
 }
+
+export enum StackRoutes {
+  WomenLists = 'WomenLists',
+  MenLists = 'MenLists',
+  KidsLists = 'KidsLists',
+  TeensLists = 'TeensLists',
+}

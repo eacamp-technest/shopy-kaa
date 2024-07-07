@@ -104,7 +104,7 @@ const AllStore: React.FC = () => {
           renderItem={renderItem}
           ItemSeparatorComponent={() => <View style={{height: 24}} />}
         />
-        <Product price={12} title="NIKe" url="nike.com" source={image.image} />
+        <Product price={12} title="NIKE" url="nike.com" source={image.image} />
       </View>
     </View>
   );

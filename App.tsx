@@ -6,7 +6,7 @@
  */
 
 import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {LogBox, StatusBar, StyleSheet, View} from 'react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {colors} from './src/theme/colors';
 import Router from 'router/Router';
@@ -14,6 +14,7 @@ import {Toast} from 'components/Toast';
 import {gestureHandlerRootHOC} from 'react-native-gesture-handler';
 
 function App(): React.JSX.Element {
+  LogBox.ignoreAllLogs();
   return (
     <SafeAreaProvider>
       <Toast />

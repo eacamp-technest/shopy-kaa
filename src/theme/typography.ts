@@ -1,7 +1,7 @@
-import {StyleSheet, TextStyle} from 'react-native';
-import {colors} from './colors';
-import {normalize} from './metrics';
-import {isIos} from 'constants/common.consts';
+import { StyleSheet, TextStyle } from 'react-native';
+import { colors } from './colors';
+import { normalize } from './metrics';
+import { isIos } from 'constants/common.consts';
 
 export const bebasFonts = {
   700: isIos ? 'BebasNeue' : 'BebasNeue Bold',
@@ -129,4 +129,9 @@ export const TypographyStyles = StyleSheet.create({
     fontFamily: montserratFonts[700],
     ...commonFontStyling,
   },
+  SmallTightRegular: {
+    fontSize: fontSize14,
+    fontFamily: montserratFonts[400],
+    ...commonFontStyling,
+  }
 });
