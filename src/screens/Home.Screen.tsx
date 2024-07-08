@@ -37,7 +37,7 @@ const ItemSeparatorComponent = () => {
 };
 
 const AllStore: React.FC = () => {
-  const [data, setData] = useState<ICardProduct[]>(product); // Ensure data is correctly assigned
+  const [data, setData] = useState<ICardProduct[]>(product);
 
   const renderItem = ({item}: {item: ICardProduct}) => {
     return (
