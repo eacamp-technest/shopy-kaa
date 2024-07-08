@@ -6,6 +6,7 @@ import {colors} from 'theme/colors';
 import {Header} from 'components/Header';
 import {Avatar} from 'components/Avatar';
 import {Table} from 'components/Table';
+import {MainTab} from 'components/MainTab';
 
 export const ProfileScreen = () => {
   const {top} = useSafeAreaInsets();
@@ -27,14 +28,32 @@ export const ProfileScreen = () => {
             image={require('assets/images/profile_photo.png')}
           />
         </View>
-        <View>
-          <Table
-            content="Email"
-            caption="brooklyn@nucleus.co"
-            leftType="icon"
-            left
-          />
-        </View>
+      </View>
+      <View style={styles.bottom}>
+        <MainTab
+          title="Email"
+          caption="brooklyn@studioalva.co"
+          leftIcon={vectors.mail}
+          rightIcon={vectors.arrow_right}
+        />
+        <MainTab
+          title="BirthDay"
+          caption="05-01-2005"
+          leftIcon={vectors.calendar}
+          rightIcon={vectors.arrow_right}
+        />
+        <MainTab
+          title="Phone Number"
+          caption="+994-51-695-1536"
+          leftIcon={vectors.phone}
+          rightIcon={vectors.arrow_right}
+        />
+        <MainTab
+          title="Change Password"
+          caption=" **********"
+          leftIcon={vectors.lock}
+          rightIcon={vectors.arrow_right}
+        />
       </View>
     </View>
   );
@@ -47,6 +66,11 @@ const vectors = {
     width: 24,
     height: 24,
   },
+  mail: require('assets/vectors/mail.svg'),
+  calendar: require('assets/vectors/calendar.svg'),
+  phone: require('assets/vectors/phone.svg'),
+  lock: require('assets/vectors/lock.svg'),
+  arrow_right: require('assets/vectors/arrow_right.svg'),
 };
 
 const styles = StyleSheet.create({
@@ -62,5 +86,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: normalize('height', 24),
     gap: 24,
+  },
+  bottom: {
+    paddingHorizontal: normalize('horizontal', 18),
   },
 });

@@ -80,6 +80,7 @@ const AllStore: React.FC = () => {
           />
         ))}
       </ScrollView>
+      <FlashList
         data={data}
         numColumns={2}
         estimatedItemSize={200}
