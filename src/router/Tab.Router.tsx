@@ -7,6 +7,7 @@ import {BookmarksScreen} from 'screens/Bookmarks.Screen';
 import {NotificationScreen} from 'screens/Notification.Screen';
 import {AccountScreen} from 'screens/Account.Screen';
 import {tabBarOption, tabBarScreenOptions} from 'configs/navigation.configs';
+import {ProfileScreen} from 'screens/settings/Profile.Screen';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,8 +30,8 @@ export const TabRouter: React.FC = () => {
         options={tabBarOption[Routes.bookmarks]}
       />
       <Tab.Screen
-        name={Routes.notification}
-        component={NotificationScreen}
+        name={Routes.profile}
+        component={ProfileScreen}
         options={tabBarOption[Routes.notification]}
       />
       <Tab.Screen
