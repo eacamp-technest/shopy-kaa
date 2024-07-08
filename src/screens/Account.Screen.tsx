@@ -1,4 +1,11 @@
-import {View, StyleSheet, Alert, Linking, Pressable} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Alert,
+  Linking,
+  Pressable,
+  TouchableOpacity,
+} from 'react-native';
 import React, {useEffect} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from 'components/Button';
@@ -107,7 +114,7 @@ export const AccountScreen = () => {
   };
 
   const renderTableItem = ({item}: any) => (
-    <Pressable style={{}} onPress={() => handlePress(item.content)}>
+    <TouchableOpacity style={{}} onPress={() => handlePress(item.content)}>
       <Table
         content={item.content}
         leftType="icon"
@@ -115,7 +122,7 @@ export const AccountScreen = () => {
         rightType="icon"
         right={vectors.arrow_right}
       />
-    </Pressable>
+    </TouchableOpacity>
   );
 
   return (
@@ -157,9 +164,7 @@ const vectors = {
     width: 24,
     height: 24,
   },
-
   ring: require('assets/vectors/ring.svg'),
-
   avatar: require('assets/vectors/avatar.svg'),
   arrow_right: require('assets/vectors/arrow_right.svg'),
   cart: require('assets/vectors/cart.svg'),
