@@ -2,7 +2,7 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Header} from 'components/Header';
 import {IMainTab, MainTab} from 'components/MainTab';
 import {Category} from 'components/specific/Category';
-import { SafeTopProvider } from 'containers/SafeTopProvider';
+import {SafeTopProvider} from 'containers/SafeTopProvider';
 import {man} from 'mock/category-lists';
 import React from 'react';
 import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
@@ -27,9 +27,11 @@ export const MenListsScreen: React.FC<
     return <MainTab key={index} title={title} rightIcon={leftIcon} />;
   };
   return (
-    <View>
+    <SafeTopProvider
+      content={'light-content'}
+      backColorSafeProvider={colors.blue.base}
+      statusBarColorAndroid={colors.blue.base}>
       <StatusBar barStyle={'light-content'}></StatusBar>
-      <View style={Styles.test}>
         <View style={Styles.header}>
           <Header
             titleColor={colors.white}
@@ -41,7 +43,6 @@ export const MenListsScreen: React.FC<
         <View style={Styles.image}>
           <Category image={manUrl}></Category>
         </View>
-      </View>
 
       <ScrollView
         style={Styles.main}
@@ -53,14 +54,14 @@ export const MenListsScreen: React.FC<
           showsHorizontalScrollIndicator={false}
         />
       </ScrollView>
-    </View>
+    </SafeTopProvider>
   );
 };
 
 const vectors = {
   arrow_left: {
     icon: require('../../assets/vectors/arrow_left.svg'),
-    color: colors.ink.darkest,
+    color: colors.white,
     width: 24,
     height: 24,
   },
@@ -69,23 +70,14 @@ const vectors = {
 const Styles = StyleSheet.create({
   main: {
     paddingTop: normalize('vertical', 16),
+    paddingHorizontal: normalize('horizontal', 24),
     backgroundColor: colors.white,
   },
   header: {
-    //
+    paddingHorizontal: normalize('horizontal', 18),
   },
   contentContainerStyle: {
     paddingBottom: normalize('vertical', 50),
-  },
-  test: {
-    borderWidth: 1,
-    borderColor: colors.blue.base,
-    backgroundColor: colors.blue.base,
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    width: 375,
-    height: 282,
   },
   image: {
     width: 281,
