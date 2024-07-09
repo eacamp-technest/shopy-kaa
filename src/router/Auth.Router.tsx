@@ -1,25 +1,21 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Routes, StackRoutes } from './routes';
-import { NavigationParamList } from 'types/navigation.types';
-import { CommonStyles } from 'theme/common.styles';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import {Routes, StackRoutes} from './routes';
+import {NavigationParamList} from 'types/navigation.types';
+import {CommonStyles} from 'theme/common.styles';
 import {
   authStackScreenOption,
   defaultScreenOptions,
   modalStackScreenOption,
 } from 'configs/navigation.configs';
-import { WelcomeScreen } from 'screens/auth/Welcome.Screen';
-import { LoginScreen } from 'screens/auth/Login.Screen';
-import { RegisterScreen } from 'screens/auth/Register.Screen';
-import { VerificationScreen } from 'screens/auth/Verification.Screen';
-import { OtpScreen } from 'screens/auth/Otp.Screen';
-import { ModalScreen } from 'screens/Modal.Screen';
-import { PaymentScreensTab } from 'screens/payments';
-import { KidsListsScreen } from 'screens/category-lists/KidsLists.Screen';
-import { WomenListsScreen } from 'screens/category-lists/WomenLists.Screen';
-import { MenListsScreen } from 'screens/category-lists/MenLists.Screen';
-import { TeensListsScreen } from 'screens/category-lists/TeensLists.Screen';
+import {WelcomeScreen} from 'screens/auth/Welcome.Screen';
+import {LoginScreen} from 'screens/auth/Login.Screen';
+import {RegisterScreen} from 'screens/auth/Register.Screen';
+import {VerificationScreen} from 'screens/auth/Verification.Screen';
+import {OtpScreen} from 'screens/auth/Otp.Screen';
+import {ModalScreen} from 'screens/Modal.Screen';
+import {PaymentScreensTab} from 'screens/payments';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -28,8 +24,7 @@ export const AuthRouter = () => {
     <SafeAreaView style={CommonStyles.flex} edges={['top']}>
       <AuthStack.Navigator
         screenOptions={authStackScreenOption}
-        initialRouteName={Routes.welcome}
-      >
+        initialRouteName={Routes.welcome}>
         <AuthStack.Screen
           name={Routes.welcome}
           component={WelcomeScreen}
@@ -50,22 +45,6 @@ export const AuthRouter = () => {
           name={Routes.modal}
           component={ModalScreen}
           options={modalStackScreenOption}
-        />
-        <AuthStack.Screen
-          name={StackRoutes.WomenLists}
-          component={WomenListsScreen}
-        />
-        <AuthStack.Screen
-          name={StackRoutes.MenLists}
-          component={MenListsScreen}
-        />
-        <AuthStack.Screen
-          name={StackRoutes.KidsLists}
-          component={KidsListsScreen}
-        />
-        <AuthStack.Screen
-          name={StackRoutes.TeensLists}
-          component={TeensListsScreen}
         />
       </AuthStack.Navigator>
     </SafeAreaView>
