@@ -32,9 +32,9 @@ export type NavigationParamList = {
     onItemPress?: (item: ICardProduct) => void;
     headerTitle?: string;
   };
-  [StackRoutes.KidsLists]: undefined;
-  [StackRoutes.MenLists]: undefined;
-  [StackRoutes.WomenLists]: undefined;
-  [StackRoutes.TeensLists]: undefined;
+  [StackRoutes.kidslists]: undefined;
+  [StackRoutes.menlist]: undefined;
+  [StackRoutes.womenlists]: undefined;
+  [StackRoutes.teenslist]: undefined;
   [StackRoutes.profile]: undefined;
 };

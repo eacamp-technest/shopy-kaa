@@ -1,5 +1,12 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View, Image, Text} from 'react-native';
+import {
+  StyleSheet,
+  TouchableOpacity,
+  View,
+  Image,
+  Text,
+  Pressable,
+} from 'react-native';
 import {colors} from 'theme/colors';
 import {TypographyStyles} from 'theme/typography';
 
@@ -17,12 +24,12 @@ export const Category: React.FC<ICategory> = ({
   onPress,
 }) => {
   return (
-    <TouchableOpacity style={Styles.root} onPress={onPress}>
+    <Pressable style={Styles.root} onPress={onPress}>
       <View style={[Styles.card, {backgroundColor}]}>
         <Text style={Styles.text}>{category}</Text>
         {image && <Image source={{uri: image}} style={Styles.image} />}
       </View>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 

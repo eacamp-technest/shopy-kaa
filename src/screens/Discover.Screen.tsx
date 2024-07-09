@@ -15,16 +15,16 @@ export const DiscoverScreen: React.FC<
   const handlePress = (category: string) => {
     switch (category) {
       case 'WOMEN':
-        navigation.navigate(StackRoutes.WomenLists);
+        navigation.navigate(StackRoutes.womenlists);
         break;
       case 'MEN':
-        navigation.navigate(StackRoutes.MenLists);
+        navigation.navigate(StackRoutes.menlist);
         break;
       case 'KIDS':
-        navigation.navigate(StackRoutes.KidsLists);
+        navigation.navigate(StackRoutes.kidslists);
         break;
       case 'TEENS':
-        navigation.navigate(StackRoutes.TeensLists);
+        navigation.navigate(StackRoutes.teenslist);
         break;
       default:
         break;

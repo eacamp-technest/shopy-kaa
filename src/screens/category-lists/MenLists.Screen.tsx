@@ -12,7 +12,7 @@ import {normalize} from 'theme/metrics';
 import {NavigationParamList} from 'types/navigation.types';
 
 export const MenListsScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, StackRoutes.MenLists>
+  NativeStackScreenProps<NavigationParamList, StackRoutes.menlist>
 > = ({navigation}) => {
   const manUrl =
     'https://s3-alpha-sig.figma.com/img/e45f/4e28/37d548b6be37eb9c44fad3be45b5c88d?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=MtScMB61~FBDO2sWZsAhOX2Q-zxXM4-oDfxuBFwhaP3v3HF13vklAbzoT96KsTngVZUA4o5~qvwswFA54LvyIJKLpc9CdgNL8t2h1AjRvUkOHll1LuTwGz6O9LF5arDvU2vgZiwov~d5CBHl2HcpSJDgtJ1wLc8qSiC3kPCCdp-EMqqspaI-HuIaAnoHq7d7Jok4Ohvfm9KpP64AhGvMy58dHLkNxrodIlhXhBGDpEAuWjgGjZNSJ0yNsLrKtwKdm3G2sO5EPKgc71YViO3M5fKZs6dR2PtDC6z8fJ~i0Y5gcZ2-TUnCpspWCqCw34og8wLhSqMTY-dZjs1ouFp39g__';
@@ -32,17 +32,17 @@ export const MenListsScreen: React.FC<
       backColorSafeProvider={colors.blue.base}
       statusBarColorAndroid={colors.blue.base}>
       <StatusBar barStyle={'light-content'}></StatusBar>
-        <View style={Styles.header}>
-          <Header
-            titleColor={colors.white}
-            leftActionType="icon"
-            onLeftPress={navigation.goBack}
-            left={vectors.arrow_left}
-            title="MEN"></Header>
-        </View>
-        <View style={Styles.image}>
-          <Category image={manUrl}></Category>
-        </View>
+      <View style={Styles.header}>
+        <Header
+          titleColor={colors.white}
+          leftActionType="icon"
+          onLeftPress={navigation.goBack}
+          left={vectors.arrow_left}
+          title="MEN"></Header>
+      </View>
+      <View style={Styles.image}>
+        <Category image={manUrl}></Category>
+      </View>
 
       <ScrollView
         style={Styles.main}

@@ -9,6 +9,10 @@ import {
 } from 'configs/navigation.configs';
 import {SearchScreen} from 'screens/Search.Screen';
 import {ProfileScreen} from 'screens/settings/Profile.Screen';
+import {WomenListsScreen} from 'screens/category-lists/WomenLists.Screen';
+import {MenListsScreen} from 'screens/category-lists/MenLists.Screen';
+import {KidsListsScreen} from 'screens/category-lists/KidsLists.Screen';
+import {TeensListsScreen} from 'screens/category-lists/TeensLists.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -24,6 +28,19 @@ export const MainRouter = () => {
         options={searchScreenOptions}
       />
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
+      <MainStack.Screen
+        name={StackRoutes.womenlists}
+        component={WomenListsScreen}
+      />
+      <MainStack.Screen name={StackRoutes.menlist} component={MenListsScreen} />
+      <MainStack.Screen
+        name={StackRoutes.kidslists}
+        component={KidsListsScreen}
+      />
+      <MainStack.Screen
+        name={StackRoutes.teenslist}
+        component={TeensListsScreen}
+      />
     </MainStack.Navigator>
   );
 };
