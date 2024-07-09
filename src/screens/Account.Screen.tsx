@@ -96,9 +96,9 @@ export const AccountScreen: React.FC<
       case 'Profile':
         navigation.navigate(StackRoutes.profile);
         break;
-      // case 'Order':
-      //   navigation.navigate('Order');
-      //   break;
+      case 'Order':
+        navigation.navigate(StackRoutes.order);
+        break;
       // case 'Address':
       //   navigation.navigate('Address');
       //   break;
@@ -141,6 +141,7 @@ export const AccountScreen: React.FC<
         title="Settings"
         leftActionType="icon"
         left={vectors.arrow_left}
+        onLeftPress={navigation.goBack}
       />
       <View style={styles.main}>
         <FlatList

@@ -27,4 +27,5 @@ export enum StackRoutes {
   kidslists = 'kidslists',
   teenslist = 'teenslist',
   profile = 'profile',
+  order = 'order',
 }

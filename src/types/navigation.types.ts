@@ -37,4 +37,5 @@ export type NavigationParamList = {
   [StackRoutes.womenlists]: undefined;
   [StackRoutes.teenslist]: undefined;
   [StackRoutes.profile]: undefined;
+  [StackRoutes.order]: undefined;
 };
