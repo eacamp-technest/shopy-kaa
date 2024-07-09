@@ -1,7 +1,7 @@
-import { IModal } from 'components/Modal';
-import { ICardProduct } from 'mock/SearchBarMock';
-import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
-import { Routes, StackRoutes } from 'router/routes';
+import {IModal} from 'components/Modal';
+import {ICardProduct} from 'mock/SearchBarMock';
+import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
+import {Routes, StackRoutes} from 'router/routes';
 
 export type AppNavigation = NativeStackNavigationProp<NavigationParamList>;
 
@@ -36,4 +36,5 @@ export type NavigationParamList = {
   [StackRoutes.MenLists]: undefined;
   [StackRoutes.WomenLists]: undefined;
   [StackRoutes.TeensLists]: undefined;
+  [StackRoutes.profile]: undefined;
 };

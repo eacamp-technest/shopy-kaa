@@ -7,10 +7,15 @@ import {Header} from 'components/Header';
 import {Avatar} from 'components/Avatar';
 import {Table} from 'components/Table';
 import {MainTab} from 'components/MainTab';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationParamList} from 'types/navigation.types';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Routes, StackRoutes} from 'router/routes';
 
-export const ProfileScreen = () => {
+export const ProfileScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, StackRoutes.profile>
+> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
-
   return (
     <View style={styles.root}>
       <View style={[styles.header, {paddingTop: top}]}>
@@ -19,6 +24,7 @@ export const ProfileScreen = () => {
           titleColor={colors.bdazzledBlue.base}
           leftActionType="icon"
           left={vectors.arrow_left}
+          onLeftPress={navigation.goBack}
         />
         <View style={styles.avatarContainer}>
           <Avatar

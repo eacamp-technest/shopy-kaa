@@ -21,12 +21,16 @@ import {colors} from 'theme/colors';
 import {Table} from 'components/Table';
 import {normalize} from 'theme/metrics';
 import {FlatList} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
+import {StackRouter, useNavigation} from '@react-navigation/native';
+import {Routes, StackRoutes} from 'router/routes';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from 'types/navigation.types';
 
-export const AccountScreen = () => {
+export const AccountScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, Routes.account>
+> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   const {logout} = useUserStoreActions();
-  const navigation = useNavigation();
   const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
     'back',
   );
@@ -82,14 +86,16 @@ export const AccountScreen = () => {
     {id: '4', content: 'Payment', leftIcon: vectors.card},
     {id: '5', content: 'Notification', leftIcon: vectors.ring},
     {id: '6', content: 'About', leftIcon: vectors.about},
-    {id: '7', content: 'Logout', leftIcon: vectors.logout},
+    {id: '7', content: 'Permission', leftIcon: vectors.permission},
+    {id: '8', content: 'Camera', leftIcon: vectors.camera},
+    {id: '9', content: 'Logout', leftIcon: vectors.logout},
   ];
 
   const handlePress = (content: string) => {
     switch (content) {
-      // case 'Profile':
-      //   navigation.navigate('Profile');
-      //   break;
+      case 'Profile':
+        navigation.navigate(StackRoutes.profile);
+        break;
       // case 'Order':
       //   navigation.navigate('Order');
       //   break;
@@ -114,7 +120,10 @@ export const AccountScreen = () => {
   };
 
   const renderTableItem = ({item}: any) => (
-    <TouchableOpacity style={{}} onPress={() => handlePress(item.content)}>
+    <Pressable
+      hitSlop={12}
+      style={({pressed}) => [{opacity: pressed ? 0.8 : 1.0}]}
+      onPress={() => handlePress(item.content)}>
       <Table
         content={item.content}
         leftType="icon"
@@ -122,7 +131,7 @@ export const AccountScreen = () => {
         rightType="icon"
         right={vectors.arrow_right}
       />
-    </TouchableOpacity>
+    </Pressable>
   );
 
   return (
@@ -172,6 +181,8 @@ const vectors = {
   card: require('assets/vectors/card.svg'),
   logout: require('assets/vectors/logout.svg'),
   about: require('assets/vectors/about.svg'),
+  permission: require('assets/vectors/permission.svg'),
+  camera: require('assets/vectors/camera.svg'),
 };
 
 const styles = StyleSheet.create({
