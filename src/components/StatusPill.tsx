@@ -3,7 +3,7 @@ import React from 'react';
 import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 
-type TStatus = 'Success' | 'Alert' | 'Warning' | 'Info';
+export type TStatus = 'Success' | 'Alert' | 'Warning' | 'Info';
 
 interface IStatusPill {
   type: TStatus;
