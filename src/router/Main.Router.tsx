@@ -1,5 +1,5 @@
 import React from 'react';
-import {Routes} from './routes';
+import {Routes, StackRoutes} from './routes';
 import {NavigationParamList} from 'types/navigation.types';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {TabRouter} from './Tab.Router';
@@ -8,6 +8,7 @@ import {
   searchScreenOptions,
 } from 'configs/navigation.configs';
 import {SearchScreen} from 'screens/Search.Screen';
+import {ProfileScreen} from 'screens/settings/Profile.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -22,6 +23,7 @@ export const MainRouter = () => {
         component={SearchScreen}
         options={searchScreenOptions}
       />
+      <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
     </MainStack.Navigator>
   );
 };

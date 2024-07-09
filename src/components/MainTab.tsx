@@ -31,7 +31,10 @@ export const MainTab: React.FC<IMainTab> = ({
   style,
 }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={[styles.root, style]}>
+    <TouchableOpacity
+      activeOpacity={0.8}
+      onPress={onPress}
+      style={[styles.root, style]}>
       <View style={styles.main}>
         <SvgImage color={colors.primary.base} source={leftIcon} />
         <View style={styles.titleContainer}>
