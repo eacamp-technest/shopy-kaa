@@ -10,26 +10,78 @@ import {colors} from 'theme/colors';
 import {Header} from 'components/Header';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
+import {Order} from 'components/Order';
 
 const Processing: React.FC = () => {
   return (
-    <View>
-      <Text>Processing</Text>
+    <View style={styles.tabview}>
+      <Order
+        date="05-01=2020"
+        orderNumber="12412341"
+        quantity={5}
+        totalAmount="231"
+        statusContent="Processing"
+        statusType="Info"
+        trackingNumber="A3N2DA2ASFEW"
+      />
+      <Order
+        date="05-01=2020"
+        orderNumber="12412341"
+        quantity={5}
+        totalAmount="231"
+        statusContent="Processing"
+        statusType="Info"
+        trackingNumber="A3N2DA2ASFEW"
+      />
     </View>
   );
 };
 
 const Delivered: React.FC = () => {
   return (
-    <View>
-      <Text>Processing</Text>
+    <View style={styles.tabview}>
+      <Order
+        date="05-01=2020"
+        orderNumber="12412341"
+        quantity={5}
+        totalAmount="231"
+        statusContent="Delivered"
+        statusType="Success"
+        trackingNumber="A3N2DA2ASFEW"
+      />
+      <Order
+        date="05-01=2020"
+        orderNumber="12412341"
+        quantity={5}
+        totalAmount="231"
+        statusContent="Delivered"
+        statusType="Success"
+        trackingNumber="A3N2DA2ASFEW"
+      />
     </View>
   );
 };
 const Cancelled: React.FC = () => {
   return (
-    <View>
-      <Text>Cancelled</Text>
+    <View style={styles.tabview}>
+      <Order
+        date="05-01=2020"
+        orderNumber="12412341"
+        quantity={5}
+        totalAmount="231"
+        statusContent="Cancelled"
+        statusType="Warning"
+        trackingNumber="A3N2DA2ASFEW"
+      />
+      <Order
+        date="05-01=2020"
+        orderNumber="12412341"
+        quantity={5}
+        totalAmount="231"
+        statusContent="Cancelled"
+        statusType="Warning"
+        trackingNumber="A3N2DA2ASFEW"
+      />
     </View>
   );
 };
@@ -123,5 +175,10 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     backgroundColor: colors.bdazzledBlue.darkest,
+  },
+  tabview: {
+    paddingHorizontal: normalize('horizontal', 24),
+    marginTop: normalize('height', 24),
+    gap: normalize('height', 24),
   },
 });
