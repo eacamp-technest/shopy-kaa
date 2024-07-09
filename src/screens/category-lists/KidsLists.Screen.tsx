@@ -12,7 +12,7 @@ import {normalize} from 'theme/metrics';
 import {NavigationParamList} from 'types/navigation.types';
 
 export const KidsListsScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, StackRoutes.KidsLists>
+  NativeStackScreenProps<NavigationParamList, StackRoutes.kidslists>
 > = ({navigation}) => {
   const kidUrl =
     'https://s3-alpha-sig.figma.com/img/ae83/1cb9/9e78b84d93743ce3b28ee66c2bb45e43?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=ZbASAZxFlvtcmJpekq5PvNz~JS1pa7WqC~8fJ3nXujtDk5WzcZdroAluXe92YxWfxymiSU2oijIseIYtu1jigoWzwkJ0e97iBn~V1K-pOcYk23LGKFaHZTvIgeTMyNER6TgKYcKQELhuHvCHDXhUMS8DLp1yFbsHcMUnm9e4GMPDNXcHBt~QzsJcp1jS19q9ZOAcSHceS9kmEf3gcMIL4~pb-wU5nQgWPBzXKV9r66hwu09dKNLIKMFzQ1vZviVkabgmUmUWwGLlSZcbrBcZ5aWBLiDeoI~TFBbJxFjti2MPTq9uTteK-UEZvNEEdkuq7yrqw~yogTBIfi0wEi4U0g__';

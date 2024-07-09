@@ -8,11 +8,11 @@ import React from 'react';
 import {FlatList, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {StackRoutes} from 'router/routes';
 import {colors} from 'theme/colors';
-import { normalize } from 'theme/metrics';
+import {normalize} from 'theme/metrics';
 import {NavigationParamList} from 'types/navigation.types';
 
 export const TeensListsScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, StackRoutes.TeensLists>
+  NativeStackScreenProps<NavigationParamList, StackRoutes.teenslist>
 > = ({navigation}) => {
   const teenUrl =
     'https://s3-alpha-sig.figma.com/img/f867/3d1f/bee9c92422b864f2689807a1bc747bc6?Expires=1721606400&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JfgLfzrR6y~wyA3RbP1gQj~F5tNTWbmJ2sqlDkpaCCkgQHr~k~HXKnvoD5Rv8r3DsCL2AJm9UqJdqzaWql~ROKctwcGMNeti3kJNyGD6tqnpxUnh0zpW9-1uZ2RkhAXxhFsEn1WKVslgf5mHimVtS70K02VeaAaFdaqFHi~h8BSD4ZESp4shB4m5IdWvPad5M1pd2mTeE-K0MkCcjuOWNty~0~2V0uDUcPUWExPVFc3KZsYSVvkz~GOGGMBLVLpQwcriCLsSUxWPItVtcaOqomCpUC8hx8BTzcp8u1uw0sVh7xbHD1dbThmJXVQ69ivolgcsebbKhpUhyDyEq~BRkA__';
@@ -72,7 +72,8 @@ const Styles = StyleSheet.create({
   main: {
     paddingTop: normalize('vertical', 16),
     paddingHorizontal: normalize('horizontal', 24),
-    backgroundColor: colors.white,  },
+    backgroundColor: colors.white,
+  },
   header: {
     paddingHorizontal: normalize('horizontal', 18),
   },

@@ -22,9 +22,9 @@ export enum Routes {
 }
 
 export enum StackRoutes {
-  WomenLists = 'WomenLists',
-  MenLists = 'MenLists',
-  KidsLists = 'KidsLists',
-  TeensLists = 'TeensLists',
+  womenlists = 'womenlists',
+  menlist = 'menlist',
+  kidslists = 'kidslists',
+  teenslist = 'teenslist',
   profile = 'profile',
 }

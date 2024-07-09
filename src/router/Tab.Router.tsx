@@ -17,35 +17,35 @@ import {TeensListsScreen} from 'screens/category-lists/TeensLists.Screen';
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-const DiscoverStackNavigator = () => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name={Routes.discover}
-      component={DiscoverScreen}
-      options={{headerShown: false}}
-    />
-    <Stack.Screen
-      name={StackRoutes.WomenLists}
-      component={WomenListsScreen}
-      options={{headerShown: false}}
-    />
-    <Stack.Screen
-      name={StackRoutes.MenLists}
-      component={MenListsScreen}
-      options={{headerShown: false}}
-    />
-    <Stack.Screen
-      name={StackRoutes.KidsLists}
-      component={KidsListsScreen}
-      options={{headerShown: false}}
-    />
-    <Stack.Screen
-      name={StackRoutes.TeensLists}
-      component={TeensListsScreen}
-      options={{headerShown: false}}
-    />
-  </Stack.Navigator>
-);
+// const DiscoverStackNavigator = () => (
+//   <Stack.Navigator>
+//     <Stack.Screen
+//       name={Routes.discover}
+//       component={DiscoverScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name={StackRoutes.WomenLists}
+//       component={WomenListsScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name={StackRoutes.MenLists}
+//       component={MenListsScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name={StackRoutes.KidsLists}
+//       component={KidsListsScreen}
+//       options={{headerShown: false}}
+//     />
+//     <Stack.Screen
+//       name={StackRoutes.TeensLists}
+//       component={TeensListsScreen}
+//       options={{headerShown: false}}
+//     />
+//   </Stack.Navigator>
+// );
 
 export const TabRouter: React.FC = () => {
   return (
@@ -57,7 +57,7 @@ export const TabRouter: React.FC = () => {
       />
       <Tab.Screen
         name={Routes.discover}
-        component={DiscoverStackNavigator}
+        component={DiscoverScreen}
         options={tabBarOption[Routes.discover]}
       />
       <Tab.Screen
