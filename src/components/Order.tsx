@@ -7,7 +7,7 @@ import {Button} from './Button';
 import {CommonStyles} from 'theme/common.styles';
 import {normalize} from 'theme/metrics';
 
-interface IOrder {
+export interface IOrder {
   orderNumber: string;
   trackingNumber: string;
   quantity: number;

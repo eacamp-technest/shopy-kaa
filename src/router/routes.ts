@@ -28,4 +28,8 @@ export enum StackRoutes {
   teenslist = 'teenslist',
   profile = 'profile',
   order = 'order',
+  orderdetails = 'orderdetails',
+  processing = 'processing',
+  delivered = 'delivered',
+  cancelled = 'cancelled',
 }

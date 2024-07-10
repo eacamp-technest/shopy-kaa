@@ -13,7 +13,8 @@ import {WomenListsScreen} from 'screens/category-lists/WomenLists.Screen';
 import {MenListsScreen} from 'screens/category-lists/MenLists.Screen';
 import {KidsListsScreen} from 'screens/category-lists/KidsLists.Screen';
 import {TeensListsScreen} from 'screens/category-lists/TeensLists.Screen';
-import {OrderScreen} from 'screens/settings/Order.Screen';
+import {OrderScreen, ProcessingScreen} from 'screens/settings/Order.Screen';
+import {OrderDetailsScreen} from 'screens/settings/OrderDetails.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -30,6 +31,14 @@ export const MainRouter = () => {
       />
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
       <MainStack.Screen name={StackRoutes.order} component={OrderScreen} />
+      <MainStack.Screen
+        name={StackRoutes.processing}
+        component={ProcessingScreen}
+      />
+      <MainStack.Screen
+        name={StackRoutes.orderdetails}
+        component={OrderDetailsScreen}
+      />
 
       <MainStack.Screen
         name={StackRoutes.womenlists}
