@@ -11,6 +11,7 @@ import {Header} from 'components/Header';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
 import {Order} from 'components/Order';
+import {isAndroid} from 'constants/common.consts';
 
 const Processing: React.FC = () => {
   return (
@@ -107,12 +108,17 @@ export const OrderScreen: React.FC<
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle('light-content');
+      if (isAndroid) {
+        StatusBar.setBackgroundColor(colors.bdazzledBlue.darkest);
+      }
       return () => {
         StatusBar.setBarStyle('dark-content');
+        if (isAndroid) {
+          StatusBar.setBackgroundColor('transparent');
+        }
       };
     }, []),
   );
-
   return (
     <View style={styles.root}>
       <View style={[styles.header, {paddingTop: top}]}>
