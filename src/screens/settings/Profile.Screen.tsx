@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
@@ -18,6 +18,8 @@ export const ProfileScreen: React.FC<
   const {top} = useSafeAreaInsets();
   return (
     <View style={styles.root}>
+      <StatusBar backgroundColor={colors.mellowApricot.base} />
+
       <View style={[styles.header, {paddingTop: top}]}>
         <Header
           title="Profile"

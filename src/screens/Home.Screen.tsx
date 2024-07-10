@@ -23,6 +23,7 @@ import {Routes} from 'router/routes';
 import {ICardProduct, product} from 'mock/SearchBarMock';
 import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
+import {isAndroid} from 'constants/common.consts';
 
 const InStore: React.FC = () => {
   return (
@@ -113,8 +114,14 @@ export const HomeScreen: React.FC<
   useFocusEffect(
     useCallback(() => {
       StatusBar.setBarStyle('light-content');
+      if (isAndroid) {
+        StatusBar.setBackgroundColor(colors.bdazzledBlue.darkest);
+      }
       return () => {
         StatusBar.setBarStyle('dark-content');
+        if (isAndroid) {
+          StatusBar.setBackgroundColor('transparent');
+        }
       };
     }, []),
   );
