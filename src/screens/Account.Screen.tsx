@@ -102,9 +102,9 @@ export const AccountScreen: React.FC<
       // case 'Address':
       //   navigation.navigate('Address');
       //   break;
-      // case 'Payment':
-      //   navigation.navigate('Payment');
-      //   break;
+      case 'Payment':
+        navigation.navigate(Routes.paymentMethod);
+        break;
       // case 'Notification':
       //   navigation.navigate('Notification');
       //   break;
