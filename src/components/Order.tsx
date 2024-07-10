@@ -27,40 +27,34 @@ export const Order: React.FC<IOrder> = ({
   statusContent,
 }) => {
   return (
-    <View style={styles.root}>
-      <View style={styles.main}>
-        <View style={CommonStyles.justifyBetweenRow}>
-          <Text style={styles.orderText}>{`Order No ${orderNumber}`}</Text>
-          <Text style={styles.dateText}>{date}</Text>
-        </View>
-        <View style={CommonStyles.justifyBetweenRow}>
-          <Text style={styles.mainText}>Tracking Number</Text>
-          <Text style={styles.trackingText}>{trackingNumber}</Text>
-        </View>
-        <View style={CommonStyles.justifyBetweenRow}>
-          <Text style={styles.mainText}>Quantity</Text>
-          <Text style={styles.trackingText}>{quantity}</Text>
-        </View>
-        <View style={CommonStyles.justifyBetweenRow}>
-          <Text style={styles.mainText}>Total Amount</Text>
-          <Text style={styles.trackingText}>{`$${totalAmount}`}</Text>
-        </View>
-        <View style={CommonStyles.justifyBetweenRow}>
-          <Text style={styles.mainText}>Status</Text>
-          <Text style={styles.status}>
-            {<StatusPill content={statusContent} type={statusType} />}
-          </Text>
-        </View>
+    <View style={styles.main}>
+      <View style={CommonStyles.justifyBetweenRow}>
+        <Text style={styles.orderText}>{`Order No ${orderNumber}`}</Text>
+        <Text style={styles.dateText}>{date}</Text>
       </View>
-      <Button type={'outlined'} text={'Details'} />
+      <View style={CommonStyles.justifyBetweenRow}>
+        <Text style={styles.mainText}>Tracking Number</Text>
+        <Text style={styles.trackingText}>{trackingNumber}</Text>
+      </View>
+      <View style={CommonStyles.justifyBetweenRow}>
+        <Text style={styles.mainText}>Quantity</Text>
+        <Text style={styles.trackingText}>{quantity}</Text>
+      </View>
+      <View style={CommonStyles.justifyBetweenRow}>
+        <Text style={styles.mainText}>Total Amount</Text>
+        <Text style={styles.trackingText}>{`$${totalAmount}`}</Text>
+      </View>
+      <View style={CommonStyles.justifyBetweenRow}>
+        <Text style={styles.mainText}>Status</Text>
+        <Text style={styles.status}>
+          {<StatusPill content={statusContent} type={statusType} />}
+        </Text>
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  root: {
-    gap: normalize('vertical', 24),
-  },
   main: {
     gap: normalize('vertical', 12),
   },

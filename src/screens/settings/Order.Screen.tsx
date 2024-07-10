@@ -12,28 +12,35 @@ import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
 import {Order} from 'components/Order';
 import {isAndroid} from 'constants/common.consts';
+import {Button} from 'components/Button';
 
 const Processing: React.FC = () => {
   return (
     <View style={styles.tabview}>
-      <Order
-        date="05-01=2020"
-        orderNumber="12412341"
-        quantity={5}
-        totalAmount="231"
-        statusContent="Processing"
-        statusType="Info"
-        trackingNumber="A3N2DA2ASFEW"
-      />
-      <Order
-        date="05-01=2020"
-        orderNumber="12412341"
-        quantity={5}
-        totalAmount="231"
-        statusContent="Processing"
-        statusType="Info"
-        trackingNumber="A3N2DA2ASFEW"
-      />
+      <View style={{gap: 24}}>
+        <Order
+          date="05-01=2020"
+          orderNumber="12412341"
+          quantity={5}
+          totalAmount="231"
+          statusContent="Processing"
+          statusType="Info"
+          trackingNumber="A3N2DA2ASFEW"
+        />
+        <Button text="Details" type="outlined" />
+      </View>
+      <View style={{gap: 24}}>
+        <Order
+          date="05-01=2020"
+          orderNumber="12412341"
+          quantity={5}
+          totalAmount="231"
+          statusContent="Processing"
+          statusType="Info"
+          trackingNumber="A3N2DA2ASFEW"
+        />
+        <Button text="Details" type="outlined" />
+      </View>
     </View>
   );
 };
@@ -41,48 +48,60 @@ const Processing: React.FC = () => {
 const Delivered: React.FC = () => {
   return (
     <View style={styles.tabview}>
-      <Order
-        date="05-01=2020"
-        orderNumber="12412341"
-        quantity={5}
-        totalAmount="231"
-        statusContent="Delivered"
-        statusType="Success"
-        trackingNumber="A3N2DA2ASFEW"
-      />
-      <Order
-        date="05-01=2020"
-        orderNumber="12412341"
-        quantity={5}
-        totalAmount="231"
-        statusContent="Delivered"
-        statusType="Success"
-        trackingNumber="A3N2DA2ASFEW"
-      />
+      <View style={{gap: 24}}>
+        <Order
+          date="05-01=2020"
+          orderNumber="12412341"
+          quantity={5}
+          totalAmount="231"
+          statusContent="Delivered"
+          statusType="Success"
+          trackingNumber="A3N2DA2ASFEW"
+        />
+        <Button text="Details" type="outlined" />
+      </View>
+      <View style={{gap: 24}}>
+        <Order
+          date="05-01=2020"
+          orderNumber="12412341"
+          quantity={5}
+          totalAmount="231"
+          statusContent="Delivered"
+          statusType="Success"
+          trackingNumber="A3N2DA2ASFEW"
+        />
+        <Button text="Details" type="outlined" />
+      </View>
     </View>
   );
 };
 const Cancelled: React.FC = () => {
   return (
     <View style={styles.tabview}>
-      <Order
-        date="05-01=2020"
-        orderNumber="12412341"
-        quantity={5}
-        totalAmount="231"
-        statusContent="Cancelled"
-        statusType="Warning"
-        trackingNumber="A3N2DA2ASFEW"
-      />
-      <Order
-        date="05-01=2020"
-        orderNumber="12412341"
-        quantity={5}
-        totalAmount="231"
-        statusContent="Cancelled"
-        statusType="Warning"
-        trackingNumber="A3N2DA2ASFEW"
-      />
+      <View style={{gap: 24}}>
+        <Order
+          date="05-01=2020"
+          orderNumber="12412341"
+          quantity={5}
+          totalAmount="231"
+          statusContent="Cancelled"
+          statusType="Warning"
+          trackingNumber="A3N2DA2ASFEW"
+        />
+        <Button text="Details" type="outlined" />
+      </View>
+      <View style={{gap: 24}}>
+        <Order
+          date="05-01=2020"
+          orderNumber="12412341"
+          quantity={5}
+          totalAmount="231"
+          statusContent="Cancelled"
+          statusType="Warning"
+          trackingNumber="A3N2DA2ASFEW"
+        />
+        <Button text="Details" type="outlined" />
+      </View>
     </View>
   );
 };
@@ -185,6 +204,6 @@ const styles = StyleSheet.create({
   tabview: {
     paddingHorizontal: normalize('horizontal', 24),
     marginTop: normalize('height', 24),
-    gap: normalize('height', 24),
+    gap: normalize('height', 64),
   },
 });
