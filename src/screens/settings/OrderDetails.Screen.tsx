@@ -3,7 +3,7 @@ import React from 'react';
 import {Header} from 'components/Header';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
-import {StackRoutes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
@@ -15,6 +15,10 @@ export const OrderDetailsScreen: React.FC<
 > = ({navigation, route}) => {
   const {top} = useSafeAreaInsets();
   const {statusContent, ...props} = route.params;
+
+  const handleOnPress = () => {
+    navigation.navigate(Routes.home);
+  };
 
   return (
     <View style={styles.root}>
@@ -36,7 +40,7 @@ export const OrderDetailsScreen: React.FC<
               Your pocket will send to your address, thanks for order!
             </Text>
           </View>
-          <Button text="Continue shopping" />
+          <Button text="Continue shopping" onPress={handleOnPress} />
         </View>
       </View>
     </View>
