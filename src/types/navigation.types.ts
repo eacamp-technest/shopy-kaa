@@ -38,4 +38,10 @@ export type NavigationParamList = {
   [StackRoutes.teenslist]: undefined;
   [StackRoutes.profile]: undefined;
   [StackRoutes.order]: undefined;
+  [StackRoutes.orderdetails]: {
+    statusContent: string;
+  };
+  [StackRoutes.processing]: undefined;
+  [StackRoutes.delivered]: undefined;
+  [StackRoutes.cancelled]: undefined;
 };

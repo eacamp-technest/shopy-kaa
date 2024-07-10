@@ -1,10 +1,10 @@
 import {StatusBar, StyleSheet, Text, TextStyle, View} from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {NavigationParamList} from 'types/navigation.types';
-import {StackRoutes} from 'router/routes';
+import {AppNavigation, NavigationParamList} from 'types/navigation.types';
+import {Routes, StackRoutes} from 'router/routes';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
 import {Header} from 'components/Header';
@@ -13,114 +13,165 @@ import {TypographyStyles} from 'theme/typography';
 import {Order} from 'components/Order';
 import {isAndroid} from 'constants/common.consts';
 import {Button} from 'components/Button';
+import {FlashList} from '@shopify/flash-list';
+import {orderData} from 'mock/MockOrder';
 
-const Processing: React.FC = () => {
+const ItemSeparatorComponent = () => {
+  return (
+    <View style={styles.flashVertical}>
+      <View style={styles.divider} />
+    </View>
+  );
+};
+
+export const ProcessingScreen = ({}) => {
+  const navigation = useNavigation<AppNavigation>();
+
+  const renderItem = ({item}: any) => (
+    <View style={styles.itemContainer}>
+      <Order
+        date={item.date}
+        orderNumber={item.orderNumber}
+        quantity={item.quantity}
+        totalAmount={item.totalAmount}
+        statusContent={item.statusContent}
+        statusType={item.statusType}
+        trackingNumber={item.trackingNumber}
+      />
+      <Button
+        text="Details"
+        type="outlined"
+        onPress={() => handleOrderDetailsPress(item.statusContent)}
+      />
+    </View>
+  );
+
+  const data = orderData.filter(item => {
+    return item.statusContent === 'Processing' && item.statusType === 'Info';
+  });
+
+  const handleOrderDetailsPress = (statusContent: string) => {
+    navigation.navigate(StackRoutes.orderdetails, {statusContent});
+  };
+
   return (
     <View style={styles.tabview}>
-      <View style={{gap: 24}}>
-        <Order
-          date="05-01=2020"
-          orderNumber="12412341"
-          quantity={5}
-          totalAmount="231"
-          statusContent="Processing"
-          statusType="Info"
-          trackingNumber="A3N2DA2ASFEW"
-        />
-        <Button text="Details" type="outlined" />
-      </View>
-      <View style={{gap: 24}}>
-        <Order
-          date="05-01=2020"
-          orderNumber="12412341"
-          quantity={5}
-          totalAmount="231"
-          statusContent="Processing"
-          statusType="Info"
-          trackingNumber="A3N2DA2ASFEW"
-        />
-        <Button text="Details" type="outlined" />
-      </View>
+      <FlashList
+        data={data}
+        renderItem={renderItem}
+        estimatedItemSize={20}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+      />
     </View>
   );
 };
 
 const Delivered: React.FC = () => {
+  const navigation = useNavigation<AppNavigation>();
+
+  const handleOrderDetailsPress = (statusContent: string) => {
+    navigation.navigate(StackRoutes.orderdetails, {statusContent});
+  };
+  const renderItem = ({item}: any) => (
+    <View style={styles.itemContainer}>
+      <Order
+        date={item.date}
+        orderNumber={item.orderNumber}
+        quantity={item.quantity}
+        totalAmount={item.totalAmount}
+        statusContent={item.statusContent}
+        statusType={item.statusType}
+        trackingNumber={item.trackingNumber}
+      />
+      <Button
+        text="Details"
+        type="outlined"
+        onPress={() => handleOrderDetailsPress(item.statusContent)}
+      />
+    </View>
+  );
+
+  const data = orderData.filter(item => {
+    return item.statusContent === 'Delivered' && item.statusType === 'Success';
+  });
+
   return (
     <View style={styles.tabview}>
-      <View style={{gap: 24}}>
-        <Order
-          date="05-01=2020"
-          orderNumber="12412341"
-          quantity={5}
-          totalAmount="231"
-          statusContent="Delivered"
-          statusType="Success"
-          trackingNumber="A3N2DA2ASFEW"
-        />
-        <Button text="Details" type="outlined" />
-      </View>
-      <View style={{gap: 24}}>
-        <Order
-          date="05-01=2020"
-          orderNumber="12412341"
-          quantity={5}
-          totalAmount="231"
-          statusContent="Delivered"
-          statusType="Success"
-          trackingNumber="A3N2DA2ASFEW"
-        />
-        <Button text="Details" type="outlined" />
-      </View>
+      <FlashList
+        data={data}
+        renderItem={renderItem}
+        estimatedItemSize={20}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+      />
     </View>
   );
 };
+
 const Cancelled: React.FC = () => {
+  const navigation = useNavigation<AppNavigation>();
+
+  const handleOrderDetailsPress = (statusContent: string) => {
+    navigation.navigate(StackRoutes.orderdetails, {statusContent});
+  };
+  const renderItem = ({item}: any) => (
+    <View style={styles.itemContainer}>
+      <Order
+        date={item.date}
+        orderNumber={item.orderNumber}
+        quantity={item.quantity}
+        totalAmount={item.totalAmount}
+        statusContent={item.statusContent}
+        statusType={item.statusType}
+        trackingNumber={item.trackingNumber}
+      />
+      <Button
+        text="Details"
+        type="outlined"
+        onPress={() => handleOrderDetailsPress(item.statusContent)}
+      />
+    </View>
+  );
+
+  const data = orderData.filter(item => {
+    return item.statusContent === 'Cancelled' && item.statusType === 'Warning';
+  });
+
   return (
     <View style={styles.tabview}>
-      <View style={{gap: 24}}>
-        <Order
-          date="05-01=2020"
-          orderNumber="12412341"
-          quantity={5}
-          totalAmount="231"
-          statusContent="Cancelled"
-          statusType="Warning"
-          trackingNumber="A3N2DA2ASFEW"
-        />
-        <Button text="Details" type="outlined" />
-      </View>
-      <View style={{gap: 24}}>
-        <Order
-          date="05-01=2020"
-          orderNumber="12412341"
-          quantity={5}
-          totalAmount="231"
-          statusContent="Cancelled"
-          statusType="Warning"
-          trackingNumber="A3N2DA2ASFEW"
-        />
-        <Button text="Details" type="outlined" />
-      </View>
+      <FlashList
+        data={data}
+        renderItem={renderItem}
+        estimatedItemSize={20}
+        keyExtractor={item => item.id}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+      />
     </View>
   );
 };
 
 const renderScene = SceneMap({
-  processing: Processing,
-  delivered: Delivered,
-  cancelled: Cancelled,
+  [StackRoutes.processing]: ProcessingScreen,
+  [StackRoutes.delivered]: Delivered,
+  [StackRoutes.cancelled]: Cancelled,
 });
 
 const routes = [
-  {key: 'processing', title: 'Processing'},
-  {key: 'delivered', title: 'Delivered'},
-  {key: 'cancelled', title: 'Cancelled'},
+  {key: StackRoutes.processing, title: 'Processing'},
+  {key: StackRoutes.delivered, title: 'Delivered'},
+  {key: StackRoutes.cancelled, title: 'Cancelled'},
 ];
 
-export const OrderScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, StackRoutes.order>
-> = ({navigation}) => {
+type OrderScreenProps = NativeStackScreenProps<
+  NavigationParamList,
+  StackRoutes.order
+>;
+
+export const OrderScreen: React.FC<OrderScreenProps> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   const [index, setIndex] = useState<number>(0);
 
@@ -138,6 +189,7 @@ export const OrderScreen: React.FC<
       };
     }, []),
   );
+
   return (
     <View style={styles.root}>
       <View style={[styles.header, {paddingTop: top}]}>
@@ -204,6 +256,17 @@ const styles = StyleSheet.create({
   tabview: {
     paddingHorizontal: normalize('horizontal', 24),
     marginTop: normalize('height', 24),
-    gap: normalize('height', 64),
+    flex: 1,
+  },
+  itemContainer: {
+    gap: 24,
+  },
+  flashVertical: {
+    height: 64,
+  },
+  divider: {
+    height: 1,
+    marginTop: 32,
+    backgroundColor: colors.sky.base,
   },
 });
