@@ -5,8 +5,14 @@ import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 import {Table} from 'components/Table';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from 'types/navigation.types';
+import {StackRoutes} from 'router/routes';
+import {Divider} from 'components/Divider';
 
-export const ChoosePaymentScreen = () => {
+export const ChoosePaymentScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, StackRoutes.choosepayment>
+> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
 
   return (
@@ -16,6 +22,7 @@ export const ChoosePaymentScreen = () => {
           title="Choose Payment"
           leftActionType="icon"
           left={vectors.arrow_left}
+          onLeftPress={navigation.goBack}
         />
         <View style={styles.tables}>
           <Table
@@ -32,6 +39,7 @@ export const ChoosePaymentScreen = () => {
             rightType="radio"
             rightOnPress={() => {}}
           />
+          <Divider type="thin" />
         </View>
       </View>
     </View>
@@ -55,6 +63,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: normalize('horizontal', 24),
   },
   tables: {
+    paddingTop: 16,
     gap: 24,
   },
 });
