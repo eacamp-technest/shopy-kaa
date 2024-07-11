@@ -1,11 +1,4 @@
-import {
-  View,
-  StyleSheet,
-  Alert,
-  Linking,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
+import {View, StyleSheet, Alert, Linking, Pressable} from 'react-native';
 import React, {useEffect} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Button} from 'components/Button';
@@ -21,7 +14,6 @@ import {colors} from 'theme/colors';
 import {Table} from 'components/Table';
 import {normalize} from 'theme/metrics';
 import {FlatList} from 'react-native-gesture-handler';
-import {StackRouter, useNavigation} from '@react-navigation/native';
 import {Routes, StackRoutes} from 'router/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
@@ -103,7 +95,7 @@ export const AccountScreen: React.FC<
       //   navigation.navigate('Address');
       //   break;
       case 'Payment':
-        navigation.navigate(Routes.paymentMethod);
+        navigation.navigate(StackRoutes.choosepayment);
         break;
       // case 'Notification':
       //   navigation.navigate('Notification');

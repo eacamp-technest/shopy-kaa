@@ -1,19 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   NativeSyntheticEvent,
-  Pressable,
   StyleSheet,
-  Text,
   TextInputFocusEventData,
   View,
-  Image,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FlatList} from 'react-native-gesture-handler';
 import {Routes} from 'router/routes';
 import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
-import {TypographyStyles} from 'theme/typography';
 import {Product} from 'components/Product';
 import {FlashList} from '@shopify/flash-list';
 import {normalize} from 'theme/metrics';

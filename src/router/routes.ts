@@ -32,5 +32,5 @@ export enum StackRoutes {
   processing = 'processing',
   delivered = 'delivered',
   cancelled = 'cancelled',
-  payment = 'payment',
+  choosepayment = 'choosepayment',
 }
