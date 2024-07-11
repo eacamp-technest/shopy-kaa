@@ -4,7 +4,7 @@ import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 
 interface IRadioButton {
-  isSelected: boolean;
+  isSelected?: boolean;
   onPress: () => void;
 }
 

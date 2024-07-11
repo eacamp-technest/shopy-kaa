@@ -31,7 +31,6 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
           cardNumber: '4169 1234 1341 8912',
           holderName: 'Ali Hilalov',
           cvv: '123',
-          expiration: '12 / 29',
         }
       : {},
   });
