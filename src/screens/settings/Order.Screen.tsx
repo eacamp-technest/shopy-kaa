@@ -15,11 +15,14 @@ import {isAndroid} from 'constants/common.consts';
 import {Button} from 'components/Button';
 import {FlashList} from '@shopify/flash-list';
 import {orderData} from 'mock/MockOrder';
+import {Divider} from 'components/Divider';
 
 const ItemSeparatorComponent = () => {
   return (
     <View style={styles.flashVertical}>
-      <View style={styles.divider} />
+      <View style={styles.divider}>
+        <Divider type="thin" />
+      </View>
     </View>
   );
 };
@@ -265,8 +268,6 @@ const styles = StyleSheet.create({
     height: 64,
   },
   divider: {
-    height: 1,
     marginTop: 32,
-    backgroundColor: colors.sky.base,
   },
 });
