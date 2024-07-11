@@ -15,8 +15,7 @@ import {KidsListsScreen} from 'screens/category-lists/KidsLists.Screen';
 import {TeensListsScreen} from 'screens/category-lists/TeensLists.Screen';
 import {OrderScreen, ProcessingScreen} from 'screens/settings/Order.Screen';
 import {OrderDetailsScreen} from 'screens/settings/OrderDetails.Screen';
-import {PaymentScreensTab} from 'screens/payments';
-import {ChoosePaymentScreen} from 'screens/Choose.Payment.Screen';
+import {ChoosePaymentScreen} from 'screens/ChoosePayment.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 

@@ -85,7 +85,6 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         </View>
         <View style={styles.cards}>
           {cards && cards.map(renderCards)}
-
           <Pressable onPress={onAddNewMethod}>
             <Table
               content="Add another card"
