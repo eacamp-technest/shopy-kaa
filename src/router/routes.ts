@@ -33,4 +33,5 @@ export enum StackRoutes {
   delivered = 'delivered',
   cancelled = 'cancelled',
   choosepayment = 'choosepayment',
+  youraddress = 'youraddress',
 }
