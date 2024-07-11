@@ -20,7 +20,7 @@ interface ITables {
   title3?: boolean;
   rightOnPress?: () => void;
   isSelected?: boolean;
-  onSelect?: () => void; // Add onSelect prop
+  onSelect?: () => void;
 }
 
 const renderRight = (
@@ -99,8 +99,8 @@ export const Table: React.FC<ITables> = ({
   leftType,
   title3,
   rightOnPress,
-  isSelected, // Add isSelected prop
-  onSelect, // Add onSelect prop
+  isSelected,
+  onSelect,
 }) => {
   const hasLeftIcon = leftType === 'icon' || leftType === 'image';
 

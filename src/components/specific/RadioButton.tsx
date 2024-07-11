@@ -5,7 +5,7 @@ import {normalize} from 'theme/metrics';
 
 interface IRadioButton {
   isSelected?: boolean;
-  onPress: () => void;
+  onPress?: () => void;
 }
 
 export const RadioButton: React.FC<IRadioButton> = ({isSelected, onPress}) => (
