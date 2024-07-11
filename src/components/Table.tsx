@@ -5,9 +5,10 @@ import {colors} from '../theme/colors';
 import {normalize} from '../theme/metrics';
 import {SvgImage} from './SvgImage';
 import {StatusPill} from './StatusPill';
+import {RadioButton} from './specific/RadioButton';
 
 type TLeft = 'icon' | 'image' | 'views';
-type TRight = 'text' | 'icon' | 'button' | 'switch';
+type TRight = 'text' | 'icon' | 'button' | 'switch' | 'radio';
 
 interface ITables {
   content: string;
@@ -17,32 +18,60 @@ interface ITables {
   leftType: TLeft;
   right?: string | React.ReactNode;
   title3?: boolean;
+  rightOnPress?: () => void; // Add rightOnPress prop
 }
 
-const renderRight = (value: TRight, right: string | React.ReactNode) => {
+const renderRight = (
+  value: TRight,
+  right: string | React.ReactNode,
+  rightOnPress?: () => void,
+) => {
   const [isEnabled, setIsEnabled] = useState(false);
+  const [isSelected, setIsSelected] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  const toggleRadio = () => setIsSelected(previousState => !previousState);
+
   switch (value) {
     case 'text':
-      return <Text style={styles.rightStyle}>{right}</Text>;
+      return (
+        <Pressable onPress={rightOnPress}>
+          <Text style={styles.rightStyle}>{right}</Text>
+        </Pressable>
+      );
     case 'button':
       return (
-        <Pressable style={styles.button}>
+        <Pressable style={styles.button} onPress={rightOnPress}>
           <Text style={styles.buttontitle}>{right}</Text>
         </Pressable>
       );
     case 'switch':
       return (
-        <Switch
-          trackColor={{false: '#767577', true: colors.primary.base}}
-          thumbColor={isEnabled ? 'white' : '#f4f3f4'}
-          ios_backgroundColor={colors.primary.base}
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+        <Pressable onPress={rightOnPress}>
+          <Switch
+            trackColor={{false: '#767577', true: colors.primary.base}}
+            thumbColor={isEnabled ? 'white' : '#f4f3f4'}
+            ios_backgroundColor={colors.primary.base}
+            onValueChange={toggleSwitch}
+            value={isEnabled}
+          />
+        </Pressable>
+      );
+    case 'radio':
+      return (
+        <RadioButton
+          isSelected={isSelected}
+          onPress={() => {
+            toggleRadio();
+            rightOnPress && rightOnPress();
+          }}
         />
       );
     case 'icon':
-      return <SvgImage source={right} style={styles.icon} />;
+      return (
+        <Pressable onPress={rightOnPress}>
+          <SvgImage source={right} style={styles.icon} />
+        </Pressable>
+      );
     default:
       return null;
   }
@@ -67,6 +96,7 @@ export const Table: React.FC<ITables> = ({
   rightType,
   leftType,
   title3,
+  rightOnPress, // Add rightOnPress prop
 }) => {
   const hasLeftIcon = leftType === 'icon' || leftType === 'image';
 
@@ -89,7 +119,7 @@ export const Table: React.FC<ITables> = ({
       </View>
       {rightType && (
         <Pressable style={styles.rightContainer}>
-          {renderRight(rightType, right)}
+          {renderRight(rightType, right, rightOnPress)}
         </Pressable>
       )}
     </View>
