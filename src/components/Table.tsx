@@ -96,7 +96,7 @@ export const Table: React.FC<ITables> = ({
   rightType,
   leftType,
   title3,
-  rightOnPress, // Add rightOnPress prop
+  rightOnPress, 
 }) => {
   const hasLeftIcon = leftType === 'icon' || leftType === 'image';
 

@@ -19,6 +19,8 @@ export enum Routes {
   notification = 'notification',
   account = 'account',
   search = 'search',
+  itemList = 'itemList',
+  filter = 'filter'
 }
 
 export enum StackRoutes {

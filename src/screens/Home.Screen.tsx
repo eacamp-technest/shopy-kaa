@@ -10,20 +10,20 @@ import {
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useFocusEffect} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {Input} from 'components/TextFields';
 import {Table} from 'components/Table';
 import {normalize} from 'theme/metrics';
 import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
 import {ChipPill} from 'components/ChipPill';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {ICardProduct, product} from 'mock/SearchBarMock';
 import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
 import {isAndroid} from 'constants/common.consts';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
 
 const InStore: React.FC = () => {
   return (
@@ -39,11 +39,19 @@ const ItemSeparatorComponent = () => {
 
 const AllStore: React.FC = () => {
   const [data, setData] = useState<ICardProduct[]>(product);
+  const navigation =
+    useNavigation<
+      NativeStackScreenProps<NavigationParamList, Routes.home>['navigation']
+    >();
+
+  const navigateToItemList = () => navigation.navigate(Routes.itemList);
 
   const renderItem = ({item}: {item: ICardProduct}) => {
     return (
       <View style={styles.renderItem}>
         <Product
+          imageSize="large"
+          size="large"
           source={item.image}
           price={item.price}
           key={item.id}
@@ -63,6 +71,7 @@ const AllStore: React.FC = () => {
           leftType="views"
           rightType="text"
           right="See All"
+          rightOnPress={navigateToItemList}
         />
       </View>
       <ScrollView
