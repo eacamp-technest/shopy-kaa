@@ -9,30 +9,42 @@ import {TextInput} from 'react-native-gesture-handler';
 import {Input} from 'components/TextFields';
 import {Divider} from 'components/Divider';
 import {Button} from 'components/Button';
+import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {NavigationParamList} from 'types/navigation.types';
+import {StackRoutes} from 'router/routes';
 
-export const AddAddressScreen = () => {
+export const AddAddressScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
+> = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   return (
     <View style={styles.root}>
-      <View style={[styles.header, {paddingTop: top}]}>
-        <Header
-          title="add address"
-          leftActionType="icon"
-          left={vectors.arrow_left}
-        />
-        <Text style={styles.text}>Contact Details</Text>
-        <View style={styles.input}>
-          <Input label="Your Name" type="text" placeholder="Enter your name" />
-          <Input
-            label="Mobile"
-            type="phone"
-            placeholder="Enter your mobile number"
+      <View style={{paddingTop: top}}>
+        <View style={styles.paddingHorizantal}>
+          <Header
+            title="add address"
+            leftActionType="icon"
+            left={vectors.arrow_left}
+            onLeftPress={() => navigation.goBack()}
           />
+          <Text style={styles.text}>Contact Details</Text>
+          <View style={styles.input}>
+            <Input
+              label="Your Name"
+              type="text"
+              placeholder="Enter your name"
+            />
+            <Input
+              label="Mobile"
+              type="phone"
+              placeholder="Enter your mobile number"
+            />
+          </View>
         </View>
         <View style={styles.divider}>
           <Divider type="thick" />
         </View>
-        <View style={styles.inner}>
+        <View style={styles.paddingHorizantal}>
           <Text style={styles.text}>Address Details</Text>
           <View style={styles.input}>
             <Input
@@ -68,7 +80,7 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
   },
-  header: {
+  paddingHorizantal: {
     paddingHorizontal: normalize('horizontal', 24),
   },
   text: {

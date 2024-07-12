@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Text} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
 import {Address} from 'components/specific/Address';
@@ -12,6 +12,7 @@ import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 import {useAddressStore} from 'store/address/address.store';
 import {useAddressStoreActions} from 'store/address';
+import {TypographyStyles} from 'theme/typography';
 
 export const YourAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.youraddress>
@@ -39,19 +40,25 @@ export const YourAddressScreen: React.FC<
           left={vectors.arrow_left}
           onLeftPress={navigation.goBack}
         />
-        {addresses.map(address => (
-          <Fragment key={address.id}>
-            <Address
-              onSelect={() => handlePress(address.id)}
-              onRadioPress={handleRadioPress}
-              onPress={() => console.log('Edit Pressed')}
-              isSelected={selectedAddress?.id === address.id}
-              name={address.name}
-              address={address.address}
-            />
-            <Divider type="thin" />
-          </Fragment>
-        ))}
+        {addresses.length === 0 ? (
+          <Text numberOfLines={2} style={styles.noAddressText}>
+            You have no addresses. For add new address click the button
+          </Text>
+        ) : (
+          addresses.map(address => (
+            <Fragment key={address.id}>
+              <Address
+                onSelect={() => handlePress(address.id)}
+                onRadioPress={handleRadioPress}
+                onPress={() => console.log('Edit Pressed')}
+                isSelected={selectedAddress?.id === address.id}
+                name={address.name}
+                address={address.address}
+              />
+              <Divider type="thin" />
+            </Fragment>
+          ))
+        )}
         <Button
           type="outlined"
           text="Add new address"
@@ -78,5 +85,10 @@ const styles = StyleSheet.create({
   header: {
     paddingHorizontal: normalize('horizontal', 24),
     gap: 32,
+  },
+  noAddressText: {
+    textAlign: 'center',
+    ...TypographyStyles.RegularNoneSemiBold,
+    color: colors.black,
   },
 });
