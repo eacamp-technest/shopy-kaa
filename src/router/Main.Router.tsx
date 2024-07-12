@@ -17,6 +17,7 @@ import {OrderScreen, ProcessingScreen} from 'screens/settings/Order.Screen';
 import {OrderDetailsScreen} from 'screens/settings/OrderDetails.Screen';
 import {YourAddressScreen} from 'screens/settings/YourAddress.Screen';
 import {ChoosePaymentScreen} from 'screens/settings/ChoosePayment.Screen';
+import {AddAddressScreen} from 'screens/settings/AddAddress.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -33,6 +34,10 @@ export const MainRouter = () => {
       />
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
       <MainStack.Screen name={StackRoutes.order} component={OrderScreen} />
+      <MainStack.Screen
+        name={StackRoutes.addaddress}
+        component={AddAddressScreen}
+      />
       <MainStack.Screen
         name={StackRoutes.youraddress}
         component={YourAddressScreen}
