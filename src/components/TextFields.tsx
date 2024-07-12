@@ -109,7 +109,7 @@ export const Input: React.FC<IInput> = ({
           ]}
           labelField="label"
           valueField="value"
-          placeholder="Select an item"
+          placeholder={props.placeholder}
           value={value}
           onChange={item => setValue?.(item.value)}
           style={[
