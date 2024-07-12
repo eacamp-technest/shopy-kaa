@@ -10,6 +10,7 @@ interface IAddress {
   address: string;
   onPress?: () => void;
   onRadioPress?: () => void;
+  onSelect: () => void;
   isSelected: boolean;
 }
 
@@ -19,12 +20,19 @@ export const Address: React.FC<IAddress> = ({
   onPress,
   isSelected,
   onRadioPress,
+  onSelect,
 }) => {
   return (
     <View style={styles.root}>
       <View style={styles.top}>
         <Text style={styles.name}>{name}</Text>
-        <RadioButton onPress={onRadioPress} isSelected={isSelected} />
+        <RadioButton
+          onPress={() => {
+            onSelect && onSelect();
+            onRadioPress && onRadioPress();
+          }}
+          isSelected={isSelected}
+        />
       </View>
       <Pressable onPress={onPress} style={styles.bottom}>
         <Text numberOfLines={2} style={styles.address}>
