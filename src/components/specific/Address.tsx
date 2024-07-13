@@ -34,12 +34,14 @@ export const Address: React.FC<IAddress> = ({
           isSelected={isSelected}
         />
       </View>
-      <Pressable onPress={onPress} style={styles.bottom}>
+      <View style={styles.bottom}>
         <Text numberOfLines={2} style={styles.address}>
           {address}
         </Text>
-        <Text style={styles.edit}>Edit</Text>
-      </Pressable>
+        <Pressable onPress={onPress}>
+          <Text style={styles.edit}>Delete</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
