@@ -15,6 +15,10 @@ import {KidsListsScreen} from 'screens/category-lists/KidsLists.Screen';
 import {TeensListsScreen} from 'screens/category-lists/TeensLists.Screen';
 import {OrderScreen, ProcessingScreen} from 'screens/settings/Order.Screen';
 import {OrderDetailsScreen} from 'screens/settings/OrderDetails.Screen';
+import {PaymentScreensTab} from 'screens/payments';
+import {ChoosePaymentScreen} from 'screens/Choose.Payment.Screen';
+import { ItemListsScreen } from 'screens/ItemLists.Screen';
+import { FilterScreen } from 'screens/Filter.Screen';
 import {YourAddressScreen} from 'screens/settings/YourAddress.Screen';
 import {ChoosePaymentScreen} from 'screens/settings/ChoosePayment.Screen';
 import {AddAddressScreen} from 'screens/settings/AddAddress.Screen';
@@ -46,7 +50,6 @@ export const MainRouter = () => {
         name={StackRoutes.choosepayment}
         component={ChoosePaymentScreen}
       />
-
       <MainStack.Screen
         name={StackRoutes.processing}
         component={ProcessingScreen}
@@ -55,7 +58,6 @@ export const MainRouter = () => {
         name={StackRoutes.orderdetails}
         component={OrderDetailsScreen}
       />
-
       <MainStack.Screen
         name={StackRoutes.womenlists}
         component={WomenListsScreen}
@@ -68,6 +70,14 @@ export const MainRouter = () => {
       <MainStack.Screen
         name={StackRoutes.teenslist}
         component={TeensListsScreen}
+      />
+      <MainStack.Screen
+        name={Routes.itemList}
+        component={ItemListsScreen}
+      />
+      <MainStack.Screen
+        name={Routes.filter}
+        component={FilterScreen}
       />
     </MainStack.Navigator>
   );

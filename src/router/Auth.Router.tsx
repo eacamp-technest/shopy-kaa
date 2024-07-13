@@ -1,6 +1,6 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {View} from 'react-native';
 import {Routes, StackRoutes} from './routes';
 import {NavigationParamList} from 'types/navigation.types';
 import {CommonStyles} from 'theme/common.styles';
@@ -16,12 +16,14 @@ import {VerificationScreen} from 'screens/auth/Verification.Screen';
 import {OtpScreen} from 'screens/auth/Otp.Screen';
 import {ModalScreen} from 'screens/Modal.Screen';
 import {PaymentScreensTab} from 'screens/payments';
+import {ItemListsScreen} from 'screens/ItemLists.Screen';
+import {FilterScreen} from 'screens/Filter.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
 export const AuthRouter = () => {
   return (
-    <SafeAreaView style={CommonStyles.flex} edges={['top']}>
+    <View style={CommonStyles.flex}>
       <AuthStack.Navigator
         screenOptions={authStackScreenOption}
         initialRouteName={Routes.welcome}>
@@ -47,6 +49,6 @@ export const AuthRouter = () => {
           options={modalStackScreenOption}
         />
       </AuthStack.Navigator>
-    </SafeAreaView>
+    </View>
   );
 };
