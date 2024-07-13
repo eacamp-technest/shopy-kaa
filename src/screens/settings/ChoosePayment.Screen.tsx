@@ -16,11 +16,11 @@ export const ChoosePaymentScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.choosepayment>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
-  const {cards} = useUserStore(state => state);
-  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+  const {cards, selectedPayment} = useUserStore(state => state);
+  const {selectPayment} = useUserStore(state => state.actions);
 
-  const handlePress = (paymentType: string) => {
-    setSelectedPayment(paymentType);
+  const handlePress = (payment: string) => {
+    selectPayment(payment);
   };
 
   const renderCards = (data: ICardInputForm) => {
@@ -32,8 +32,8 @@ export const ChoosePaymentScreen: React.FC<
           leftType="image"
           rightType="radio"
           left={vectors.masterCard}
-          isSelected={selectedPayment === cardNumber}
-          onSelect={() => handlePress(cardNumber)}
+          isSelected={selectedPayment === data.cardNumber}
+          onSelect={() => handlePress(data.cardNumber)}
         />
       </View>
     );
