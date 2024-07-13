@@ -1,13 +1,11 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FlatList, SafeAreaView, StyleSheet, Text} from 'react-native';
+import {FlatList} from 'react-native';
 import {Routes, StackRoutes} from 'router/routes';
 import {NavigationParamList} from 'types/navigation.types';
 import {categories} from 'constants/categories';
 import {Category} from 'components/specific/Category';
 import {SafeTopProvider} from 'containers/SafeTopProvider';
-import {Button} from 'components/Button';
-import {colors} from 'theme/colors';
 
 export const DiscoverScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.discover>

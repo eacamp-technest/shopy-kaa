@@ -18,18 +18,20 @@ interface ITables {
   leftType: TLeft;
   right?: string | React.ReactNode;
   title3?: boolean;
-  rightOnPress?: () => void; // Add rightOnPress prop
+  rightOnPress?: () => void;
+  isSelected?: boolean;
+  onSelect?: () => void;
 }
 
 const renderRight = (
   value: TRight,
   right: string | React.ReactNode,
   rightOnPress?: () => void,
+  isSelected?: boolean,
+  onSelect?: () => void,
 ) => {
   const [isEnabled, setIsEnabled] = useState(false);
-  const [isSelected, setIsSelected] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const toggleRadio = () => setIsSelected(previousState => !previousState);
 
   switch (value) {
     case 'text':
@@ -61,7 +63,7 @@ const renderRight = (
         <RadioButton
           isSelected={isSelected}
           onPress={() => {
-            toggleRadio();
+            onSelect && onSelect();
             rightOnPress && rightOnPress();
           }}
         />
@@ -96,7 +98,9 @@ export const Table: React.FC<ITables> = ({
   rightType,
   leftType,
   title3,
-  rightOnPress, 
+  rightOnPress,
+  isSelected,
+  onSelect,
 }) => {
   const hasLeftIcon = leftType === 'icon' || leftType === 'image';
 
@@ -119,7 +123,7 @@ export const Table: React.FC<ITables> = ({
       </View>
       {rightType && (
         <Pressable style={styles.rightContainer}>
-          {renderRight(rightType, right, rightOnPress)}
+          {renderRight(rightType, right, rightOnPress, isSelected, onSelect)}
         </Pressable>
       )}
     </View>

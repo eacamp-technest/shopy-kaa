@@ -7,6 +7,7 @@ import {
   TFunctionalMethod,
 } from 'types/local.storage.types';
 import {IUser} from 'types/user';
+import {IAddress} from './address/address.types';
 
 const storage = new MMKV();
 
@@ -56,5 +57,20 @@ export class LocalStorage {
       return user ? JSON.parse(user) : null;
     }
     this.set(StorageKeys.user, 'object', data);
+  }
+
+  public static addresses(method: TFunctionalMethod, data?: IAddress[]) {
+    if (method === 'get') {
+      const addresses = storage.getString(StorageKeys.addresses);
+      return addresses ? JSON.parse(addresses) : [];
+    }
+    this.set(StorageKeys.addresses, 'array', data);
+  }
+
+  public static selectedAddress(method: TFunctionalMethod, data?: string) {
+    if (method === 'get') {
+      return storage.getString(StorageKeys.selectedAddress) || null;
+    }
+    this.set(StorageKeys.selectedAddress, 'string', data);
   }
 }

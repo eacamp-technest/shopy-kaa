@@ -19,6 +19,9 @@ import {PaymentScreensTab} from 'screens/payments';
 import {ChoosePaymentScreen} from 'screens/Choose.Payment.Screen';
 import { ItemListsScreen } from 'screens/ItemLists.Screen';
 import { FilterScreen } from 'screens/Filter.Screen';
+import {YourAddressScreen} from 'screens/settings/YourAddress.Screen';
+import {ChoosePaymentScreen} from 'screens/settings/ChoosePayment.Screen';
+import {AddAddressScreen} from 'screens/settings/AddAddress.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -35,6 +38,14 @@ export const MainRouter = () => {
       />
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
       <MainStack.Screen name={StackRoutes.order} component={OrderScreen} />
+      <MainStack.Screen
+        name={StackRoutes.addaddress}
+        component={AddAddressScreen}
+      />
+      <MainStack.Screen
+        name={StackRoutes.youraddress}
+        component={YourAddressScreen}
+      />
       <MainStack.Screen
         name={StackRoutes.choosepayment}
         component={ChoosePaymentScreen}

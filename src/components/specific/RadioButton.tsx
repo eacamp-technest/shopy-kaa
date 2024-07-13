@@ -4,8 +4,8 @@ import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 
 interface IRadioButton {
-  isSelected: boolean;
-  onPress: () => void;
+  isSelected?: boolean;
+  onPress?: () => void;
 }
 
 export const RadioButton: React.FC<IRadioButton> = ({isSelected, onPress}) => (

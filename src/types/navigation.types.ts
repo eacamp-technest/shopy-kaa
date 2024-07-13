@@ -47,4 +47,6 @@ export type NavigationParamList = {
   [StackRoutes.choosepayment]: undefined;
   [Routes.itemList]: undefined;
   [Routes.filter]: undefined;
+  [StackRoutes.youraddress]: undefined;
+  [StackRoutes.addaddress]: undefined;
 };

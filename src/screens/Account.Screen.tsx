@@ -91,9 +91,9 @@ export const AccountScreen: React.FC<
       case 'Order':
         navigation.navigate(StackRoutes.order);
         break;
-      // case 'Address':
-      //   navigation.navigate('Address');
-      //   break;
+      case 'Address':
+        navigation.navigate(StackRoutes.youraddress);
+        break;
       case 'Payment':
         navigation.navigate(StackRoutes.choosepayment);
         break;

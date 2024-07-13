@@ -1,13 +1,6 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {
-  FlatList,
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-} from 'react-native';
+import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
 import {Header} from 'components/Header';
 import {IMainTab, MainTab} from 'components/MainTab';
 import {Category} from 'components/specific/Category';

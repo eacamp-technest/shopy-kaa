@@ -1,7 +1,7 @@
-import { StyleSheet, TextStyle } from 'react-native';
-import { colors } from './colors';
-import { normalize } from './metrics';
-import { isIos } from 'constants/common.consts';
+import {StyleSheet, TextStyle} from 'react-native';
+import {colors} from './colors';
+import {normalize} from './metrics';
+import {isIos} from 'constants/common.consts';
 
 export const bebasFonts = {
   700: isIos ? 'BebasNeue' : 'BebasNeue Bold',
@@ -46,6 +46,7 @@ export const TypographyStyles = StyleSheet.create({
   },
   title3: {
     fontSize: fontSize24,
+    lineHeight: 32,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
@@ -133,5 +134,5 @@ export const TypographyStyles = StyleSheet.create({
     fontSize: fontSize14,
     fontFamily: montserratFonts[400],
     ...commonFontStyling,
-  }
+  },
 });
