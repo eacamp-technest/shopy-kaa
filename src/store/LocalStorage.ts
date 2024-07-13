@@ -73,4 +73,10 @@ export class LocalStorage {
     }
     this.set(StorageKeys.selectedAddress, 'string', data);
   }
+  public static selectedPayment(method: TFunctionalMethod, data?: string) {
+    if (method === 'get') {
+      return storage.getString(StorageKeys.selectedPayment) || null;
+    }
+    this.set(StorageKeys.selectedPayment, 'string', data);
+  }
 }

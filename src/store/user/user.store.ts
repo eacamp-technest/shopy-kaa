@@ -3,6 +3,7 @@ import {IUserStore} from './user.types';
 import {LocalStorage} from 'store/LocalStorage';
 import {useToastStore} from 'store/toast/toast.store';
 import {StorageKeys} from 'types/local.storage.types';
+import {IUser} from 'types/user';
 
 const {showToast} = useToastStore.getState().actions;
 
@@ -10,6 +11,7 @@ const initial: Omit<IUserStore, 'actions'> = {
   user: null,
   selectedCard: null,
   cards: [],
+  selectedPayment: null,
 };
 
 export const useUserStore = create<IUserStore>((set, get) => ({
@@ -18,10 +20,15 @@ export const useUserStore = create<IUserStore>((set, get) => ({
     initialize: () => {
       const cards = LocalStorage.cards('get');
       const user = LocalStorage.user('get');
+      const selectedPaymentId = LocalStorage.selectedPayment('get');
+
       set({user});
 
       if (cards) {
         set({cards});
+      }
+      if (selectedPaymentId) {
+        set({selectedPayment: selectedPaymentId});
       }
     },
     logout: () => {
@@ -63,6 +70,10 @@ export const useUserStore = create<IUserStore>((set, get) => ({
       } else {
         LocalStorage.cards('set', state);
       }
+    },
+    selectPayment: (payment: string | null) => {
+      set({selectedPayment: payment});
+      LocalStorage.selectedPayment('set', payment || undefined);
     },
     reset: () => set({...initial}),
   },

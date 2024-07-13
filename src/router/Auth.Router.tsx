@@ -8,6 +8,7 @@ import {
   authStackScreenOption,
   defaultScreenOptions,
   modalStackScreenOption,
+  tabBarOption,
 } from 'configs/navigation.configs';
 import {WelcomeScreen} from 'screens/auth/Welcome.Screen';
 import {LoginScreen} from 'screens/auth/Login.Screen';
@@ -17,6 +18,7 @@ import {OtpScreen} from 'screens/auth/Otp.Screen';
 import {ModalScreen} from 'screens/Modal.Screen';
 import {PaymentScreensTab} from 'screens/payments';
 import {SafeAreaView} from 'react-native-safe-area-context';
+import {HomeScreen} from 'screens/Home.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 

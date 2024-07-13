@@ -14,4 +14,5 @@ export enum StorageKeys {
   payment = 'payment',
   addresses = 'addresses',
   selectedAddress = 'selectedAddress',
+  selectedPayment = 'selectedPayment',
 }
