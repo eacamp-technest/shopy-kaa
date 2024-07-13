@@ -25,7 +25,11 @@ export const useUserStore = create<IUserStore>((set, get) => ({
       }
     },
     logout: () => {
-      LocalStorage.clean([StorageKeys.user, StorageKeys.cards]);
+      LocalStorage.clean([
+        StorageKeys.user,
+        StorageKeys.cards,
+        StorageKeys.addresses,
+      ]);
       get().actions.reset();
       showToast('success', 'Logged out successfully');
     },

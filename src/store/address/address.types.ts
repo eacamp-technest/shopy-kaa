@@ -10,6 +10,7 @@ interface IAddressStoreActions {
   selectAddress: (id: string | null) => void;
   initialize: () => void;
   reset: () => void;
+  logout: () => void;
 }
 
 export interface IAddressStore {

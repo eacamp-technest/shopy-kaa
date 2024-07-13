@@ -1,4 +1,4 @@
-import React, {Fragment, useEffect} from 'react';
+import React, {Fragment, useEffect, useId} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
@@ -13,13 +13,15 @@ import {normalize} from 'theme/metrics';
 import {useAddressStore} from 'store/address/address.store';
 import {useAddressStoreActions} from 'store/address';
 import {TypographyStyles} from 'theme/typography';
+import {useToastStore} from 'store/toast/toast.store';
 
 export const YourAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.youraddress>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   const {addresses, selectedAddress} = useAddressStore();
-  const {initialize, selectAddress} = useAddressStoreActions();
+  const {initialize, selectAddress, removeAddress} = useAddressStoreActions();
+  const {showToast} = useToastStore.getState().actions;
 
   useEffect(() => {
     initialize();
@@ -30,6 +32,12 @@ export const YourAddressScreen: React.FC<
   };
 
   const handleRadioPress = () => {};
+
+  const onButtonPress = () => {
+    addresses?.length < 2
+      ? navigation.navigate(StackRoutes.addaddress)
+      : showToast('error', 'You can only store up to 2 address');
+  };
 
   return (
     <View style={styles.root}>
@@ -50,7 +58,7 @@ export const YourAddressScreen: React.FC<
               <Address
                 onSelect={() => handlePress(address.id)}
                 onRadioPress={handleRadioPress}
-                onPress={() => console.log('Edit Pressed')}
+                onPress={() => removeAddress(address.id)}
                 isSelected={selectedAddress?.id === address.id}
                 name={address.name}
                 address={address.address}
@@ -62,7 +70,7 @@ export const YourAddressScreen: React.FC<
         <Button
           type="outlined"
           text="Add new address"
-          onPress={() => navigation.navigate(StackRoutes.addaddress)}
+          onPress={onButtonPress}
         />
       </View>
     </View>

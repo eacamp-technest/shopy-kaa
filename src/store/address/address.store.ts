@@ -1,6 +1,7 @@
 import {create} from 'zustand';
 import {IAddressStore, IAddress} from './address.types';
 import {LocalStorage} from 'store/LocalStorage';
+import {StorageKeys} from 'types/local.storage.types';
 
 const initial: Omit<IAddressStore, 'actions'> = {
   addresses: [],
@@ -30,22 +31,27 @@ export const useAddressStore = create<IAddressStore>((set, get) => ({
     removeAddress: (id: string) => {
       const updated = get().addresses.filter(addr => addr.id !== id);
       set({addresses: updated});
-      LocalStorage.addresses('set', updated);
 
       if (get().selectedAddress?.id === id) {
         set({selectedAddress: null});
-        LocalStorage.selectedAddress('set');
+        LocalStorage.clean(StorageKeys.selectedAddress);
       }
+
+      LocalStorage.addresses('set', updated);
     },
     selectAddress: (id: string | null) => {
       if (id === null) {
         set({selectedAddress: null});
-        LocalStorage.selectedAddress('set');
+        LocalStorage.clean(StorageKeys.selectedAddress);
       } else {
         const selectedAddress = get().addresses.find(addr => addr.id === id);
         set({selectedAddress});
         LocalStorage.selectedAddress('set', id);
       }
+    },
+    logout: () => {
+      LocalStorage.clean(StorageKeys.selectedAddress);
+      get().actions.reset();
     },
     reset: () => set({...initial}),
   },
