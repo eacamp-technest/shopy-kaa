@@ -17,8 +17,8 @@ export const FilterScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.filter>
 > = ({navigation}) => {
   const onChange = (min: number, max: number) => {
-    // console.log('min: ', min);
-    // console.log('max: ', max);
+    console.log('min: ', min);
+    console.log('max: ', max);
   };
   return (
     <SafeTopProvider>
@@ -33,23 +33,26 @@ export const FilterScreen: React.FC<
           <View style={styles.headers}>
             <Header title="PRICE RANGE"></Header>
           </View>
-          <View style={styles.prices}>
+          {/* <View style={styles.prices}>
             <Text style={styles.price}>$69</Text>
             <Text style={styles.price}>$321</Text>
-          </View>
+          </View> */}
           <View style={styles.slider}>
             <RangeSlider
               type="range"
               min={0}
-              max={100}
-              selectedMinimum={20}
-              selectedMaximum={60}
+              max={400}
+              selectedMinimum={100}
+              selectedMaximum={300}
               tintColor={colors.sky.light}
               handleColor={colors.primary.base}
               handlePressedColor={colors.primary.base}
               tintColorBetweenHandles={colors.primary.base}
               onChange={onChange}
-              hideLabels={true}
+              minLabelColor={colors.black}
+              maxLabelColor={colors.black}
+              minLabelFontSize={16}
+              maxLabelFontSize={16}
             />
           </View>
         </View>
