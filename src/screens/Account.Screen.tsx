@@ -159,10 +159,10 @@ export const AccountScreen: React.FC<
   );
 };
 
-const vectors = {
+export const vectors = {
   arrow_left: {
     icon: require('assets/vectors/arrow_left.svg'),
-    color: colors.ink.darkest,
+    color: colors.ink.base,
     width: 24,
     height: 24,
   },

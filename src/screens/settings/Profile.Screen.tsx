@@ -61,6 +61,7 @@ export const ProfileScreen: React.FC<
           caption=" **********"
           leftIcon={vectors.lock}
           rightIcon={vectors.arrow_right}
+          onPress={() => navigation.navigate(StackRoutes.resetpassword)}
         />
       </View>
     </View>
