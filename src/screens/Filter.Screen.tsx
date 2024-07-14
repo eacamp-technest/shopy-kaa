@@ -132,14 +132,14 @@ const vectors = {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    gap: 32,
+    gap: 16,
     paddingVertical: 16,
     paddingHorizontal: 16,
     paddingBottom: 32,
   },
   range: {
     // gap: 15,
-    height: 116,
+    height: 136,
   },
   headers: {
     display: 'flex',
@@ -160,12 +160,15 @@ const styles = StyleSheet.create({
   },
   chip: {
     flexDirection: 'row',
-    gap: 16,
+    gap: 12,
   },
   colorpicker: {
     flexDirection: 'row',
   },
   button: {
-    marginTop: 30,
+    marginTop: 20,
   },
 });
+
+
+
