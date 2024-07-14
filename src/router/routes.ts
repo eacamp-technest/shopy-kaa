@@ -20,7 +20,7 @@ export enum Routes {
   account = 'account',
   search = 'search',
   itemList = 'itemList',
-  filter = 'filter'
+  filter = 'filter',
 }
 
 export enum StackRoutes {
@@ -37,4 +37,6 @@ export enum StackRoutes {
   choosepayment = 'choosepayment',
   youraddress = 'youraddress',
   addaddress = 'addaddress',
+  resetpassword = 'resetpassword',
+  checkyouremail = 'checkyouremail',
 }

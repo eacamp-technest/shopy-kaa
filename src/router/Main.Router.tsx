@@ -20,6 +20,8 @@ import {FilterScreen} from 'screens/Filter.Screen';
 import {YourAddressScreen} from 'screens/settings/YourAddress.Screen';
 import {ChoosePaymentScreen} from 'screens/settings/ChoosePayment.Screen';
 import {AddAddressScreen} from 'screens/settings/AddAddress.Screen';
+import {ResetPasswordScreen} from 'screens/settings/ResetPassword.Screen';
+import {CheckYourEmailScreen} from 'screens/settings/CheckYourEmail.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -36,6 +38,14 @@ export const MainRouter = () => {
       />
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
       <MainStack.Screen name={StackRoutes.order} component={OrderScreen} />
+      <MainStack.Screen
+        name={StackRoutes.checkyouremail}
+        component={CheckYourEmailScreen}
+      />
+      <MainStack.Screen
+        name={StackRoutes.resetpassword}
+        component={ResetPasswordScreen}
+      />
       <MainStack.Screen
         name={StackRoutes.addaddress}
         component={AddAddressScreen}

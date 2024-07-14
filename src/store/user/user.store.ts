@@ -3,7 +3,6 @@ import {IUserStore} from './user.types';
 import {LocalStorage} from 'store/LocalStorage';
 import {useToastStore} from 'store/toast/toast.store';
 import {StorageKeys} from 'types/local.storage.types';
-import {IUser} from 'types/user';
 
 const {showToast} = useToastStore.getState().actions;
 
