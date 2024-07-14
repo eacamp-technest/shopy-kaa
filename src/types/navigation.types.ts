@@ -52,4 +52,5 @@ export type NavigationParamList = {
   [StackRoutes.resetpassword]: undefined;
   [StackRoutes.checkyouremail]: undefined;
   [StackRoutes.createnewpassword]: undefined;
+  [StackRoutes.confirmpasswordreset]: undefined;
 };
