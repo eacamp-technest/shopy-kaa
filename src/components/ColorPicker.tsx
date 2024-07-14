@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
   picker: {
     borderWidth: 1,
     borderRadius: 50,
-    width: 50,
-    height: 50,
+    width: 40,
+    height: 40,
     marginRight: 16,
   },
 });
