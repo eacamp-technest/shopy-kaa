@@ -12,7 +12,7 @@ import {FormValidate} from 'constants/formValidation';
 import {Button} from 'components/Button';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
-import {Routes, StackRoutes} from 'router/routes';
+import {StackRoutes} from 'router/routes';
 
 interface IEmail {
   email: string;
