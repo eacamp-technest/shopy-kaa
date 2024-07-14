@@ -68,7 +68,12 @@ export const CreateNewPassword: React.FC<
               caption="Both passwords must match"
             />
           </View>
-          <Button text="Reset password" />
+          <Button
+            text="Reset password"
+            onPress={() =>
+              navigation.navigate(StackRoutes.confirmpasswordreset)
+            }
+          />
         </View>
       </View>
     </View>

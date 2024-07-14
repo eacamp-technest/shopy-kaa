@@ -3,26 +3,19 @@ import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
-import {StackRoutes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {Header} from 'components/Header';
 import {vectors} from 'screens/Account.Screen';
 import {normalize} from 'theme/metrics';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
 import {Button} from 'components/Button';
-import {TextLink} from 'components/TextLink';
 
-export const CheckYourEmailScreen: React.FC<
-  NativeStackScreenProps<NavigationParamList, StackRoutes.checkyouremail>
+export const ConfirmPasswordResetScreen: React.FC<
+  NativeStackScreenProps<NavigationParamList, StackRoutes.confirmpasswordreset>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
 
-  const highlighted = [
-    {
-      text: 'try another email address',
-      callback: () => navigation.goBack(),
-    },
-  ];
   return (
     <View style={[styles.root]}>
       <View style={[styles.header, {paddingTop: top}]}>
@@ -33,36 +26,22 @@ export const CheckYourEmailScreen: React.FC<
         />
         <View style={styles.top}>
           <Image
-            source={require('assets/images/check_your_email.png')}
+            source={require('assets/images/password_reset.png')}
             style={styles.image}
           />
           <View style={styles.texts}>
-            <Text style={styles.textTop}>Check Your Email</Text>
+            <Text style={styles.textTop}>Password Reset</Text>
             <Text style={styles.textBottom}>
-              We have sent a password recover instructions to your email.
+              Your password has been reset successfully
             </Text>
           </View>
         </View>
         <View style={styles.button}>
           <Button
-            text="Open email app"
+            text="Continue shopping"
             size="block"
             type="primary"
-            onPress={() => Linking.openURL('shoppy@example.com')}
-          />
-          <Button
-            text="Skip, I’ll confirm later"
-            size="block"
-            type="transparent"
-            onPress={() => navigation.navigate(StackRoutes.createnewpassword)}
-          />
-        </View>
-        <View style={styles.textlink}>
-          <TextLink
-            content="Did not receive the email? Check your spam filter, or try another email address"
-            highlighted={highlighted}
-            fontColor={colors.primary.base}
-            center
+            onPress={() => navigation.navigate(Routes.home)}
           />
         </View>
       </View>
@@ -104,8 +83,5 @@ const styles = StyleSheet.create({
   button: {
     paddingTop: normalize('height', 24),
     gap: normalize('height', 24),
-  },
-  textlink: {
-    marginTop: normalize('height', 80),
   },
 });

@@ -23,6 +23,7 @@ import {AddAddressScreen} from 'screens/settings/AddAddress.Screen';
 import {ResetPasswordScreen} from 'screens/settings/ResetPassword.Screen';
 import {CheckYourEmailScreen} from 'screens/settings/CheckYourEmail.Screen';
 import {CreateNewPassword} from 'screens/settings/CreateNewPassword.Screen';
+import {ConfirmPasswordResetScreen} from 'screens/settings/ConfirmPasswordReset.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -39,6 +40,10 @@ export const MainRouter = () => {
       />
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
       <MainStack.Screen name={StackRoutes.order} component={OrderScreen} />
+      <MainStack.Screen
+        name={StackRoutes.confirmpasswordreset}
+        component={ConfirmPasswordResetScreen}
+      />
       <MainStack.Screen
         name={StackRoutes.createnewpassword}
         component={CreateNewPassword}
