@@ -42,4 +42,5 @@ export enum StackRoutes {
   createnewpassword = 'createnewpassword',
   confirmpasswordreset = 'confirmpasswordreset',
   about = 'about',
+  permission = 'permission',
 }

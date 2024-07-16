@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     gap: normalize('height', 24),
   },
   section: {
-    gap: normalize('height', 24),
+    gap: normalize('height', 14),
   },
   title: {
     ...TypographyStyles.title3,
