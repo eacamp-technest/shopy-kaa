@@ -76,11 +76,10 @@ export const AccountScreen: React.FC<
     {id: '2', content: 'Order', leftIcon: vectors.cart},
     {id: '3', content: 'Address', leftIcon: vectors.location},
     {id: '4', content: 'Payment', leftIcon: vectors.card},
-    {id: '5', content: 'Notification', leftIcon: vectors.ring},
-    {id: '6', content: 'About', leftIcon: vectors.about},
-    {id: '7', content: 'Permission', leftIcon: vectors.permission},
-    {id: '8', content: 'Camera', leftIcon: vectors.camera},
-    {id: '9', content: 'Logout', leftIcon: vectors.logout},
+    {id: '5', content: 'About', leftIcon: vectors.about},
+    {id: '6', content: 'Permission', leftIcon: vectors.permission},
+    {id: '7', content: 'Camera', leftIcon: vectors.camera},
+    {id: '8', content: 'Logout', leftIcon: vectors.logout},
   ];
 
   const handlePress = (content: string) => {
@@ -97,12 +96,9 @@ export const AccountScreen: React.FC<
       case 'Payment':
         navigation.navigate(StackRoutes.choosepayment);
         break;
-      // case 'Notification':
-      //   navigation.navigate('Notification');
-      //   break;
-      // case 'About':
-      //   navigation.navigate('About');
-      //   break;
+      case 'About':
+        navigation.navigate(StackRoutes.about);
+        break;
       case 'Logout':
         logout();
         break;

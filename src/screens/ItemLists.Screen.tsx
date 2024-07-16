@@ -1,5 +1,4 @@
 import {FlashList} from '@shopify/flash-list';
-import {Avatar} from 'components/Avatar';
 import {Header} from 'components/Header';
 import {Table} from 'components/Table';
 import React, {useState} from 'react';
@@ -74,7 +73,7 @@ export const ItemListsScreen: React.FC<
           horizontal
           showsHorizontalScrollIndicator={false}>
           <View style={styles.iconWrapper}>
-            <Image style={styles.icon} source={vectors.filter} />
+            <Image style={styles.icon} source={vectors.nike} />
             <Text style={styles.text}>Nike</Text>
           </View>
           <View style={styles.iconWrapper}>
@@ -101,7 +100,6 @@ export const ItemListsScreen: React.FC<
         </View>
       </View>
       <FlashList
-        style={styles.products}
         data={data}
         numColumns={1}
         estimatedItemSize={200}
@@ -127,11 +125,8 @@ const vectors = {
     width: 20,
     height: 18,
   },
-  nike: {
-    icon: require('../assets/vectors/nike.svg'),
-    width: 70,
-    height: 70,
-  },
+  nike: require('../assets/vectors/nike.svg'),
+
   adidas: {
     icon: require('../assets/vectors/adidas.svg'),
     width: 70,
@@ -162,11 +157,10 @@ const styles = StyleSheet.create({
   },
   iconWrapper: {
     alignItems: 'center',
-    marginRight: normalize('horizontal', 10),
   },
   icon: {
-    width: 70,
-    height: 70,
+    width: normalize('width', 70),
+    height: normalize('height', 70),
     borderWidth: 1,
     borderColor: 'black',
     backgroundColor: 'lightgray',

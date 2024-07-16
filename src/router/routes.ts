@@ -41,4 +41,5 @@ export enum StackRoutes {
   checkyouremail = 'checkyouremail',
   createnewpassword = 'createnewpassword',
   confirmpasswordreset = 'confirmpasswordreset',
+  about = 'about',
 }
