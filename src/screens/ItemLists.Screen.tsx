@@ -73,20 +73,20 @@ export const ItemListsScreen: React.FC<
           horizontal
           showsHorizontalScrollIndicator={false}>
           <View style={styles.iconWrapper}>
-            <Image style={styles.icon} source={vectors.nike} />
-            <Text style={styles.text}>Nike</Text>
+          <Image style={styles.icon} source={vectors.nike.icon} />
+          <Text style={styles.text}>Nike</Text>
           </View>
           <View style={styles.iconWrapper}>
-            <Image style={styles.icon} source={vectors.filter} />
-            <Text style={styles.text}>Converse</Text>
+          <Image style={styles.icon} source={vectors.adidas.icon} />
+          <Text style={styles.text}>Converse</Text>
           </View>
           <View style={styles.iconWrapper}>
-            <Image style={styles.icon} source={vectors.filter} />
-            <Text style={styles.text}>Adidas</Text>
+          <Image style={styles.icon} source={vectors.vans.icon} />
+          <Text style={styles.text}>Adidas</Text>
           </View>
           <View style={styles.iconWrapper}>
-            <Image style={styles.icon} source={vectors.filter} />
-            <Text style={styles.text}>Vans</Text>
+          <Image style={styles.icon} source={vectors.converse.icon} />
+          <Text style={styles.text}>Vans</Text>
           </View>
         </ScrollView>
         <View style={styles.table}>
