@@ -8,6 +8,12 @@ export interface ICardProduct {
   url: string;
 }
 
+export interface ISuggestionMock {
+  id: number;
+  title: string;
+  source: ImageSourcePropType | undefined;
+}
+
 export const product: ICardProduct[] = [
   {
     id: 0,
@@ -92,5 +98,27 @@ export const product: ICardProduct[] = [
     price: 75,
     image: require('../assets/images/product6.png'),
     url: 'Nike.com',
+  },
+];
+export const suggestionMock: ISuggestionMock[] = [
+  {
+    id: 1,
+    source: require('assets/images/women_suggestion.png'),
+    title: 'Women',
+  },
+  {
+    id: 2,
+    source: require('assets/images/men_suggestion.png'),
+    title: 'Men',
+  },
+  {
+    id: 3,
+    source: require('assets/images/kids_suggestion.png'),
+    title: 'Kids',
+  },
+  {
+    id: 4,
+    source: require('assets/images/teens_suggestion.png'),
+    title: 'Teens',
   },
 ];

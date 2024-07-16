@@ -1,29 +1,40 @@
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import React from 'react';
-import {SvgImage} from './SvgImage';
 import {TypographyStyles} from 'theme/typography';
 
-interface ISuggestion {
+export interface ISuggestion {
   source?: ImageSourcePropType | undefined;
   text: string;
+  onPress?: () => void;
 }
 
-export const Suggestion: React.FC<ISuggestion> = ({source, text}) => {
+export const Suggestion: React.FC<ISuggestion> = ({source, onPress, text}) => {
   return (
-    <View style={styles.root}>
-      <Image source={source} />
+    <Pressable onPress={onPress} style={styles.root}>
+      {source && <Image style={styles.image} source={source} />}
       <Text style={styles.text}>{text}</Text>
-    </View>
+    </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    borderWidth: 1,
     gap: 16,
+  },
+  image: {
+    width: 56,
+    height: 56,
+    resizeMode: 'contain',
   },
   text: {
     ...TypographyStyles.SmallNoneSemibold,
