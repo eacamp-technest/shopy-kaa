@@ -19,11 +19,12 @@ import {TypographyStyles} from 'theme/typography';
 import {ChipPill} from 'components/ChipPill';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
-import {ICardProduct, product} from 'mock/SearchBarMock';
+import {ICardProduct, product, suggestionMock} from 'mock/SearchBarMock';
 import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
 import {isAndroid} from 'constants/common.consts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {Suggestion} from 'components/Suggestion';
 
 const InStore: React.FC = () => {
   return (
@@ -156,6 +157,7 @@ export const HomeScreen: React.FC<
           onInputPress={() =>
             navigation.navigate(Routes.search, {
               items: product,
+              suggestion: suggestionMock,
               onItemPress: item => console.log('item pressed: -', item),
               headerTitle: 'Mock items',
             })

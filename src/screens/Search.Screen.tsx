@@ -1,9 +1,12 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
+  FlatList,
+  ImageSourcePropType,
   NativeSyntheticEvent,
   StyleSheet,
   TextInputFocusEventData,
   View,
+  Text,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Routes} from 'router/routes';
@@ -12,6 +15,8 @@ import {NavigationParamList} from 'types/navigation.types';
 import {Product} from 'components/Product';
 import {FlashList} from '@shopify/flash-list';
 import {normalize} from 'theme/metrics';
+import {Suggestion} from 'components/Suggestion';
+import {TypographyStyles} from 'theme/typography';
 
 export interface ICardProduct {
   id: number;
@@ -20,6 +25,11 @@ export interface ICardProduct {
   image: any;
   url: string;
 }
+export interface ISuggestionMock {
+  id: number;
+  title: string;
+  source: ImageSourcePropType | undefined;
+}
 const ItemSeparatorComponent = () => {
   return <View style={styles.flashVertical} />;
 };
@@ -27,8 +37,9 @@ const ItemSeparatorComponent = () => {
 export const SearchScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.search>
 > = ({route, navigation}) => {
-  const {items, onItemPress, ...props} = route.params;
+  const {items, onItemPress, suggestion, ...props} = route.params;
   const [data, setData] = useState<ICardProduct[]>(items ?? []);
+  const [datas, setDatas] = useState<ISuggestionMock[]>(suggestion ?? []);
 
   const onChangeText = useCallback(
     (event: NativeSyntheticEvent<TextInputFocusEventData>) => {
@@ -61,6 +72,16 @@ export const SearchScreen: React.FC<
     },
     [onItemPress, navigation],
   );
+  const renderSuggestionItem = useCallback(
+    ({item}: {item: ISuggestionMock}) => {
+      return (
+        <View style={styles.renderSuggestionItem}>
+          <Suggestion text={item.title} source={item.source} key={item.id} />
+        </View>
+      );
+    },
+    [],
+  );
 
   useEffect(() => {
     navigation.setOptions({
@@ -79,6 +100,18 @@ export const SearchScreen: React.FC<
 
   return (
     <View style={styles.root}>
+      <View style={styles.suggestion}>
+        <FlatList
+          data={datas}
+          renderItem={renderSuggestionItem}
+          numColumns={2}
+          scrollEnabled={false}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+          contentInsetAdjustmentBehavior={'automatic'}
+          contentContainerStyle={styles.contentContainerStyle}
+        />
+      </View>
+
       <FlashList
         data={data}
         renderItem={renderItem}
@@ -108,5 +141,18 @@ const styles = StyleSheet.create({
   },
   flashVertical: {
     height: normalize('height', 24),
+  },
+  renderSuggestionItem: {
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    flexDirection: 'row',
+    flex: 1,
+  },
+  text: {
+    ...TypographyStyles.title3,
+  },
+  suggestion: {
+    flexGrow: 0.35,
+    paddingHorizontal: normalize('horizontal', 20),
   },
 });
