@@ -28,27 +28,6 @@ export const AccountScreen: React.FC<
   );
   const device = useCameraDevice('back');
 
-  const checkCameraPermission = async () => {
-    const checkCamera = await check(PERMISSIONS.IOS.CAMERA);
-    if (checkCamera === RESULTS.BLOCKED) {
-      Alert.alert(
-        'Camera permission is blocked',
-        'Please enable camera permission in settings',
-        [
-          {
-            text: 'Open settings',
-            onPress: Linking.openSettings,
-            isPreferred: true,
-          },
-          {
-            text: 'Cancel',
-            isPreferred: false,
-          },
-        ],
-      );
-    }
-  };
-
   const codeScanner = useCodeScanner({
     codeTypes: ['qr'],
     onCodeScanned: codes => {
@@ -61,15 +40,6 @@ export const AccountScreen: React.FC<
       {text: 'OK', onPress: () => console.log('OK Pressed')},
     ]);
   };
-
-  const requestCameraPermission = async () => {
-    const permissionResult = await request(PERMISSIONS.IOS.CAMERA);
-    console.log(permissionResult);
-  };
-
-  useEffect(() => {
-    checkCameraPermission();
-  }, []);
 
   const tableData = [
     {id: '1', content: 'Profile', leftIcon: vectors.avatar},
@@ -98,6 +68,9 @@ export const AccountScreen: React.FC<
         break;
       case 'About':
         navigation.navigate(StackRoutes.about);
+        break;
+      case 'Permission':
+        navigation.navigate(StackRoutes.permission);
         break;
       case 'Logout':
         logout();
@@ -139,11 +112,7 @@ export const AccountScreen: React.FC<
           ItemSeparatorComponent={() => <View style={{height: 36}} />}
           scrollEnabled={false}
         />
-        <Button
-          text="Ask permission: Camera"
-          size="block"
-          onPress={requestCameraPermission}
-        />
+
         {/* <Camera
           style={StyleSheet.absoluteFill}
           device={device}
