@@ -26,6 +26,7 @@ import {CreateNewPassword} from 'screens/settings/CreateNewPassword.Screen';
 import {ConfirmPasswordResetScreen} from 'screens/settings/ConfirmPasswordReset.Screen';
 import {AboutScreen} from 'screens/settings/About.Screen';
 import {PermissionScreen} from 'screens/settings/Permission.Screen';
+import {ProductDetailsScreen} from 'screens/ProductDetails.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -98,6 +99,10 @@ export const MainRouter = () => {
       />
       <MainStack.Screen name={Routes.itemList} component={ItemListsScreen} />
       <MainStack.Screen name={Routes.filter} component={FilterScreen} />
+      <MainStack.Screen
+        name={Routes.productDetails}
+        component={ProductDetailsScreen}
+      />
     </MainStack.Navigator>
   );
 };
