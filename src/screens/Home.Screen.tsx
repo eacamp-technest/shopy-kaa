@@ -57,6 +57,9 @@ const AllStore: React.FC = () => {
           key={item.id}
           title={item.title}
           url={item.url}
+          onPress={() =>
+            navigation.navigate(Routes.productDetails, {product: item})
+          }
         />
       </View>
     );
