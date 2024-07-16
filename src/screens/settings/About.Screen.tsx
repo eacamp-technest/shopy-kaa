@@ -82,10 +82,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: normalize('horizontal', 24),
   },
   texts: {
-    gap: 24,
+    gap: normalize('height', 24),
   },
   section: {
-    gap: 12,
+    gap: normalize('height', 24),
   },
   title: {
     ...TypographyStyles.title3,
