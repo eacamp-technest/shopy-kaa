@@ -1,15 +1,8 @@
-import {View, StyleSheet, Alert, Linking, Pressable} from 'react-native';
-import React, {useEffect} from 'react';
+import {View, StyleSheet, Pressable} from 'react-native';
+import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Button} from 'components/Button';
-import {check, request, PERMISSIONS, RESULTS} from 'react-native-permissions';
 import {Header} from 'components/Header';
 import {useUserStoreActions} from 'store/user';
-import {
-  Camera,
-  useCameraDevice,
-  useCodeScanner,
-} from 'react-native-vision-camera';
 import {colors} from 'theme/colors';
 import {Table} from 'components/Table';
 import {normalize} from 'theme/metrics';
@@ -23,23 +16,6 @@ export const AccountScreen: React.FC<
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   const {logout} = useUserStoreActions();
-  const [cameraPosition, setCameraPosition] = React.useState<'front' | 'back'>(
-    'back',
-  );
-  const device = useCameraDevice('back');
-
-  const codeScanner = useCodeScanner({
-    codeTypes: ['qr'],
-    onCodeScanned: codes => {
-      console.log('Scanned QR code:', codes);
-      showScanAlert();
-    },
-  });
-  const showScanAlert = () => {
-    Alert.alert('QR Code Scanned!', 'QR code has been successfully scanned.', [
-      {text: 'OK', onPress: () => console.log('OK Pressed')},
-    ]);
-  };
 
   const tableData = [
     {id: '1', content: 'Profile', leftIcon: vectors.avatar},
@@ -71,6 +47,9 @@ export const AccountScreen: React.FC<
         break;
       case 'Permission':
         navigation.navigate(StackRoutes.permission);
+        break;
+      case 'Camera':
+        navigation.navigate(StackRoutes.camera);
         break;
       case 'Logout':
         logout();
@@ -112,13 +91,6 @@ export const AccountScreen: React.FC<
           ItemSeparatorComponent={() => <View style={{height: 36}} />}
           scrollEnabled={false}
         />
-
-        {/* <Camera
-          style={StyleSheet.absoluteFill}
-          device={device}
-          isActive={true}
-          codeScanner={codeScanner}
-        /> */}
       </View>
     </View>
   );

@@ -1,5 +1,5 @@
 import {Alert, Linking, StyleSheet, Text, View} from 'react-native';
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -11,13 +11,23 @@ import {PERMISSIONS, RESULTS, check, request} from 'react-native-permissions';
 import {Button} from 'components/Button';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
+import {Platform} from 'react-native';
 
 export const PermissionScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.permission>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
+  const [isCameraPermissionGranted, setIsCameraPermissionGranted] =
+    useState(false);
+
   const checkCameraPermission = async () => {
-    const checkCamera = await check(PERMISSIONS.IOS.CAMERA);
+    const permission =
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA;
+
+    const checkCamera = await check(permission);
+
     if (checkCamera === RESULTS.BLOCKED) {
       Alert.alert(
         'Camera permission is blocked',
@@ -35,11 +45,22 @@ export const PermissionScreen: React.FC<
         ],
       );
     }
+    if (checkCamera === RESULTS.GRANTED) {
+      setIsCameraPermissionGranted(true);
+    }
   };
 
   const requestCameraPermission = async () => {
-    const permissionResult = await request(PERMISSIONS.IOS.CAMERA);
+    const permission =
+      Platform.OS === 'ios'
+        ? PERMISSIONS.IOS.CAMERA
+        : PERMISSIONS.ANDROID.CAMERA;
+
+    const permissionResult = await request(permission);
     console.log(permissionResult);
+    if (permissionResult === RESULTS.GRANTED) {
+      setIsCameraPermissionGranted(true);
+    }
   };
 
   useEffect(() => {
@@ -64,6 +85,7 @@ export const PermissionScreen: React.FC<
           text="Ask permission: Camera"
           size="block"
           onPress={requestCameraPermission}
+          disabled={isCameraPermissionGranted}
         />
       </View>
     </View>

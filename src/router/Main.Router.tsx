@@ -27,6 +27,7 @@ import {ConfirmPasswordResetScreen} from 'screens/settings/ConfirmPasswordReset.
 import {AboutScreen} from 'screens/settings/About.Screen';
 import {PermissionScreen} from 'screens/settings/Permission.Screen';
 import {ProductDetailsScreen} from 'screens/ProductDetails.Screen';
+import {CameraScreen} from 'screens/settings/Camera.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -44,6 +45,7 @@ export const MainRouter = () => {
       <MainStack.Screen name={StackRoutes.profile} component={ProfileScreen} />
       <MainStack.Screen name={StackRoutes.order} component={OrderScreen} />
       <MainStack.Screen name={StackRoutes.about} component={AboutScreen} />
+      <MainStack.Screen name={StackRoutes.camera} component={CameraScreen} />
       <MainStack.Screen
         name={StackRoutes.permission}
         component={PermissionScreen}

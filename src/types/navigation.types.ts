@@ -1,8 +1,8 @@
-import { IModal } from 'components/Modal';
-import { ISuggestion } from 'components/Suggestion';
-import { ICardProduct, ISuggestionMock } from 'mock/SearchBarMock';
-import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
-import { Routes, StackRoutes } from 'router/routes';
+import {IModal} from 'components/Modal';
+import {ISuggestion} from 'components/Suggestion';
+import {ICardProduct, ISuggestionMock} from 'mock/SearchBarMock';
+import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
+import {Routes, StackRoutes} from 'router/routes';
 
 export type AppNavigation = NativeStackNavigationProp<NavigationParamList>;
 
@@ -34,7 +34,7 @@ export type NavigationParamList = {
     onItemPress?: (item: ICardProduct) => void;
     headerTitle?: string;
   };
-  [Routes.productDetails]: { product: ICardProduct };
+  [Routes.productDetails]: {product: ICardProduct};
   [StackRoutes.kidslists]: undefined;
   [StackRoutes.menlist]: undefined;
   [StackRoutes.womenlists]: undefined;
@@ -58,4 +58,5 @@ export type NavigationParamList = {
   [StackRoutes.confirmpasswordreset]: undefined;
   [StackRoutes.about]: undefined;
   [StackRoutes.permission]: undefined;
+  [StackRoutes.camera]: undefined;
 };
