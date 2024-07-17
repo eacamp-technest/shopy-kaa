@@ -21,7 +21,7 @@ export enum Routes {
   search = 'search',
   itemList = 'itemList',
   filter = 'filter',
-  productDetails = 'productDetails'
+  productDetails = 'productDetails',
 }
 
 export enum StackRoutes {
@@ -44,4 +44,5 @@ export enum StackRoutes {
   confirmpasswordreset = 'confirmpasswordreset',
   about = 'about',
   permission = 'permission',
+  camera = 'camera',
 }
