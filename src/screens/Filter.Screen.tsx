@@ -2,7 +2,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
-import RangeSlider from '@jesster2k10/react-native-range-slider';
 import {TypographyStyles} from 'theme/typography';
 import {Divider} from 'components/Divider';
 import {Button} from 'components/Button';
@@ -12,14 +11,11 @@ import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
 import {ChipPill} from 'components/ChipPill';
 import {ColorPicker} from 'components/ColorPicker';
+import {InputRange} from 'components/InputRange';
 
 export const FilterScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.filter>
 > = ({navigation}) => {
-  const onChange = (min: number, max: number) => {
-    console.log('min: ', min);
-    console.log('max: ', max);
-  };
   return (
     <SafeTopProvider>
       <View style={styles.root}>
@@ -33,26 +29,13 @@ export const FilterScreen: React.FC<
           <View style={styles.headers}>
             <Header title="PRICE RANGE"></Header>
           </View>
-          {/* <View style={styles.prices}>
-            <Text style={styles.price}>$69</Text>
-            <Text style={styles.price}>$321</Text>
-          </View> */}
           <View style={styles.slider}>
-            <RangeSlider
-              type="range"
+            <InputRange
               min={0}
-              max={400}
-              selectedMinimum={100}
-              selectedMaximum={300}
-              tintColor={colors.sky.light}
-              handleColor={colors.primary.base}
-              handlePressedColor={colors.primary.base}
-              tintColorBetweenHandles={colors.primary.base}
-              onChange={onChange}
-              minLabelColor={colors.black}
-              maxLabelColor={colors.black}
-              minLabelFontSize={16}
-              maxLabelFontSize={16}
+              max={300}
+              title={'Price'}
+              steps={1}
+              onChange={() => console.log('InputRange')}
             />
           </View>
         </View>
@@ -168,6 +151,3 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-
-
-
