@@ -1,5 +1,5 @@
-import {Alert, StyleSheet, Text, View} from 'react-native';
-import React, {useState, useEffect} from 'react';
+import {Alert, StyleSheet, Text, View, Linking} from 'react-native';
+import React, {useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -12,37 +12,54 @@ import {
   useCameraDevice,
   useCodeScanner,
 } from 'react-native-vision-camera';
+import {TypographyStyles} from 'theme/typography';
 
 export const CameraScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.camera>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
 
-  const [scanned, setScanned] = useState(false);
+  const [isScanning, setIsScanning] = useState(true);
   const device = useCameraDevice('back');
 
   const codeScanner = useCodeScanner({
-    codeTypes: ['qr'],
+    codeTypes: ['qr', 'ean-13'],
     onCodeScanned: codes => {
-      if (!scanned) {
-        console.log('Scanned QR code:', codes);
-        showScanAlert();
-        setScanned(true);
+      if (isScanning && codes.length > 0) {
+        Alert.alert(
+          'QR Code Scanned',
+          'Click the open for continue',
+          [
+            {
+              text: 'Cancel',
+              style: 'cancel',
+              onPress: () => setIsScanning(true),
+            },
+            {
+              text: 'Open',
+              onPress: () => codes[0]?.value && Linking.openURL(codes[0].value),
+            },
+          ],
+          {cancelable: false},
+        );
+        setIsScanning(false);
       }
     },
   });
 
-  const showScanAlert = () => {
-    Alert.alert('QR Code Scanned!', 'QR code has been successfully scanned.', [
-      {
-        text: 'OK',
-        onPress: () => {
-          console.log('OK Pressed');
-          setScanned(false);
-        },
-      },
-    ]);
-  };
+  if (!device) {
+    return (
+      <View style={[styles.root, {paddingTop: top}]}>
+        <Header
+          title="Camera"
+          leftActionType="icon"
+          left={vectors.arrow_left}
+          onLeftPress={navigation.goBack}
+        />
+        <Text style={styles.text}>Loading camera...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.root, {paddingTop: top}]}>
@@ -52,8 +69,9 @@ export const CameraScreen: React.FC<
         left={vectors.arrow_left}
         onLeftPress={navigation.goBack}
       />
+      <Text style={styles.text}>QR Code Scanner</Text>
       <Camera
-        style={StyleSheet.absoluteFill}
+        style={styles.scanner}
         device={device}
         isActive={true}
         codeScanner={codeScanner}
@@ -66,5 +84,15 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     paddingHorizontal: normalize('horizontal', 24),
+  },
+  text: {
+    textAlign: 'center',
+    marginBottom: 16,
+    ...TypographyStyles.title3,
+  },
+  scanner: {
+    flex: 0.5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
