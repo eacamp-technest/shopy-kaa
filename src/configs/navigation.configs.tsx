@@ -8,6 +8,7 @@ import {SvgImage} from 'components/SvgImage';
 export const defaultScreenOptions: NativeStackNavigationOptions = {
   headerShown: false,
   orientation: 'portrait',
+
   contentStyle: {
     backgroundColor: colors.white,
   },
