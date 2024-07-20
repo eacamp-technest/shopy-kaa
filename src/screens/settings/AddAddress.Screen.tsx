@@ -1,4 +1,4 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, ScrollView, Text, View} from 'react-native';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
@@ -46,7 +46,10 @@ export const AddAddressScreen: React.FC<
 
   return (
     <FormProvider {...formMethods}>
-      <View style={styles.root}>
+      <ScrollView
+        keyboardShouldPersistTaps="never"
+        scrollEnabled={false}
+        style={styles.root}>
         <View style={{paddingTop: top}}>
           <View style={styles.paddingHorizontal}>
             <Header
@@ -67,6 +70,7 @@ export const AddAddressScreen: React.FC<
               />
               <InputController
                 name="mobile"
+                keyboardType="number-pad"
                 control={control}
                 rules={{required: 'Mobile number is required'}}
                 label="Mobile"
@@ -106,7 +110,7 @@ export const AddAddressScreen: React.FC<
             </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
     </FormProvider>
   );
 };

@@ -112,6 +112,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             label="CVV"
             name="cvv"
             placeholder="CVV"
+            keyboardType="number-pad"
           />
         </View>
 

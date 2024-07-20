@@ -1,6 +1,9 @@
 import React from 'react';
-import { Dimensions, StyleSheet, View, TextInput } from 'react-native';
-import { PanGestureHandler, PanGestureHandlerGestureEvent } from 'react-native-gesture-handler';
+import {Dimensions, StyleSheet, View, TextInput} from 'react-native';
+import {
+  PanGestureHandler,
+  PanGestureHandlerGestureEvent,
+} from 'react-native-gesture-handler';
 import Animated, {
   useAnimatedGestureHandler,
   useAnimatedProps,
@@ -8,14 +11,14 @@ import Animated, {
   useSharedValue,
   runOnJS,
 } from 'react-native-reanimated';
-import { colors } from 'theme/colors';
+import {colors} from 'theme/colors';
 
 interface IInputRange {
   min: number;
   max: number;
   steps: number;
   title: string;
-  onChange: (value: { min: number; max: number }) => void;
+  onChange: (value: {min: number; max: number}) => void;
 }
 
 interface GestureContext {
@@ -39,7 +42,10 @@ export const InputRange: React.FC<IInputRange> = ({
   const xKnob2 = useSharedValue(MAXWIDTH);
   const scaleKnob2 = useSharedValue(1);
 
-  const gestureHandler1 = useAnimatedGestureHandler<PanGestureHandlerGestureEvent, GestureContext>({
+  const gestureHandler1 = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    GestureContext
+  >({
     onStart: (_, ctx) => {
       ctx.startX = xKnob1.value;
     },
@@ -63,13 +69,20 @@ export const InputRange: React.FC<IInputRange> = ({
     onEnd: () => {
       scaleKnob1.value = 1;
       runOnJS(onChange)({
-        min: Math.round((min + (xKnob1.value / MAXWIDTH) * (max - min)) / steps) * steps,
-        max: Math.round((min + (xKnob2.value / MAXWIDTH) * (max - min)) / steps) * steps,
+        min:
+          Math.round((min + (xKnob1.value / MAXWIDTH) * (max - min)) / steps) *
+          steps,
+        max:
+          Math.round((min + (xKnob2.value / MAXWIDTH) * (max - min)) / steps) *
+          steps,
       });
     },
   });
 
-  const gestureHandler2 = useAnimatedGestureHandler<PanGestureHandlerGestureEvent, GestureContext>({
+  const gestureHandler2 = useAnimatedGestureHandler<
+    PanGestureHandlerGestureEvent,
+    GestureContext
+  >({
     onStart: (_, ctx) => {
       ctx.startX = xKnob2.value;
     },
@@ -93,8 +106,12 @@ export const InputRange: React.FC<IInputRange> = ({
     onEnd: () => {
       scaleKnob2.value = 1;
       runOnJS(onChange)({
-        min: Math.round((min + (xKnob1.value / MAXWIDTH) * (max - min)) / steps) * steps,
-        max: Math.round((min + (xKnob2.value / MAXWIDTH) * (max - min)) / steps) * steps,
+        min:
+          Math.round((min + (xKnob1.value / MAXWIDTH) * (max - min)) / steps) *
+          steps,
+        max:
+          Math.round((min + (xKnob2.value / MAXWIDTH) * (max - min)) / steps) *
+          steps,
       });
     },
   });
@@ -106,14 +123,14 @@ export const InputRange: React.FC<IInputRange> = ({
       marginTop: -3,
       borderRadius: 3,
       width: xKnob2.value - xKnob1.value,
-      transform: [{ translateX: xKnob1.value }],
+      transform: [{translateX: xKnob1.value}],
     };
   });
 
   const styleKnob1 = useAnimatedStyle(() => {
     return {
       transform: [
-        { translateX: xKnob1.value },
+        {translateX: xKnob1.value},
         {
           scale: scaleKnob1.value,
         },
@@ -124,7 +141,7 @@ export const InputRange: React.FC<IInputRange> = ({
   const styleKnob2 = useAnimatedStyle(() => {
     return {
       transform: [
-        { translateX: xKnob2.value },
+        {translateX: xKnob2.value},
         {
           scale: scaleKnob2.value,
         },

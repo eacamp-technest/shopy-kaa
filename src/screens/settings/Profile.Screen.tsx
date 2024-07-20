@@ -5,12 +5,11 @@ import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
 import {Header} from 'components/Header';
 import {Avatar} from 'components/Avatar';
-import {Table} from 'components/Table';
 import {MainTab} from 'components/MainTab';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NavigationParamList} from 'types/navigation.types';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Routes, StackRoutes} from 'router/routes';
+import {StackRoutes} from 'router/routes';
 import {isAndroid} from 'constants/common.consts';
 
 export const ProfileScreen: React.FC<
