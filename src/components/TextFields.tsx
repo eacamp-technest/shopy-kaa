@@ -98,18 +98,16 @@ export const Input: React.FC<IInput> = ({
       return (
         <Dropdown
           data={[
-            {label: 'Item 1', value: '1'},
-            {label: 'Item 2', value: '2'},
-            {label: 'Item 3', value: '3'},
-            {label: 'Item 4', value: '4'},
-            {label: 'Item 5', value: '5'},
-            {label: 'Item 6', value: '6'},
-            {label: 'Item 7', value: '7'},
-            {label: 'Item 8', value: '8'},
+            {label: 'Azerbaijan', value: '1'},
+            {label: 'Russia', value: '2'},
+            {label: 'Turkiye', value: '3'},
           ]}
           labelField="label"
           valueField="value"
           placeholder={props.placeholder}
+          placeholderStyle={{
+            color: props.disabled ? colors.sky.base : colors.ink.lighter,
+          }}
           value={value}
           onChange={item => setValue?.(item.value)}
           style={[
@@ -213,10 +211,9 @@ const styles = StyleSheet.create({
     color: colors.ink.lighter,
   },
   dropdown: {
-    height: 48,
+    height: normalize('height', 48),
     borderColor: colors.sky.light,
     borderRadius: 8,
     flex: 1,
-    paddingHorizontal: 16,
   },
 });
