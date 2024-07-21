@@ -73,23 +73,22 @@ export const AddAddressScreen: React.FC<
               />
               <View style={styles.phone}>
                 <Text style={styles.label}>Mobile</Text>
-
                 <PhoneInput
                   codeTextStyle={TypographyStyles.RegularNoneRegular}
                   ref={phoneInput}
                   placeholder="Enter your mobile number"
                   defaultCode="AZ"
                   layout="first"
-                  defaultValue="505505050"
                   containerStyle={[
                     styles.phoneInputContainer,
-                    isFocused ? styles.phoneInputContainerFocused : null,
-                  ]}
-                  textContainerStyle={styles.phoneInputTextContainer}
-                  textInputStyle={[
-                    styles.phoneInputTextInput,
                     isFocused && styles.phoneInputContainerFocused,
                   ]}
+                  textContainerStyle={styles.phoneInputTextContainer}
+                  textInputStyle={styles.phoneInputTextInput}
+                  textInputProps={{
+                    onFocus: () => setIsFocused(true),
+                    onBlur: () => setIsFocused(false),
+                  }}
                 />
               </View>
             </View>

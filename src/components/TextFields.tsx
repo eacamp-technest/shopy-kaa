@@ -23,7 +23,7 @@ export interface IInput extends TextInputProps {
   label?: string;
   caption?: string;
   value?: string;
-  maxLegth?: number;
+  maxLength?: number;
   placeholder?: string;
   disabled?: boolean;
   keyboardType?: KeyboardTypeOptions;
@@ -104,10 +104,13 @@ export const Input: React.FC<IInput> = ({
           ]}
           labelField="label"
           valueField="value"
+          containerStyle={{borderRadius: 8}}
           placeholder={props.placeholder}
-          placeholderStyle={{
-            color: props.disabled ? colors.sky.base : colors.ink.lighter,
-          }}
+          placeholderStyle={[
+            styles.placeholderStyle,
+            {color: props.disabled ? colors.sky.base : colors.ink.lighter},
+          ]}
+          selectedTextStyle={styles.selectedTextStyle}
           value={value}
           onChange={item => setValue?.(item.value)}
           style={[
@@ -126,7 +129,7 @@ export const Input: React.FC<IInput> = ({
         placeholder={props.placeholder}
         keyboardType={props.keyboardType}
         value={value}
-        maxLength={props.maxLegth}
+        maxLength={props.maxLength}
         onChangeText={setValue}
         secureTextEntry={secureTextEntry}
         onPressIn={props.onInputPress}
@@ -215,5 +218,11 @@ const styles = StyleSheet.create({
     borderColor: colors.sky.light,
     borderRadius: 8,
     flex: 1,
+  },
+  selectedTextStyle: {
+    ...TypographyStyles.RegularNoneRegular,
+  },
+  placeholderStyle: {
+    ...TypographyStyles.RegularNoneRegular,
   },
 });
