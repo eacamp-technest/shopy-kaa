@@ -1,5 +1,12 @@
-import {StyleSheet, ScrollView, Text, View} from 'react-native';
-import React from 'react';
+import {
+  StyleSheet,
+  ScrollView,
+  Text,
+  View,
+  TextInput,
+  ViewStyle,
+} from 'react-native';
+import React, {useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -10,10 +17,11 @@ import {Button} from 'components/Button';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {StackRoutes} from 'router/routes';
-import {FormProvider, useForm} from 'react-hook-form';
+import {FormProvider, useForm, Controller} from 'react-hook-form';
 import {IAddressInputForm} from 'theme/address';
 import {useAddressStoreActions} from 'store/address';
 import {InputController} from 'components/InputController';
+import PhoneInput from 'react-native-phone-number-input';
 
 export const AddAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
@@ -24,7 +32,7 @@ export const AddAddressScreen: React.FC<
       ? {
           name: 'Ali Hilalov',
           mobile: '1234567890',
-          country: 'Turkiye',
+          country: 'USA',
           address: '123 Main St',
         }
       : {},
@@ -37,12 +45,33 @@ export const AddAddressScreen: React.FC<
   } = formMethods;
   const {addAddress} = useAddressStoreActions();
 
+  const [isFocused, setIsFocused] = useState(false);
+
   const onSubmit = (data: IAddressInputForm) => {
     data.id = String(Math.random() * 10000).slice(0, 4);
     addAddress(data);
     navigation.goBack();
     reset();
   };
+
+  const phoneInputStyles = StyleSheet.create({
+    container: {
+      borderWidth: 1,
+      borderRadius: 8,
+      backgroundColor: colors.white,
+      borderColor: isFocused ? colors.primary.base : colors.sky.lighter,
+    } as ViewStyle,
+    textContainer: {
+      backgroundColor: 'transparent',
+    },
+    textInput: {
+      ...TypographyStyles.RegularNoneRegular,
+    },
+    label: {
+      ...TypographyStyles.RegularNoneSemiBold,
+      paddingBottom: 8,
+    },
+  });
 
   return (
     <FormProvider {...formMethods}>
@@ -68,14 +97,24 @@ export const AddAddressScreen: React.FC<
                 type="text"
                 placeholder="Enter your name"
               />
-              <InputController
+              <Text style={phoneInputStyles.label}>Mobile</Text>
+              <Controller
                 name="mobile"
-                keyboardType="number-pad"
                 control={control}
                 rules={{required: 'Mobile number is required'}}
-                label="Mobile"
-                type="phone"
-                placeholder="Enter your mobile number"
+                render={({field: {onChange, value}}) => (
+                  <PhoneInput
+                    defaultValue={value}
+                    defaultCode="US"
+                    layout="first"
+                    onChangeFormattedText={onChange}
+                    containerStyle={phoneInputStyles.container}
+                    textContainerStyle={phoneInputStyles.textContainer}
+                    textInputStyle={phoneInputStyles.textInput}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
+                  />
+                )}
               />
             </View>
           </View>
