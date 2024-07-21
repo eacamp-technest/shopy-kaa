@@ -1,12 +1,5 @@
-import {
-  StyleSheet,
-  ScrollView,
-  Text,
-  View,
-  TextInput,
-  ViewStyle,
-} from 'react-native';
-import React, {useState} from 'react';
+import {StyleSheet, ScrollView, Text, View} from 'react-native';
+import React, {useRef, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -27,11 +20,11 @@ export const AddAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
+  const phoneInput = useRef<PhoneInput>(null);
   const formMethods = useForm<IAddressInputForm>({
     defaultValues: __DEV__
       ? {
           name: 'Ali Hilalov',
-          mobile: '1234567890',
           country: 'USA',
           address: '123 Main St',
         }
@@ -53,25 +46,6 @@ export const AddAddressScreen: React.FC<
     navigation.goBack();
     reset();
   };
-
-  const phoneInputStyles = StyleSheet.create({
-    container: {
-      borderWidth: 1,
-      borderRadius: 8,
-      backgroundColor: colors.white,
-      borderColor: isFocused ? colors.primary.base : colors.sky.lighter,
-    } as ViewStyle,
-    textContainer: {
-      backgroundColor: 'transparent',
-    },
-    textInput: {
-      ...TypographyStyles.RegularNoneRegular,
-    },
-    label: {
-      ...TypographyStyles.RegularNoneSemiBold,
-      paddingBottom: 8,
-    },
-  });
 
   return (
     <FormProvider {...formMethods}>
@@ -97,25 +71,27 @@ export const AddAddressScreen: React.FC<
                 type="text"
                 placeholder="Enter your name"
               />
-              <Text style={phoneInputStyles.label}>Mobile</Text>
-              <Controller
-                name="mobile"
-                control={control}
-                rules={{required: 'Mobile number is required'}}
-                render={({field: {onChange, value}}) => (
-                  <PhoneInput
-                    defaultValue={value}
-                    defaultCode="US"
-                    layout="first"
-                    onChangeFormattedText={onChange}
-                    containerStyle={phoneInputStyles.container}
-                    textContainerStyle={phoneInputStyles.textContainer}
-                    textInputStyle={phoneInputStyles.textInput}
-                    onFocus={() => setIsFocused(true)}
-                    onBlur={() => setIsFocused(false)}
-                  />
-                )}
-              />
+              <View style={styles.phone}>
+                <Text style={styles.label}>Mobile</Text>
+
+                <PhoneInput
+                  codeTextStyle={TypographyStyles.RegularNoneRegular}
+                  ref={phoneInput}
+                  placeholder="Enter your mobile number"
+                  defaultCode="AZ"
+                  layout="first"
+                  defaultValue="505505050"
+                  containerStyle={[
+                    styles.phoneInputContainer,
+                    isFocused ? styles.phoneInputContainerFocused : null,
+                  ]}
+                  textContainerStyle={styles.phoneInputTextContainer}
+                  textInputStyle={[
+                    styles.phoneInputTextInput,
+                    isFocused && styles.phoneInputContainerFocused,
+                  ]}
+                />
+              </View>
             </View>
           </View>
           <View style={styles.divider}>
@@ -129,6 +105,7 @@ export const AddAddressScreen: React.FC<
                 control={control}
                 rules={{required: 'Country is required'}}
                 label="Country"
+                style={{height: normalize('height', 48)}}
                 type="select"
                 placeholder="Select Your Country"
               />
@@ -184,5 +161,27 @@ const styles = StyleSheet.create({
   },
   button: {
     paddingTop: normalize('height', 66),
+  },
+  label: {
+    ...TypographyStyles.RegularNoneSemiBold,
+  },
+  phone: {
+    gap: 12,
+  },
+  phoneInputContainer: {
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: colors.white,
+    borderColor: colors.sky.lighter,
+    width: 'auto',
+  },
+  phoneInputContainerFocused: {
+    borderColor: colors.primary.base,
+  },
+  phoneInputTextContainer: {
+    backgroundColor: 'transparent',
+  },
+  phoneInputTextInput: {
+    ...TypographyStyles.RegularNoneRegular,
   },
 });
