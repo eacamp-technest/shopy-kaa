@@ -1,5 +1,6 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Header} from 'components/Header';
+import {ImageRatio} from 'components/ImageRatio';
 import {IMainTab, MainTab} from 'components/MainTab';
 import {Category} from 'components/specific/Category';
 import {SafeTopProvider} from 'containers/SafeTopProvider';
@@ -41,7 +42,7 @@ export const MenListsScreen: React.FC<
           title="MEN"></Header>
       </View>
       <View style={Styles.image}>
-        <Category image={manUrl}></Category>
+        <ImageRatio ratio="4:3" width={375} source={vectors.men} />
       </View>
 
       <ScrollView
@@ -65,6 +66,7 @@ const vectors = {
     width: 24,
     height: 24,
   },
+  men: require('assets/images/list_men.png'),
 };
 
 const Styles = StyleSheet.create({
@@ -80,7 +82,6 @@ const Styles = StyleSheet.create({
     paddingBottom: normalize('vertical', 50),
   },
   image: {
-    width: 281,
-    height: 282,
+    alignItems: 'center',
   },
 });

@@ -42,7 +42,9 @@ export const WomenListsScreen: React.FC<
       <View style={styles.imageContainer}>
         <ImageRatio ratio="4:3" width={375} source={vectors.women} />
       </View>
-      <ScrollView style={styles.main}>
+      <ScrollView
+        style={styles.main}
+        contentContainerStyle={styles.contentContainerStyle}>
         <FlatList
           data={woman}
           scrollEnabled={false}
@@ -77,5 +79,8 @@ const styles = StyleSheet.create({
 
   imageContainer: {
     alignItems: 'center',
+  },
+  contentContainerStyle: {
+    paddingBottom: normalize('vertical', 50),
   },
 });
