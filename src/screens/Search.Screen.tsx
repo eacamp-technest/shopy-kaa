@@ -30,7 +30,7 @@ export interface ISuggestionMock {
   title: string;
   source: ImageSourcePropType | undefined;
 }
-const ItemSeparatorComponent = () => {
+export const ItemSeparatorComponent = () => {
   return <View style={styles.flashVertical} />;
 };
 
