@@ -24,7 +24,7 @@ export const AddAddressScreen: React.FC<
       ? {
           name: 'Ali Hilalov',
           mobile: '1234567890',
-          country: 'USA',
+          country: 'Turkiye',
           address: '123 Main St',
         }
       : {},
