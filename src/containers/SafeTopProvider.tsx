@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ISafeContainer, useSetStatusBar} from 'types/safe.provider.types';
+import {CommonStyles} from 'theme/common.styles';
 
 export const SafeTopProvider: React.FC<ISafeContainer> = ({
   backColorSafeProvider,
@@ -16,7 +17,7 @@ export const SafeTopProvider: React.FC<ISafeContainer> = ({
   return (
     <View
       style={[
-        // CommonStyles.flex,
+        CommonStyles.flex,
         {paddingTop},
         {backgroundColor: backColorSafeProvider},
         customStyles,

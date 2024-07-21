@@ -1,6 +1,6 @@
 import React from 'react';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {FlatList, ScrollView, StyleSheet, View} from 'react-native';
+import {FlatList, Image, ScrollView, StyleSheet, View} from 'react-native';
 import {Header} from 'components/Header';
 import {IMainTab, MainTab} from 'components/MainTab';
 import {Category} from 'components/specific/Category';
@@ -10,13 +10,11 @@ import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 import {NavigationParamList} from 'types/navigation.types';
 import {SafeTopProvider} from 'containers/SafeTopProvider';
+import {ImageRatio} from 'components/ImageRatio';
 
 export const WomenListsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.womenlists>
 > = ({navigation}) => {
-  const womanUrl =
-    'https://s3-alpha-sig.figma.com/img/6cf0/5cbe/2674bd6af4cdda02a83aec719c6b1bfc?Expires=1720396800&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=OOuWObrjL20kOgFS0ZxpBY8dPT0srD2rmBIqFRCDPVJ1DeRQHx4JjllbhihZuQU7RwTYmA4W-qPI3ime~WpaZ9Ygpi4YHd3auEE1ZDkAwbQWVOlffoGL3RGGXXjJBX30zUo6YgBHCXnjUr6vdwoK5PUfbxqDIhV9wqd78HAL-k2lpHNnvW3V1j82UizuWb9fv52CRXTrvbgbUEVC2e51k6nQGZu6avvjoeZ1WPIvxdp-Giz2p5906WWvcIJdWZzQRAT4uBT329xMoFJL-Gt0KAKPJDMegILJ70cvNyJq4fKfaU~5bgFBKyWwj~8V2mQSiboqsqA0jpqS1uGC2zR2iQ__';
-
   const renderTabList = ({
     index,
     item: {title, leftIcon},
@@ -42,11 +40,9 @@ export const WomenListsScreen: React.FC<
         />
       </View>
       <View style={styles.imageContainer}>
-        <Category image={womanUrl} />
+        <ImageRatio ratio="4:3" width={375} source={vectors.women} />
       </View>
-      <ScrollView
-        style={styles.main}
-        contentContainerStyle={styles.contentContainerStyle}>
+      <ScrollView style={styles.main}>
         <FlatList
           data={woman}
           scrollEnabled={false}
@@ -65,22 +61,21 @@ const vectors = {
     width: 24,
     height: 24,
   },
+  women: require('assets/images/list_women.png'),
 };
 
 const styles = StyleSheet.create({
   main: {
+    flex: 1,
     paddingTop: normalize('vertical', 16),
     paddingHorizontal: normalize('horizontal', 24),
     backgroundColor: colors.white,
   },
   header: {
-    paddingHorizontal: normalize('horizontal', 18),
+    paddingHorizontal: normalize('horizontal', 24),
   },
-  contentContainerStyle: {
-    paddingBottom: normalize('vertical', 50),
-  },
+
   imageContainer: {
-    width: 281,
-    height: 282,
+    alignItems: 'center',
   },
 });
