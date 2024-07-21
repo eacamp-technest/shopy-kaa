@@ -1,4 +1,4 @@
-import {StyleSheet, ScrollView, Text, View} from 'react-native';
+import {StyleSheet, ScrollView, Text, View, LogBox} from 'react-native';
 import React, {useRef, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
@@ -16,11 +16,16 @@ import {useAddressStoreActions} from 'store/address';
 import {InputController} from 'components/InputController';
 import PhoneInput from 'react-native-phone-number-input';
 
+LogBox.ignoreLogs([
+  'Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
+]);
+
 export const AddAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   const phoneInput = useRef<PhoneInput>(null);
+
   const formMethods = useForm<IAddressInputForm>({
     defaultValues: __DEV__
       ? {
@@ -77,8 +82,8 @@ export const AddAddressScreen: React.FC<
                   codeTextStyle={TypographyStyles.RegularNoneRegular}
                   ref={phoneInput}
                   placeholder="Enter your mobile number"
-                  defaultCode="AZ"
                   layout="first"
+                  defaultCode="AZ"
                   containerStyle={[
                     styles.phoneInputContainer,
                     isFocused && styles.phoneInputContainerFocused,
