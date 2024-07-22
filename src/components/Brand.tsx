@@ -10,7 +10,7 @@ import React from 'react';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
 
-export interface IBrand {
+interface IBrand {
   logo: ImageSourcePropType | undefined;
   title: string;
   style?: ImageStyle;

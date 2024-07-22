@@ -13,11 +13,13 @@ import {ICardProduct} from './Search.Screen';
 import {product} from 'mock/SearchBarMock';
 import {Product} from 'components/Product';
 import {Brand} from 'components/Brand';
+import {IBrand, brand} from 'mock/BrandMock';
 
 export const ItemListsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.itemList>
 > = ({navigation}) => {
-  const [data, setData] = useState<ICardProduct[]>(product);
+  const [data] = useState<ICardProduct[]>(product);
+  const [brandData] = useState<IBrand[]>(brand);
   const {top} = useSafeAreaInsets();
   const navigateToFilter = () => navigation.navigate(Routes.filter);
 
@@ -36,12 +38,21 @@ export const ItemListsScreen: React.FC<
     );
   };
 
+  const renderBrand = ({item}: {item: IBrand}) => {
+    return (
+      <View style={styles.renderBrand}>
+        <Brand style={styles.image} title={item.title} logo={item.logo} />
+      </View>
+    );
+  };
+
   const ItemSeparatorComponent = () => {
     return <View style={styles.flashVertical} />;
   };
+
   return (
     <View style={styles.root}>
-      <StatusBar backgroundColor={colors.white}></StatusBar>
+      <StatusBar backgroundColor={colors.white} />
       <View style={[styles.header, {paddingTop: top}]}>
         <Header
           title="SHOES"
@@ -62,12 +73,15 @@ export const ItemListsScreen: React.FC<
             right="See All"
           />
         </View>
-        <FlashList
-          style={styles.iconContainer}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-        />
-        {/* <Brand logo={vectors.adidas} style={styles.image} title="Nike" /> */}
+        <View style={styles.brandListContainer}>
+          <FlashList
+            data={brandData}
+            renderItem={renderBrand}
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            estimatedItemSize={100}
+          />
+        </View>
         <View style={styles.table}>
           <Table
             title3
@@ -78,14 +92,16 @@ export const ItemListsScreen: React.FC<
           />
         </View>
       </View>
-      <FlashList
-        data={data}
-        numColumns={1}
-        estimatedItemSize={200}
-        renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-      />
+      <View style={styles.productListContainer}>
+        <FlashList
+          data={data}
+          numColumns={1}
+          estimatedItemSize={200}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+        />
+      </View>
     </View>
   );
 };
@@ -103,10 +119,6 @@ const vectors = {
     width: 20,
     height: 18,
   },
-  nike: require('../assets/images/brand_nike.png'),
-  converse: require('../assets/images/brand_converse.png'),
-  adidas: require('../assets/images/brand_adidas.png'),
-  vans: require('../assets/images/brand_vans.png'),
 };
 
 const styles = StyleSheet.create({
@@ -115,13 +127,15 @@ const styles = StyleSheet.create({
   },
   header: {
     paddingHorizontal: normalize('horizontal', 18),
-    backgroundColor: colors.white,
   },
   table: {
-    marginTop: normalize('height', 20),
+    paddingTop: normalize('height', 12),
   },
-  iconContainer: {
-    marginTop: normalize('height', 20),
+  brandListContainer: {
+    height: 110,
+  },
+  productListContainer: {
+    flex: 1,
   },
   renderItem: {
     alignItems: 'center',
@@ -131,6 +145,13 @@ const styles = StyleSheet.create({
   flashVertical: {
     height: normalize('height', 24),
   },
-
-  image: {width: 70, height: 70},
+  image: {
+    width: 70,
+    height: 70,
+  },
+  renderBrand: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: normalize('horizontal', 10),
+  },
 });
