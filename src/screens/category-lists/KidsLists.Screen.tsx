@@ -2,7 +2,6 @@ import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Header} from 'components/Header';
 import {ImageRatio} from 'components/ImageRatio';
 import {IMainTab, MainTab} from 'components/MainTab';
-import {Category} from 'components/specific/Category';
 import {SafeTopProvider} from 'containers/SafeTopProvider';
 import {kids} from 'mock/category-lists';
 import React from 'react';

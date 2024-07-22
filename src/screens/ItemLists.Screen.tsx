@@ -2,14 +2,7 @@ import {FlashList} from '@shopify/flash-list';
 import {Header} from 'components/Header';
 import {Table} from 'components/Table';
 import React, {useState} from 'react';
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  View,
-  Image,
-  Text,
-} from 'react-native';
+import {StatusBar, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from 'react-native-screens/lib/typescript/native-stack/types';
 import {Routes} from 'router/routes';
@@ -19,7 +12,7 @@ import {NavigationParamList} from 'types/navigation.types';
 import {ICardProduct} from './Search.Screen';
 import {product} from 'mock/SearchBarMock';
 import {Product} from 'components/Product';
-import {TypographyStyles} from 'theme/typography';
+import {Brand} from 'components/Brand';
 
 export const ItemListsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.itemList>
@@ -42,6 +35,7 @@ export const ItemListsScreen: React.FC<
       </View>
     );
   };
+
   const ItemSeparatorComponent = () => {
     return <View style={styles.flashVertical} />;
   };
@@ -68,27 +62,12 @@ export const ItemListsScreen: React.FC<
             right="See All"
           />
         </View>
-        <ScrollView
+        <FlashList
           style={styles.iconContainer}
           horizontal
-          showsHorizontalScrollIndicator={false}>
-          <View style={styles.iconWrapper}>
-          <Image style={styles.icon} source={vectors.nike.icon} />
-          <Text style={styles.text}>Nike</Text>
-          </View>
-          <View style={styles.iconWrapper}>
-          <Image style={styles.icon} source={vectors.adidas.icon} />
-          <Text style={styles.text}>Converse</Text>
-          </View>
-          <View style={styles.iconWrapper}>
-          <Image style={styles.icon} source={vectors.vans.icon} />
-          <Text style={styles.text}>Adidas</Text>
-          </View>
-          <View style={styles.iconWrapper}>
-          <Image style={styles.icon} source={vectors.converse.icon} />
-          <Text style={styles.text}>Vans</Text>
-          </View>
-        </ScrollView>
+          showsHorizontalScrollIndicator={false}
+        />
+        {/* <Brand logo={vectors.adidas} style={styles.image} title="Nike" /> */}
         <View style={styles.table}>
           <Table
             title3
@@ -105,7 +84,6 @@ export const ItemListsScreen: React.FC<
         estimatedItemSize={200}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.listContent}
         ItemSeparatorComponent={ItemSeparatorComponent}
       />
     </View>
@@ -125,23 +103,10 @@ const vectors = {
     width: 20,
     height: 18,
   },
-  nike: require('../assets/vectors/nike.svg'),
-
-  adidas: {
-    icon: require('../assets/vectors/adidas.svg'),
-    width: 70,
-    height: 70,
-  },
-  vans: {
-    icon: require('../assets/vectors/vans.svg'),
-    width: 70,
-    height: 70,
-  },
-  converse: {
-    icon: require('../assets/vectors/converse.svg'),
-    width: 70,
-    height: 70,
-  },
+  nike: require('../assets/images/brand_nike.png'),
+  converse: require('../assets/images/brand_converse.png'),
+  adidas: require('../assets/images/brand_adidas.png'),
+  vans: require('../assets/images/brand_vans.png'),
 };
 
 const styles = StyleSheet.create({
@@ -155,25 +120,8 @@ const styles = StyleSheet.create({
   table: {
     marginTop: normalize('height', 20),
   },
-  iconWrapper: {
-    alignItems: 'center',
-  },
-  icon: {
-    width: normalize('width', 70),
-    height: normalize('height', 70),
-    borderWidth: 1,
-    borderColor: 'black',
-    backgroundColor: 'lightgray',
-    borderRadius: 50,
-    marginRight: 18,
-  },
   iconContainer: {
     marginTop: normalize('height', 20),
-  },
-  text: {
-    marginTop: 12,
-    ...TypographyStyles.TinyNoneSemibold,
-    left: -10,
   },
   renderItem: {
     alignItems: 'center',
@@ -183,8 +131,6 @@ const styles = StyleSheet.create({
   flashVertical: {
     height: normalize('height', 24),
   },
-  listContent: {},
-  products: {
-    marginTop: 20,
-  },
+
+  image: {width: 70, height: 70},
 });
