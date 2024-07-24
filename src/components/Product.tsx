@@ -73,15 +73,8 @@ export const Product: React.FC<IProduct> = ({
           <Text style={styles.textPrice}>{price}$</Text>
           <Text style={styles.textUrl}>{url}</Text>
           <View style={styles.savedItems}>
-            <Button
-              type="secondary"
-              text="Move to Bag"
-              size="small"></Button>
-            <SvgImage
-              width={24}
-              height={24}
-              source={vectors.like.icon}
-            />
+            <Button type="secondary" text="Move to Bag" size="small" />
+            <SvgImage width={24} height={24} source={vectors.like.icon} />
           </View>
         </View>
       </Pressable>
@@ -112,7 +105,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     width: '90%',
-    // alignItems: 'center',
   },
   image: {
     width: normalize('width', 156),
