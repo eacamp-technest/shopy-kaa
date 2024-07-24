@@ -58,6 +58,35 @@ export const Input: React.FC<IInput> = ({
     setFocused(false);
     props.onBlur?.();
   };
+  const flagData = [
+    {
+      label: 'Azerbaijan',
+      value: '1',
+      image: require('assets/flags/Azerbaijan.svg'),
+    },
+    {
+      label: 'Russia',
+      value: '2',
+      image: require('assets/flags/Russia.svg'),
+    },
+    {
+      label: 'Turkiye',
+      value: '3',
+      image: require('assets/flags/Turkiye.svg'),
+    },
+  ];
+
+  const renderDropdownItem = (item: any) => (
+    <View style={styles.dropdownItem}>
+      <SvgImage
+        source={item.image}
+        color={colors.ink.base}
+        width={24}
+        height={24}
+      />
+      <Text style={styles.dropdownItemText}>{item.label}</Text>
+    </View>
+  );
 
   const renderIcon = () => {
     if (type === 'password') {
@@ -97,11 +126,7 @@ export const Input: React.FC<IInput> = ({
     if (type === 'select') {
       return (
         <Dropdown
-          data={[
-            {label: 'Azerbaijan', value: '1'},
-            {label: 'Russia', value: '2'},
-            {label: 'Turkiye', value: '3'},
-          ]}
+          data={flagData}
           labelField="label"
           valueField="value"
           containerStyle={{borderRadius: 8}}
@@ -120,6 +145,7 @@ export const Input: React.FC<IInput> = ({
           ]}
           onFocus={handleFocus}
           onBlur={handleBlur}
+          renderItem={renderDropdownItem}
         />
       );
     }
@@ -223,6 +249,15 @@ const styles = StyleSheet.create({
     ...TypographyStyles.RegularNoneRegular,
   },
   placeholderStyle: {
+    ...TypographyStyles.RegularNoneRegular,
+  },
+  dropdownItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: normalize('height', 12),
+  },
+  dropdownItemText: {
+    marginLeft: normalize('height', 8),
     ...TypographyStyles.RegularNoneRegular,
   },
 });

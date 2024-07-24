@@ -14,11 +14,7 @@ import {FormProvider, useForm, Controller} from 'react-hook-form';
 import {IAddressInputForm} from 'theme/address';
 import {useAddressStoreActions} from 'store/address';
 import {InputController} from 'components/InputController';
-// import PhoneInput from 'react-native-phone-number-input';
 import PhoneInput, {ICountry} from 'react-native-international-phone-number';
-
-// Suppress all logs
-LogBox.ignoreAllLogs();
 
 export const AddAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
