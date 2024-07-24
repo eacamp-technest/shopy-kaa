@@ -33,7 +33,7 @@ const Board: React.FC = () => {
 };
 
 const AllItem: React.FC = () => {
-  const [data, setData] = useState<ICardProduct[]>(product);
+  const [data] = useState<ICardProduct[]>(product);
   const navigation =
     useNavigation<
       NativeStackScreenProps<NavigationParamList, Routes.home>['navigation']

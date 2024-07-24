@@ -1,5 +1,5 @@
-import {StyleSheet, ScrollView, Text, View, LogBox} from 'react-native';
 import React, {useRef, useState} from 'react';
+import {StyleSheet, ScrollView, Text, View, LogBox} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -14,17 +14,27 @@ import {FormProvider, useForm, Controller} from 'react-hook-form';
 import {IAddressInputForm} from 'theme/address';
 import {useAddressStoreActions} from 'store/address';
 import {InputController} from 'components/InputController';
-import PhoneInput from 'react-native-phone-number-input';
+// import PhoneInput from 'react-native-phone-number-input';
+import PhoneInput, {ICountry} from 'react-native-international-phone-number';
 
-LogBox.ignoreLogs([
-  'Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.',
-]);
+// Suppress all logs
+LogBox.ignoreAllLogs();
 
 export const AddAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
-  const phoneInput = useRef<PhoneInput>(null);
+
+  const [selectedCountry, setSelectedCountry] = useState<null | ICountry>(null);
+  const [inputValue, setInputValue] = useState<string>('');
+
+  function handleInputValue(phoneNumber: string) {
+    setInputValue(phoneNumber);
+  }
+
+  function handleSelectedCountry(country: ICountry) {
+    setSelectedCountry(country);
+  }
 
   const formMethods = useForm<IAddressInputForm>({
     defaultValues: __DEV__
@@ -78,22 +88,24 @@ export const AddAddressScreen: React.FC<
               />
               <View style={styles.phone}>
                 <Text style={styles.label}>Mobile</Text>
+
                 <PhoneInput
-                  codeTextStyle={TypographyStyles.RegularNoneRegular}
-                  ref={phoneInput}
-                  placeholder="Enter your mobile number"
-                  layout="first"
-                  defaultCode="AZ"
-                  containerStyle={[
-                    styles.phoneInputContainer,
-                    isFocused && styles.phoneInputContainerFocused,
-                  ]}
-                  textContainerStyle={styles.phoneInputTextContainer}
-                  textInputStyle={styles.phoneInputTextInput}
-                  textInputProps={{
-                    onFocus: () => setIsFocused(true),
-                    onBlur: () => setIsFocused(false),
+                  value={inputValue}
+                  onChangePhoneNumber={handleInputValue}
+                  selectedCountry={selectedCountry}
+                  onChangeSelectedCountry={handleSelectedCountry}
+                  defaultCountry="AZ"
+                  phoneInputStyles={{
+                    container: [
+                      styles.phoneInputContainer,
+                      isFocused && styles.phoneInputContainerFocused,
+                    ],
+                    input: styles.phoneInputTextInput,
+                    flagContainer: styles.flagContainer,
                   }}
+                  onFocus={() => setIsFocused(true)}
+                  onBlur={() => setIsFocused(false)}
+                  placeholder="Enter mobile number"
                 />
               </View>
             </View>
@@ -178,6 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     borderColor: colors.sky.lighter,
     width: 'auto',
+    height: normalize('height', 48),
   },
   phoneInputContainerFocused: {
     borderColor: colors.primary.base,
@@ -187,5 +200,8 @@ const styles = StyleSheet.create({
   },
   phoneInputTextInput: {
     ...TypographyStyles.RegularNoneRegular,
+  },
+  flagContainer: {
+    backgroundColor: colors.white,
   },
 });
