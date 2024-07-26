@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {StyleSheet, Text, View, Keyboard} from 'react-native';
+import {StyleSheet, Text, View, Keyboard, Platform} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -66,27 +66,27 @@ export const AddAddressScreen: React.FC<
   const [isMobileFocused, setIsMobileFocused] = useState(false);
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener(
-      'keyboardDidShow',
-      () => {
+    const keyboardWillShowListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      event => {
         if (isAddressFocused) {
-          translateY.value = withTiming(-normalize('height', 350), {
-            duration: 150,
+          translateY.value = withTiming(-normalize('height', 150), {
+            duration: event.duration,
           });
         }
       },
     );
 
-    const keyboardDidHideListener = Keyboard.addListener(
-      'keyboardDidHide',
-      () => {
-        translateY.value = withTiming(0, {duration: 150});
+    const keyboardWillHideListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      event => {
+        translateY.value = withTiming(0, {duration: event.duration});
       },
     );
 
     return () => {
-      keyboardDidHideListener.remove();
-      keyboardDidShowListener.remove();
+      keyboardWillHideListener.remove();
+      keyboardWillShowListener.remove();
     };
   }, [translateY, isAddressFocused]);
 
