@@ -1,5 +1,5 @@
-import React, {useRef, useState} from 'react';
-import {StyleSheet, ScrollView, Text, View, LogBox} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {StyleSheet, Text, View, Keyboard} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
@@ -15,6 +15,11 @@ import {IAddressInputForm} from 'theme/address';
 import {useAddressStoreActions} from 'store/address';
 import {InputController} from 'components/InputController';
 import PhoneInput, {ICountry} from 'react-native-international-phone-number';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 export const AddAddressScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.addaddress>
@@ -24,13 +29,13 @@ export const AddAddressScreen: React.FC<
   const [selectedCountry, setSelectedCountry] = useState<null | ICountry>(null);
   const [inputValue, setInputValue] = useState<string>('');
 
-  function handleInputValue(phoneNumber: string) {
+  const handleInputValue = (phoneNumber: string) => {
     setInputValue(phoneNumber);
-  }
+  };
 
-  function handleSelectedCountry(country: ICountry) {
+  const handleSelectedCountry = (country: ICountry) => {
     setSelectedCountry(country);
-  }
+  };
 
   const formMethods = useForm<IAddressInputForm>({
     defaultValues: __DEV__
@@ -49,8 +54,6 @@ export const AddAddressScreen: React.FC<
   } = formMethods;
   const {addAddress} = useAddressStoreActions();
 
-  const [isFocused, setIsFocused] = useState(false);
-
   const onSubmit = (data: IAddressInputForm) => {
     data.id = String(Math.random() * 10000).slice(0, 4);
     addAddress(data);
@@ -58,12 +61,47 @@ export const AddAddressScreen: React.FC<
     reset();
   };
 
+  const translateY = useSharedValue(0);
+  const [isAddressFocused, setIsAddressFocused] = useState(false);
+  const [isMobileFocused, setIsMobileFocused] = useState(false);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      () => {
+        if (isAddressFocused) {
+          translateY.value = withTiming(-normalize('height', 350), {
+            duration: 150,
+          });
+        }
+      },
+    );
+
+    const keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      () => {
+        translateY.value = withTiming(0, {duration: 150});
+      },
+    );
+
+    return () => {
+      keyboardDidHideListener.remove();
+      keyboardDidShowListener.remove();
+    };
+  }, [translateY, isAddressFocused]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{translateY: translateY.value}],
+    };
+  });
+
   return (
     <FormProvider {...formMethods}>
-      <ScrollView
+      <Animated.ScrollView
         keyboardShouldPersistTaps="never"
         scrollEnabled={false}
-        style={styles.root}>
+        style={[styles.root, animatedStyle]}>
         <View style={{paddingTop: top}}>
           <View style={styles.paddingHorizontal}>
             <Header
@@ -84,7 +122,6 @@ export const AddAddressScreen: React.FC<
               />
               <View style={styles.phone}>
                 <Text style={styles.label}>Mobile</Text>
-
                 <PhoneInput
                   value={inputValue}
                   onChangePhoneNumber={handleInputValue}
@@ -94,13 +131,13 @@ export const AddAddressScreen: React.FC<
                   phoneInputStyles={{
                     container: [
                       styles.phoneInputContainer,
-                      isFocused && styles.phoneInputContainerFocused,
+                      isMobileFocused && styles.phoneInputContainerFocused,
                     ],
                     input: styles.phoneInputTextInput,
                     flagContainer: styles.flagContainer,
                   }}
-                  onFocus={() => setIsFocused(true)}
-                  onBlur={() => setIsFocused(false)}
+                  onFocus={() => setIsMobileFocused(true)}
+                  onBlur={() => setIsMobileFocused(false)}
                   placeholder="Enter mobile number"
                 />
               </View>
@@ -128,6 +165,8 @@ export const AddAddressScreen: React.FC<
                 label="Address"
                 type="text"
                 placeholder="Enter your address"
+                onFocus={() => setIsAddressFocused(true)}
+                onBlur={() => setIsAddressFocused(false)}
               />
             </View>
             <View style={styles.button}>
@@ -138,7 +177,7 @@ export const AddAddressScreen: React.FC<
             </View>
           </View>
         </View>
-      </ScrollView>
+      </Animated.ScrollView>
     </FormProvider>
   );
 };
