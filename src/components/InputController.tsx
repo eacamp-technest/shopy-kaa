@@ -21,6 +21,8 @@ export const InputController: React.FC<IInputController> = ({
   disabledControl,
   errorMessage,
   manipulator,
+  maxLength,
+
   ...inputProps
 }) => {
   const handleValueChange = useCallback(
@@ -43,6 +45,7 @@ export const InputController: React.FC<IInputController> = ({
       render={({field, fieldState: {error}}) => (
         <Input
           disabled={disabled}
+          maxLength={maxLength}
           setValue={value => handleValueChange(value, field.onChange)}
           value={field.value}
           onBlur={field.onBlur}

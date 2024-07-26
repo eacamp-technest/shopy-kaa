@@ -10,7 +10,7 @@ import {Button} from 'components/Button';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {StackRoutes} from 'router/routes';
-import {FormProvider, useForm, Controller} from 'react-hook-form';
+import {FormProvider, useForm} from 'react-hook-form';
 import {IAddressInputForm} from 'theme/address';
 import {useAddressStoreActions} from 'store/address';
 import {InputController} from 'components/InputController';

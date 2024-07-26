@@ -31,7 +31,7 @@ export type NavigationParamList = {
   [Routes.search]: {
     items?: ICardProduct[];
     suggestion: ISuggestionMock[];
-    onItemPress?: (item: ICardProduct) => void;
+    onItemPress?: (item: ICardProduct | ISuggestionMock) => void;
     headerTitle?: string;
   };
   [Routes.productDetails]: {product: ICardProduct};

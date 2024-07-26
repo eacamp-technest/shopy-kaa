@@ -7,6 +7,7 @@ import {
   TextInputFocusEventData,
   View,
   Text,
+  ScrollView,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Routes} from 'router/routes';
@@ -76,7 +77,15 @@ export const SearchScreen: React.FC<
     ({item}: {item: ISuggestionMock}) => {
       return (
         <View style={styles.renderSuggestionItem}>
-          <Suggestion text={item.title} source={item.source} key={item.id} />
+          <Suggestion
+            text={item.title}
+            source={item.source}
+            key={item.id}
+            onPress={() => {
+              onItemPress?.(item);
+              navigation.pop();
+            }}
+          />
         </View>
       );
     },
@@ -99,7 +108,7 @@ export const SearchScreen: React.FC<
   }, [navigation, onChangeText, props]);
 
   return (
-    <View style={styles.root}>
+    <ScrollView showsVerticalScrollIndicator={false} style={styles.root}>
       <View style={styles.suggestion}>
         <FlatList
           data={datas}
@@ -109,28 +118,31 @@ export const SearchScreen: React.FC<
           ItemSeparatorComponent={ItemSeparatorComponent}
           contentInsetAdjustmentBehavior={'automatic'}
           contentContainerStyle={styles.contentContainerStyle}
+          columnWrapperStyle={styles.columnWrapperStyle}
         />
       </View>
-
-      <FlashList
-        data={data}
-        renderItem={renderItem}
-        estimatedItemSize={50}
-        numColumns={2}
-        showsVerticalScrollIndicator={false}
-        contentInsetAdjustmentBehavior={'automatic'}
-        ItemSeparatorComponent={ItemSeparatorComponent}
-        contentContainerStyle={styles.contentContainerStyle}
-      />
-    </View>
+      <View style={styles.product}>
+        <FlashList
+          data={data}
+          renderItem={renderItem}
+          estimatedItemSize={50}
+          numColumns={2}
+          scrollEnabled={false}
+          showsVerticalScrollIndicator={false}
+          contentInsetAdjustmentBehavior={'automatic'}
+          ItemSeparatorComponent={ItemSeparatorComponent}
+          contentContainerStyle={styles.contentContainerStyle}
+        />
+      </View>
+    </ScrollView>
   );
 };
 
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    marginTop: 160,
   },
-  flatListContent: {},
   renderItem: {
     alignItems: 'center',
     flex: 1,
@@ -138,21 +150,24 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     paddingVertical: normalize('vertical', 20),
+    justifyContent: 'space-between',
   },
   flashVertical: {
     height: normalize('height', 24),
   },
   renderSuggestionItem: {
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    flexDirection: 'row',
     flex: 1,
   },
   text: {
     ...TypographyStyles.title3,
   },
   suggestion: {
-    flexGrow: 0.35,
     paddingHorizontal: normalize('horizontal', 20),
+  },
+  product: {
+    flex: 1,
+  },
+  columnWrapperStyle: {
+    gap: normalize('width', 30),
   },
 });
