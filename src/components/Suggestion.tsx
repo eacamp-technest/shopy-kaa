@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import {TypographyStyles} from 'theme/typography';
+import {normalize} from 'theme/metrics';
 
 export interface ISuggestion {
   source?: ImageSourcePropType | undefined;
@@ -27,13 +28,12 @@ export const Suggestion: React.FC<ISuggestion> = ({source, onPress, text}) => {
 const styles = StyleSheet.create({
   root: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
     alignItems: 'center',
     gap: 16,
   },
   image: {
-    width: 56,
-    height: 56,
+    width: normalize('width', 56),
+    height: normalize('height', 56),
     resizeMode: 'contain',
   },
   text: {

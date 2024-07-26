@@ -76,7 +76,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
         </View>
         <View style={styles.inputs}>
           <InputController
-            maxLegth={cardMaxLength}
+            maxLength={cardMaxLength}
             name="cardNumber"
             keyboardType="number-pad"
             control={control}
@@ -106,7 +106,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
           />
 
           <InputController
-            maxLegth={cvvMaxLength}
+            maxLength={cvvMaxLength}
             control={control}
             rules={FormValidate.cvv}
             label="CVV"
