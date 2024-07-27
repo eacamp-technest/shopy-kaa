@@ -1,30 +1,36 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  TextStyle,
-  StatusBar,
-} from 'react-native';
-import React, {useState} from 'react';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
+import React, {useCallback, useState} from 'react';
 import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {ICardProduct, product} from 'mock/SearchBarMock';
-import {useNavigation} from '@react-navigation/native';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FlashList} from '@shopify/flash-list';
-import {ChipPill} from 'components/ChipPill';
 import {Product} from 'components/Product';
-import {Table} from 'components/Table';
-import {Routes, StackRoutes} from 'router/routes';
+import {Routes} from 'router/routes';
 import {NavigationParamList} from 'types/navigation.types';
-import {ItemSeparatorComponent} from './Search.Screen';
 import {TypographyStyles} from 'theme/typography';
+import {isAndroid} from 'constants/common.consts';
 
 const Board: React.FC = () => {
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle('light-content');
+      if (isAndroid) {
+        StatusBar.setBackgroundColor(colors.bdazzledBlue.darkest);
+      }
+      return () => {
+        StatusBar.setBarStyle('dark-content');
+        if (isAndroid) {
+          StatusBar.setBackgroundColor('transparent');
+        }
+      };
+    }, []),
+  );
+
   return (
     <View>
       <Text>Boards</Text>
@@ -67,7 +73,6 @@ const AllItem: React.FC = () => {
           estimatedItemSize={200}
           renderItem={renderItem}
           keyExtractor={item => item.id.toString()}
-          ItemSeparatorComponent={ItemSeparatorComponent}
         />
       </View>
     </View>
@@ -90,9 +95,23 @@ export const BookmarksScreen: React.FC<
   const {top} = useSafeAreaInsets();
   const [index, setIndex] = useState<number>(0);
 
+  useFocusEffect(
+    useCallback(() => {
+      StatusBar.setBarStyle('dark-content');
+      if (isAndroid) {
+        StatusBar.setBackgroundColor(colors.white);
+      }
+      return () => {
+        StatusBar.setBarStyle('light-content');
+        if (isAndroid) {
+          StatusBar.setBackgroundColor(colors.bdazzledBlue.darkest);
+        }
+      };
+    }, []),
+  );
+
   return (
     <View style={styles.root}>
-      <StatusBar barStyle={'light-content'}></StatusBar>
       <View style={[styles.header, {paddingTop: top}]}>
         <Header title="saved items" type="standard" titleColor={colors.white} />
       </View>
@@ -104,11 +123,7 @@ export const BookmarksScreen: React.FC<
           <TabBar
             {...props}
             renderLabel={({route, color}) => (
-              <Text
-                style={[
-                  TypographyStyles.RegularNoneSemiBold as TextStyle,
-                  {color},
-                ]}>
+              <Text style={[TypographyStyles.RegularNoneSemiBold, {color}]}>
                 {route.title}
               </Text>
             )}
@@ -129,26 +144,12 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   header: {
-    paddingHorizontal: normalize('horizontal', 18),
+    paddingHorizontal: normalize('horizontal', 24),
     gap: 24,
     backgroundColor: colors.bdazzledBlue.darkest,
   },
-  inner: {
-    backgroundColor: colors.white,
-    marginBottom: normalize('width', 24),
-  },
-  table: {
-    paddingHorizontal: normalize('horizontal', 24),
-    height: normalize('height', 64),
-    justifyContent: 'center',
-  },
   contentContainerStyle: {
     backgroundColor: colors.bdazzledBlue.darkest,
-  },
-  chip: {
-    ...TypographyStyles.RegularNoneRegular,
-    backgroundColor: colors.primary.base,
-    color: colors.white,
   },
   renderItem: {
     alignItems: 'center',
@@ -158,8 +159,6 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
   },
-  listContent: {},
-  flashVertical: {},
   productListContainer: {
     flex: 1,
     left: 24,
