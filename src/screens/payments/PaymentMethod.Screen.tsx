@@ -7,16 +7,15 @@ import {TypographyStyles} from 'theme/typography';
 import {TextLink} from 'components/TextLink';
 import {Button} from 'components/Button';
 import {normalize} from 'theme/metrics';
-import {useNavigation} from '@react-navigation/native';
-import {Routes} from 'router/routes';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
+import {Routes, StackRoutes} from 'router/routes';
 import {SceneRendererProps} from 'react-native-tab-view';
 import {useUserStore} from 'store/user/user.store';
 import {ICardInputForm} from 'types/card-types';
 import {useToast} from 'store/toast';
 
 export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
-  const navigation = useNavigation();
-
+  const navigation = useNavigation<NavigationProp<any>>();
   const {
     cards,
     actions: {selectCard},
@@ -63,7 +62,7 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         rightActionType="text"
         right="Skip"
         onLeftPress={navigation.goBack}
-        onRightPress={() => console.log('Skip press')}
+        onRightPress={() => navigation.navigate(Routes.home)}
       />
       <View style={styles.main}>
         <Header type="large" title="Payment Methods" />

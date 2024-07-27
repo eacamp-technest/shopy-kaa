@@ -1,15 +1,13 @@
-import { IModal } from 'components/Modal';
 import { ISuggestion } from 'components/Suggestion';
-import { ICardProduct, ISuggestionMock } from 'mock/SearchBarMock';
-import { NativeStackNavigationProp } from 'react-native-screens/lib/typescript/native-stack/types';
-import { Routes, StackRoutes } from 'router/routes';
+import {IModal} from 'components/Modal';
+import {ICardProduct, ISuggestionMock} from 'mock/SearchBarMock';
+import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
+import {Routes, StackRoutes} from 'router/routes';
 
 export type AppNavigation = NativeStackNavigationProp<NavigationParamList>;
 
 export type NavigationParamList = {
-  [Routes.authRouter]: {
-    isAuth: boolean;
-  };
+  [Routes.authRouter]: {isAuth: boolean};
   [Routes.mainRouter]: undefined;
   [Routes.welcome]: undefined;
   [Routes.login]: undefined;
@@ -42,9 +40,7 @@ export type NavigationParamList = {
   [StackRoutes.teenslist]: undefined;
   [StackRoutes.profile]: undefined;
   [StackRoutes.order]: undefined;
-  [StackRoutes.orderdetails]: {
-    statusContent: string;
-  };
+  [StackRoutes.orderdetails]: {statusContent: string};
   [StackRoutes.processing]: undefined;
   [StackRoutes.delivered]: undefined;
   [StackRoutes.cancelled]: undefined;

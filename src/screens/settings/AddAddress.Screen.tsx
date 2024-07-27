@@ -42,7 +42,7 @@ export const AddAddressScreen: React.FC<
       ? {
           name: 'Ali Hilalov',
           country: 'USA',
-          address: '123 Main St',
+          address: '123 Maple StreetAnytown, CA 12345',
         }
       : {},
   });
@@ -70,7 +70,7 @@ export const AddAddressScreen: React.FC<
       Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
       event => {
         if (isAddressFocused) {
-          translateY.value = withTiming(-normalize('height', 150), {
+          translateY.value = withTiming(-normalize('height', 160), {
             duration: event.duration,
           });
         }
