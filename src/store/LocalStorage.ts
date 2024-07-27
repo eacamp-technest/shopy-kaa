@@ -8,6 +8,7 @@ import {
 } from 'types/local.storage.types';
 import {IUser} from 'types/user';
 import {IAddress} from './address/address.types';
+import { CartItem } from './cart/cart.types';
 
 const storage = new MMKV();
 
@@ -79,4 +80,20 @@ export class LocalStorage {
     }
     this.set(StorageKeys.selectedPayment, 'string', data);
   }
+
+  public static carts(method: TFunctionalMethod, data?: CartItem[]) {
+    if (method === 'get') {
+        const carts = storage.getString(StorageKeys.carts);
+        return carts ? JSON.parse(carts) : [];
+    }
+    this.set(StorageKeys.carts, 'array', data);
+}
+
+public static totalPrice(method: TFunctionalMethod, data?: number) {
+    if (method === 'get') {
+        const totalPrice = storage.getString(StorageKeys.totalPrice);
+        return totalPrice ? JSON.parse(totalPrice) : 0;
+    }
+    this.set(StorageKeys.totalPrice, 'number', data);
+}
 }

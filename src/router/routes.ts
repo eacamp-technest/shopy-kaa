@@ -22,6 +22,7 @@ export enum Routes {
   itemList = 'itemList',
   filter = 'filter',
   productDetails = 'productDetails',
+  cart = 'cart',
 }
 
 export enum StackRoutes {

@@ -15,4 +15,6 @@ export enum StorageKeys {
   addresses = 'addresses',
   selectedAddress = 'selectedAddress',
   selectedPayment = 'selectedPayment',
+  carts = 'carts',
+  totalPrice = 'totalPrice',
 }
