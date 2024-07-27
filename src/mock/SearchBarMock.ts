@@ -14,7 +14,7 @@ export interface ISuggestionMock {
   id: number;
   title: string;
   source: ImageSourcePropType | undefined;
-  onPress: keyof NavigationParamList;
+  onPress: string;
 }
 
 export const product: ICardProduct[] = [

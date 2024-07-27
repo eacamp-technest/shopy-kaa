@@ -1,16 +1,14 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {
   FlatList,
-  ImageSourcePropType,
   NativeSyntheticEvent,
   StyleSheet,
   TextInputFocusEventData,
   View,
-  Text,
   ScrollView,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Routes, StackRoutes} from 'router/routes';
+import {Routes} from 'router/routes';
 import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
 import {Product} from 'components/Product';

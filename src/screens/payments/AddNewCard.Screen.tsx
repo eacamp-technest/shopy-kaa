@@ -1,5 +1,5 @@
-import {ScrollView, StyleSheet, View} from 'react-native';
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {ScrollView, StyleSheet, View, Keyboard, Platform} from 'react-native';
 import {InputController} from 'components/InputController';
 import {Header} from 'components/Header';
 import {normalize} from 'theme/metrics';
@@ -13,6 +13,11 @@ import {SceneRendererProps} from 'react-native-tab-view';
 import DatePicker from 'react-native-date-picker';
 import {useUserStoreActions} from 'store/user';
 import {ICardInputForm} from 'types/card-types';
+import Animated, {
+  useSharedValue,
+  useAnimatedStyle,
+  withTiming,
+} from 'react-native-reanimated';
 
 export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [picker, setPicker] = useState<Date | null>(null);
@@ -57,12 +62,46 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const cardMaxLength = 19;
   const cvvMaxLength = 3;
 
+  const translateY = useSharedValue(0);
+  const [isInputFocused, setIsInputFocused] = useState(false);
+
+  useEffect(() => {
+    const keyboardWillShowListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      event => {
+        if (isInputFocused) {
+          translateY.value = withTiming(-normalize('height', 160), {
+            duration: event.duration,
+          });
+        }
+      },
+    );
+
+    const keyboardWillHideListener = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      event => {
+        translateY.value = withTiming(0, {duration: event.duration});
+      },
+    );
+
+    return () => {
+      keyboardWillHideListener.remove();
+      keyboardWillShowListener.remove();
+    };
+  }, [translateY, isInputFocused]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{translateY: translateY.value}],
+    };
+  });
+
   return (
     <FormProvider {...formMethods}>
-      <ScrollView
+      <Animated.ScrollView
         keyboardShouldPersistTaps="handled"
         scrollEnabled={false}
-        style={CommonStyles.flex}
+        style={[CommonStyles.flex, animatedStyle]}
         contentContainerStyle={CommonStyles.flexGrow}>
         <View style={styles.headers}>
           <Header
@@ -85,6 +124,8 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             type="phone"
             label="Card Number"
             placeholder="Enter your card number"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
           <InputController
             control={control}
@@ -93,6 +134,8 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             name="holderName"
             label="Cardholder Name"
             placeholder="Enter your Holder Name"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
           <InputController
             rules={FormValidate.expirationDate}
@@ -103,6 +146,8 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             type="phone"
             name="expiration"
             placeholder="MM  /  YY"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
 
           <InputController
@@ -113,6 +158,8 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             name="cvv"
             placeholder="CVV"
             keyboardType="number-pad"
+            onFocus={() => setIsInputFocused(true)}
+            onBlur={() => setIsInputFocused(false)}
           />
         </View>
 
@@ -130,7 +177,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
           }}
           onConfirm={onDateConfirm}
         />
-      </ScrollView>
+      </Animated.ScrollView>
     </FormProvider>
   );
 };
