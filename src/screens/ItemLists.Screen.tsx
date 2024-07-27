@@ -33,6 +33,10 @@ export const ItemListsScreen: React.FC<
           price={item.price}
           key={item.id}
           title={item.title}
+          onPress={() =>
+            navigation.navigate(Routes.productDetails, {product: item})
+          }
+          id={undefined}
         />
       </View>
     );

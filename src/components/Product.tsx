@@ -1,33 +1,36 @@
+import React, {useState} from 'react';
 import {
   Pressable,
   StyleSheet,
   Text,
   Image,
-  ImageSourcePropType,
   View,
+  ImageSourcePropType,
 } from 'react-native';
-import React from 'react';
 import {normalize} from 'theme/metrics';
 import {TypographyStyles} from 'theme/typography';
 import {Button} from './Button';
 import {colors} from 'theme/colors';
 import {SvgImage} from './SvgImage';
+import {useCartStore} from '../store/cart/cart.store';
 
 type TSize = 'small' | 'middle' | 'large';
 type TImageSize = 'small' | 'middle' | 'large';
 
-interface IProduct {
-  source?: ImageSourcePropType | undefined;
+export interface IProduct {
+  id: any;
+  source?: ImageSourcePropType | string | undefined;
   title: string;
   price: number;
   url?: string;
   onPress?: () => void;
   size?: TSize;
   imageSize?: TImageSize;
-  type?: 'normal' | 'savedItems';
+  type?: 'normal' | 'savedItems' | 'addedCart';
 }
 
 export const Product: React.FC<IProduct> = ({
+  id,
   source,
   title,
   price,
@@ -42,13 +45,44 @@ export const Product: React.FC<IProduct> = ({
   const isSmallImage = imageSize === 'small';
   const isMiddleImage = imageSize === 'middle';
 
+  const [count, setCount] = useState(1);
+
+  const handleMinusPress = () => {
+    if (count > 1) {
+      setCount(count - 1);
+    }
+  };
+
+  const handlePlusPress = () => {
+    setCount(count + 1);
+  };
+
+  const additionalPrice = price * count;
+
+  const deleteItemFromCart = useCartStore(
+    state => state.actions.deleteItemFromCart,
+  );
+
+  const handleDeletePress = () => {
+    deleteItemFromCart({id, title, price});
+  };
+
+  const getImageSource = (
+    source: ImageSourcePropType | string | undefined,
+  ): ImageSourcePropType | undefined => {
+    if (typeof source === 'string') {
+      return {uri: source};
+    }
+    return source;
+  };
+
   if (type === 'normal') {
     return (
       <Pressable
         style={[styles.root, isSmall && styles.smallRoot]}
         onPress={onPress}>
         <Image
-          source={source}
+          source={getImageSource(source)}
           style={[styles.image, isSmallImage && styles.smallImage]}
         />
         <View style={[styles.texts, isSmall && styles.smallTexts]}>
@@ -65,7 +99,7 @@ export const Product: React.FC<IProduct> = ({
         style={[styles.root, isMiddle && styles.middleRoot]}
         onPress={onPress}>
         <Image
-          source={source}
+          source={getImageSource(source)}
           style={[styles.image, isMiddleImage && styles.middleImage]}
         />
         <View style={[styles.texts, isSmall && styles.smallTexts]}>
@@ -80,11 +114,75 @@ export const Product: React.FC<IProduct> = ({
       </Pressable>
     );
   }
+  if (type === 'addedCart') {
+    return (
+      <Pressable
+        style={[
+          styles.root,
+          isSmall && styles.smallRoot,
+          {width: 327, height: 78, paddingBottom: 32},
+        ]}
+        onPress={onPress}>
+        <Image
+          source={getImageSource(source)}
+          style={[styles.image, isSmallImage && styles.smallImage]}
+        />
+        <View style={[styles.texts, isSmall && styles.smallTexts]}>
+          <Text style={styles.text}>{title}</Text>
+          <View
+            style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingTop: 12,
+              alignItems: 'center',
+              gap: 15,
+            }}>
+            <View
+              style={{
+                borderWidth: 1,
+                width: 100,
+                height: 32,
+                alignItems: 'center',
+                display: 'flex',
+                flexDirection: 'row',
+                gap: 18,
+                borderColor: colors.sky.lightest,
+                backgroundColor: colors.sky.lightest,
+                borderRadius: 8,
+              }}>
+              <Pressable onPress={handleMinusPress}>
+                <SvgImage
+                  style={{width: 24, height: 24}}
+                  source={vectors.minus.icon}></SvgImage>
+              </Pressable>
+              <Text style={{alignContent: 'center'}}>{count}</Text>
+              <Pressable onPress={handlePlusPress}>
+                <SvgImage
+                  style={{width: 24, height: 24}}
+                  source={vectors.plus.icon}></SvgImage>
+              </Pressable>
+            </View>
+            <Text style={styles.textPrice}>{additionalPrice}$</Text>
+            <Pressable onPress={handleDeletePress}>
+              <Text style={styles.edit}>Delete</Text>
+            </Pressable>
+          </View>
+        </View>
+      </Pressable>
+    );
+  }
 };
 
 const vectors = {
   like: {
     icon: require('../assets/vectors/favorite.svg'),
+  },
+  minus: {
+    icon: require('../assets/vectors/minus.svg'),
+  },
+  plus: {
+    icon: require('../assets/vectors/add.svg'),
   },
 };
 
@@ -141,5 +239,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 63,
+  },
+  edit: {
+    ...TypographyStyles.RegularTightSemibold,
+    color: colors.primary.base,
+    alignSelf: 'flex-end',
+    marginLeft: 30,
   },
 });

@@ -59,6 +59,7 @@ const AllItem: React.FC = () => {
           onPress={() =>
             navigation.navigate(Routes.productDetails, {product: item})
           }
+          id={undefined}
         />
       </View>
     );

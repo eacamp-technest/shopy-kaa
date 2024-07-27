@@ -1,5 +1,5 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import React from 'react';
+import React, {useState} from 'react';
 import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Routes} from 'router/routes';
@@ -13,12 +13,33 @@ import {ColorPicker} from 'components/ColorPicker';
 import {Divider} from 'components/Divider';
 import {Table} from 'components/Table';
 import {Image, SvgUri} from 'react-native-svg';
+import {useCartStore} from 'store/cart/cart.store';
+import {IProduct} from 'components/Product';
 
 export const ProductDetailsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.productDetails>
 > = ({route, navigation}) => {
   const {top} = useSafeAreaInsets();
   const {product} = route.params;
+
+  const item: IProduct = route.params.product;
+  const [selectedSize, setSelectedSize] = useState<string | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
+
+  const {
+    actions: {addToCart},
+  } = useCartStore();
+  const handleAddToCart = () => {
+    const productWithDetails = {
+      ...item,
+      id: item.id, 
+      size: selectedSize,
+      color: selectedColor,
+      price: item.price ?? 0,
+    };
+    addToCart(productWithDetails);
+    navigation.navigate(Routes.cart);
+  };
 
   return (
     <View style={styles.root}>
@@ -56,7 +77,7 @@ export const ProductDetailsScreen: React.FC<
               <Text> (24)</Text>
             </View>
           </View>
-          <Text style={styles.priceText}>$90</Text>
+          <Text style={styles.priceText}>${product.price}</Text>
         </View>
         <View style={{marginTop: 32}}>
           <Divider type="thin" />
@@ -77,7 +98,11 @@ export const ProductDetailsScreen: React.FC<
           <ColorPicker color="yellow"></ColorPicker>
           <ColorPicker color="blue"></ColorPicker>
         </View>
-        <Button style={{marginTop: 21}} text="Add to cart" />
+        <Button
+          style={{marginTop: 21}}
+          text="Add to cart"
+          onPress={handleAddToCart}
+        />
       </View>
     </View>
   );
