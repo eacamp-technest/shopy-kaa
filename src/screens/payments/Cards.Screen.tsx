@@ -69,19 +69,23 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
             name="cardNumber"
             control={control}
             label="Card Number"
+            value={selectedCard?.cardNumber}
           />
           <InputController
             type="text"
-            rules={FormValidate.cardNumber}
+            rules={FormValidate.holder}
             name="holder"
             control={control}
             label="CardHolder Name"
+            value={selectedCard?.holderName}
           />
           <InputController
-            type="text"
+            label="Expiration Date"
+            type="phone"
             rules={FormValidate.expirationDate}
             name="expirationDate"
             control={control}
+            value={selectedCard?.expiration}
           />
         </View>
         <View style={styles.button}>
@@ -151,6 +155,6 @@ const styles = StyleSheet.create({
     gap: 24,
   },
   button: {
-    paddingBottom: normalize('vertical', 50),
+    paddingBottom: normalize('vertical', 60),
   },
 });
