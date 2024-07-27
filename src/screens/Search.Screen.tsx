@@ -10,7 +10,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Routes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
 import {Product} from 'components/Product';
@@ -18,6 +18,8 @@ import {FlashList} from '@shopify/flash-list';
 import {normalize} from 'theme/metrics';
 import {Suggestion} from 'components/Suggestion';
 import {TypographyStyles} from 'theme/typography';
+import {isIos} from 'constants/common.consts';
+import {ISuggestionMock} from 'mock/SearchBarMock';
 
 export interface ICardProduct {
   id: number;
@@ -26,11 +28,7 @@ export interface ICardProduct {
   image: any;
   url: string;
 }
-export interface ISuggestionMock {
-  id: number;
-  title: string;
-  source: ImageSourcePropType | undefined;
-}
+
 export const ItemSeparatorComponent = () => {
   return <View style={styles.flashVertical} />;
 };
@@ -73,6 +71,7 @@ export const SearchScreen: React.FC<
     },
     [onItemPress, navigation],
   );
+
   const renderSuggestionItem = useCallback(
     ({item}: {item: ISuggestionMock}) => {
       return (
@@ -84,12 +83,13 @@ export const SearchScreen: React.FC<
             onPress={() => {
               onItemPress?.(item);
               navigation.pop();
+              navigation.navigate(item.onPress);
             }}
           />
         </View>
       );
     },
-    [],
+    [navigation, onItemPress],
   );
 
   useEffect(() => {
@@ -117,7 +117,7 @@ export const SearchScreen: React.FC<
           scrollEnabled={false}
           ItemSeparatorComponent={ItemSeparatorComponent}
           contentInsetAdjustmentBehavior={'automatic'}
-          contentContainerStyle={styles.contentContainerStyle}
+          contentContainerStyle={styles.flatListContentContainerStyle}
           columnWrapperStyle={styles.columnWrapperStyle}
         />
       </View>
@@ -131,7 +131,7 @@ export const SearchScreen: React.FC<
           showsVerticalScrollIndicator={false}
           contentInsetAdjustmentBehavior={'automatic'}
           ItemSeparatorComponent={ItemSeparatorComponent}
-          contentContainerStyle={styles.contentContainerStyle}
+          contentContainerStyle={styles.flashListContentContainerStyle}
         />
       </View>
     </ScrollView>
@@ -141,16 +141,18 @@ export const SearchScreen: React.FC<
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    marginTop: 160,
+    marginTop: isIos ? normalize('height', 160) : normalize('height', 24),
   },
   renderItem: {
     alignItems: 'center',
     flex: 1,
     flexDirection: 'column',
   },
-  contentContainerStyle: {
-    paddingVertical: normalize('vertical', 20),
+  flatListContentContainerStyle: {
     justifyContent: 'space-between',
+  },
+  flashListContentContainerStyle: {
+    paddingVertical: normalize('vertical', 20),
   },
   flashVertical: {
     height: normalize('height', 24),

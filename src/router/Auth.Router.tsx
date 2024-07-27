@@ -18,7 +18,6 @@ import {OtpScreen} from 'screens/auth/Otp.Screen';
 import {ModalScreen} from 'screens/Modal.Screen';
 import {PaymentScreensTab} from 'screens/payments';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {HomeScreen} from 'screens/Home.Screen';
 
 const AuthStack = createNativeStackNavigator<NavigationParamList>();
 
