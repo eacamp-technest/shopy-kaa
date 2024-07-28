@@ -18,6 +18,7 @@ import Animated, {
   useAnimatedStyle,
   withTiming,
 } from 'react-native-reanimated';
+import {isIos} from 'constants/common.consts';
 
 export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const [picker, setPicker] = useState<Date | null>(null);
@@ -67,7 +68,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
 
   useEffect(() => {
     const keyboardWillShowListener = Keyboard.addListener(
-      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      isIos ? 'keyboardWillShow' : 'keyboardDidShow',
       event => {
         if (isInputFocused) {
           translateY.value = withTiming(-normalize('height', 160), {
@@ -78,7 +79,7 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
     );
 
     const keyboardWillHideListener = Keyboard.addListener(
-      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      isIos ? 'keyboardWillHide' : 'keyboardDidHide',
       event => {
         translateY.value = withTiming(0, {duration: event.duration});
       },
@@ -110,8 +111,9 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
             leftActionType="icon"
             left={vectors.arrow_left}
             right="Skip"
-            onRightPress={() => console.log('Skip')}></Header>
-          <Header type="large" title="ADD NEW CARD"></Header>
+            onRightPress={() => console.log('Skip')}
+          />
+          <Header type="large" title="ADD NEW CARD" />
         </View>
         <View style={styles.inputs}>
           <InputController

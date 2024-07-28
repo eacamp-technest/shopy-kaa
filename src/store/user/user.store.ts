@@ -64,6 +64,10 @@ export const useUserStore = create<IUserStore>((set, get) => ({
       const state = get().cards.filter(data => data.id !== id);
       set({cards: state});
 
+      if (get().selectedCard?.id === id) {
+        set({selectedCard: null});
+      }
+
       if (state.length === 0) {
         LocalStorage.clean(StorageKeys.cards);
       } else {
