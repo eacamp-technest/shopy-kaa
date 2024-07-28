@@ -106,6 +106,11 @@ export const TypographyStyles = StyleSheet.create({
     fontFamily: montserratFonts[600],
     ...commonFontStyling,
   },
+  SmallNoneBold: {
+    fontSize: fontSize14,
+    fontFamily: montserratFonts[700],
+    ...commonFontStyling,
+  },
   SmallNoneRegular: {
     fontSize: fontSize14,
     fontFamily: montserratFonts[400],

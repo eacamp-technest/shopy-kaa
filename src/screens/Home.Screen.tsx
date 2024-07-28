@@ -18,7 +18,7 @@ import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
 import {ChipPill} from 'components/ChipPill';
 import {NavigationParamList} from 'types/navigation.types';
-import {Routes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {ICardProduct, product, suggestionMock} from 'mock/SearchBarMock';
 import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
@@ -150,6 +150,7 @@ export const HomeScreen: React.FC<
           titleColor={colors.white}
           rightActionType="icon"
           right={vectors.bell}
+          onRightPress={() => navigation.navigate(Routes.notification)}
         />
         <Input
           iconPosition="left"

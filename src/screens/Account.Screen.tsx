@@ -116,6 +116,11 @@ export const vectors = {
   about: require('assets/vectors/about.svg'),
   permission: require('assets/vectors/permission.svg'),
   camera: require('assets/vectors/camera.svg'),
+  edit: {
+    icon: require('../assets/vectors/edit.svg'),
+    width: 24,
+    height: 24,
+  },
 };
 
 const styles = StyleSheet.create({
