@@ -29,6 +29,7 @@ import {PermissionScreen} from 'screens/settings/Permission.Screen';
 import {ProductDetailsScreen} from 'screens/ProductDetails.Screen';
 import {CameraScreen} from 'screens/settings/Camera.Screen';
 import {CartScreen} from 'screens/Cart.Screen';
+import {NotificationScreen} from 'screens/Notification.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -107,6 +108,10 @@ export const MainRouter = () => {
         component={ProductDetailsScreen}
       />
       <MainStack.Screen name={Routes.cart} component={CartScreen} />
+      <MainStack.Screen
+        name={Routes.notification}
+        component={NotificationScreen}
+      />
     </MainStack.Navigator>
   );
 };

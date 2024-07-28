@@ -29,7 +29,7 @@ export const TabRouter: React.FC = () => {
         options={tabBarOption[Routes.bookmarks]}
       />
       <Tab.Screen
-        name={Routes.notification}
+        name={Routes.cart}
         component={CartScreen}
         options={tabBarOption[Routes.cart]}
       />
