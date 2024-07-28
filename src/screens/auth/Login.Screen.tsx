@@ -89,8 +89,9 @@ export const LoginScreen: React.FC<
         <Header
           onLeftPress={() => navigation.goBack()}
           leftActionType="icon"
-          left={vectors.arrow_left}></Header>
-        <Header type="large" title="WELCOME!"></Header>
+          left={vectors.arrow_left}
+        />
+        <Header type="large" title="WELCOME!" />
       </View>
       <View style={styles.inputs}>
         <InputController
@@ -117,7 +118,8 @@ export const LoginScreen: React.FC<
           onPress={handleSubmit(onSubmit)}
           text="Login"
           type="primary"
-          size="block"></Button>
+          size="block"
+        />
         <Text
           style={
             (TypographyStyles.TinyNormalRegular, CommonStyles.textAlignCenter)

@@ -98,7 +98,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
             text="Delete"
             size="block"
             type="primary"
-            onPress={onSumbit}
+            onPress={handleSubmit(onSumbit)}
           />
         </View>
       </Animated.View>

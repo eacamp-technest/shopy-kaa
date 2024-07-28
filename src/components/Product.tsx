@@ -18,7 +18,7 @@ type TSize = 'small' | 'middle' | 'large';
 type TImageSize = 'small' | 'middle' | 'large';
 
 export interface IProduct {
-  id: any;
+  id?: any;
   source?: ImageSourcePropType | string | undefined;
   title: string;
   price: number;

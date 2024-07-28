@@ -1,7 +1,6 @@
 import {View, Text, Pressable, StyleSheet} from 'react-native';
 import React from 'react';
-import {SvgProps} from 'react-native-svg';
-import {SvgImage, SvgImageProps} from './SvgImage';
+import {SvgImage} from './SvgImage';
 import {TypographyStyles} from 'theme/typography';
 import {CommonStyles} from 'theme/common.styles';
 import {Button} from './Button';

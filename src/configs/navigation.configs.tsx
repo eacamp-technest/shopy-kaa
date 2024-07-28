@@ -63,7 +63,7 @@ const tabIconConfig: {[key: string]: NodeRequire} = {
   [Routes.home]: require('../assets/vectors/home.svg'),
   [Routes.discover]: require('../assets/vectors/search.svg'),
   [Routes.bookmarks]: require('../assets/vectors/heart.svg'),
-  [Routes.notification]: require('../assets/vectors/bell.svg'),
+  [Routes.cart]: require('../assets/vectors/basket.svg'),
   [Routes.account]: require('../assets/vectors/menu.svg'),
 };
 
@@ -90,8 +90,8 @@ export const tabBarOption = {
   [Routes.bookmarks]: {
     tabBarIcon: renderTabIcon(Routes.bookmarks),
   },
-  [Routes.notification]: {
-    tabBarIcon: renderTabIcon(Routes.notification),
+  [Routes.cart]: {
+    tabBarIcon: renderTabIcon(Routes.cart),
   },
   [Routes.account]: {
     tabBarIcon: renderTabIcon(Routes.account),

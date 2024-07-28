@@ -149,7 +149,7 @@ export const HomeScreen: React.FC<
           type="standard"
           titleColor={colors.white}
           rightActionType="icon"
-          right={vectors.shoppingBag}
+          right={vectors.bell}
         />
         <Input
           iconPosition="left"
@@ -200,8 +200,8 @@ const vectors = {
     icon: require('assets/vectors/menu.svg'),
     color: colors.white,
   },
-  shoppingBag: {
-    icon: require('assets/vectors/shopping-bag.svg'),
+  bell: {
+    icon: require('assets/vectors/bell.svg'),
     color: colors.white,
   },
   search: {
