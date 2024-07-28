@@ -115,6 +115,8 @@ export const vectors = {
   logout: require('assets/vectors/logout.svg'),
   about: require('assets/vectors/about.svg'),
   permission: require('assets/vectors/permission.svg'),
+  masterCard: require('assets/social/mastercard.svg'),
+
   camera: require('assets/vectors/camera.svg'),
   edit: {
     icon: require('../assets/vectors/edit.svg'),
