@@ -8,11 +8,12 @@ import {TextLink} from 'components/TextLink';
 import {Button} from 'components/Button';
 import {normalize} from 'theme/metrics';
 import {NavigationProp, useNavigation} from '@react-navigation/native';
-import {Routes, StackRoutes} from 'router/routes';
+import {Routes} from 'router/routes';
 import {SceneRendererProps} from 'react-native-tab-view';
 import {useUserStore} from 'store/user/user.store';
 import {ICardInputForm} from 'types/card-types';
 import {useToast} from 'store/toast';
+import {useUserStoreActions} from 'store/user';
 
 export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   const navigation = useNavigation<NavigationProp<any>>();
@@ -20,8 +21,24 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
     cards,
     actions: {selectCard},
   } = useUserStore(state => state);
-
   const showToast = useToast();
+  const {initUser} = useUserStoreActions();
+
+  const mockUserData = {
+    username: 'mockUser',
+    token: 'mockToken123', // Mock token
+    // Add other user data as needed
+  };
+
+  const storeUserData = async (userData: typeof mockUserData) => {
+    try {
+      initUser(userData);
+      showToast('success', 'Login successful');
+    } catch (error) {
+      showToast('error', 'An error occurred while storing user data');
+      console.error(error);
+    }
+  };
 
   const renderCards = (data: ICardInputForm) => {
     const onPress = () => {
@@ -45,8 +62,7 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
 
   const onAddNewMethod = () => {
     if (cards?.length >= 2) {
-      showToast('error', 'You can only store up to 3 cards. ');
-
+      showToast('error', 'You can only store up to 3 cards.');
       return;
     }
 
@@ -62,7 +78,7 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         rightActionType="text"
         right="Skip"
         onLeftPress={navigation.goBack}
-        onRightPress={() => navigation.navigate(Routes.home)}
+        onRightPress={() => storeUserData(mockUserData)}
       />
       <View style={styles.main}>
         <Header type="large" title="Payment Methods" />
