@@ -17,6 +17,7 @@ import {InputController} from 'components/InputController';
 import {FormValidate} from 'constants/formValidation';
 import {SceneRendererProps} from 'react-native-tab-view';
 import {useUserStore} from 'store/user/user.store';
+import {useUserStoreActions} from 'store/user';
 
 interface ICardForm {
   cardNumber: string;
@@ -25,15 +26,19 @@ interface ICardForm {
 }
 
 export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
-  const {
-    selectedCard,
-    cards,
-    actions: {selectCard},
-  } = useUserStore(state => state);
+  const {selectedCard, cards} = useUserStore(state => state);
+  const {selectCard, removeCard} = useUserStoreActions();
+
   const onLeftPress = () => {
     jumpTo(Routes.paymentMethod);
     selectCard(null);
   };
+  const onSumbit = () => {
+    removeCard(selectedCard!!.id);
+    selectCard(null);
+    jumpTo(Routes.paymentMethod);
+  };
+
   const [isEditing, setIsEditing] = useState(false);
 
   const {
@@ -89,7 +94,12 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
           />
         </View>
         <View style={styles.button}>
-          <Button text="Save" size="block" type="primary" />
+          <Button
+            text="Delete"
+            size="block"
+            type="primary"
+            onPress={onSumbit}
+          />
         </View>
       </Animated.View>
     );
@@ -98,7 +108,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
   return (
     <View style={styles.root}>
       <Header
-        title="your card"
+        title="Your Card"
         onLeftPress={onLeftPress}
         leftActionType="icon"
         left={vectors.arrow_left}
@@ -117,7 +127,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
       ) : (
         <Button
           onPress={() => jumpTo(Routes.AddNewCardScreen)}
-          text="Add new card"
+          text="Add New Card"
           size="block"
           type="outlined"
           disabled={cards?.length >= 2}

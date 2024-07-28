@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import React, {useCallback, useState} from 'react';
 import {NavigationParamList} from 'types/navigation.types';
-import {Routes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
@@ -72,7 +72,7 @@ export const CartScreen: React.FC<
         renderItem={renderInCart}
         showsVerticalScrollIndicator={false}
       />
- 
+
       <Divider type="thick" />
       <View>
         <View style={{height: 64, paddingTop: 28}}>
@@ -80,8 +80,9 @@ export const CartScreen: React.FC<
             title3
             content="PAYMENT TYPE"
             rightType="text"
-            right=" Change"
-            leftType={'image'}
+            right="Change"
+            leftType="views"
+            rightOnPress={() => navigation.navigate(StackRoutes.choosepayment)}
           />
         </View>
 
@@ -97,9 +98,7 @@ export const CartScreen: React.FC<
             style={[
               TypographyStyles.RegularNormalSemiBold,
               CommonStyles.flexGrow,
-            ]}>
-            Mastercard * * * * 4213
-          </Text>
+            ]}></Text>
           <SvgImage
             isPressable
             onPress={() => console.log('...')}

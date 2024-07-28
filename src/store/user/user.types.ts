@@ -6,7 +6,6 @@ interface IUserStoreActions {
   addCard: (card: ICardInputForm) => void;
   removeCard: (id: string) => void;
   selectCard: (id: string | null) => void;
-  updateCard: (id: string | null) => void;
   selectPayment: (id: string | null) => void;
   initialize: () => void;
   initUser: (user: IUser) => void;
