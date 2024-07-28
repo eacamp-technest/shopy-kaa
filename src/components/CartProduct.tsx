@@ -4,6 +4,8 @@ import {normalize} from 'theme/metrics';
 import {Steppers} from './Stepper';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
+import {useCartStoreActions} from 'store/cart';
+import {CartItem} from 'types/cart.types';
 
 interface ICardProduct {
   image: ImageSourcePropType | undefined;
@@ -13,17 +15,22 @@ interface ICardProduct {
 
 export const CartProduct: React.FC<ICardProduct> = ({image, price, title}) => {
   const [count, setCount] = useState<number>(1);
+  const {deleteItemFromCart} = useCartStoreActions();
 
   const decrement = () => {
     if (count > 1) {
       setCount(count - 1);
     }
+    // if (count === 1) {
+    //   deleteItemFromCart(item.id);
+    // }
   };
 
   const increment = () => {
     setCount(count + 1);
   };
 
+  const totalPrice = price * count;
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
@@ -37,7 +44,7 @@ export const CartProduct: React.FC<ICardProduct> = ({image, price, title}) => {
             size="small"
             type="normal"
           />
-          <Text style={styles.price}>{`${price}$`}</Text>
+          <Text style={styles.price}>{`${totalPrice}$`}</Text>
         </View>
       </View>
     </View>

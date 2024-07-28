@@ -57,7 +57,7 @@ export const Steppers: React.FC<ISteppers> = ({
 };
 
 const vectors = {
-  plus: require('../assets/vectors/plus.svg'),
+  plus: require('../assets/vectors/stepper_plus.svg'),
   minus: require('../assets/vectors/minus.svg'),
 };
 
