@@ -19,7 +19,7 @@ export const AccountScreen: React.FC<
 
   const tableData = [
     {id: '1', content: 'Profile', leftIcon: vectors.avatar},
-    {id: '2', content: 'Order', leftIcon: vectors.cart},
+    {id: '2', content: 'Order', leftIcon: vectors.cart.icon},
     {id: '3', content: 'Address', leftIcon: vectors.location},
     {id: '4', content: 'Payment', leftIcon: vectors.card},
     {id: '5', content: 'About', leftIcon: vectors.about},
@@ -103,10 +103,13 @@ export const vectors = {
     width: 24,
     height: 24,
   },
+  cart: {
+    icon: require('assets/vectors/cart.svg'),
+    color: colors.ink.base,
+  },
   ring: require('assets/vectors/ring.svg'),
   avatar: require('assets/vectors/avatar.svg'),
   arrow_right: require('assets/vectors/arrow_right.svg'),
-  cart: require('assets/vectors/cart.svg'),
   location: require('assets/vectors/location.svg'),
   card: require('assets/vectors/card.svg'),
   logout: require('assets/vectors/logout.svg'),
