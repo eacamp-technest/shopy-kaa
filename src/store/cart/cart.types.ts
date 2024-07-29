@@ -4,7 +4,7 @@ interface ICartStoreActions {
   initialize: () => void;
   addToCart: (item: CartItem) => void;
   updateItemQuantity: (id: number, quantity: number) => void;
-  deleteItemFromCart: (item: CartItem) => void;
+  deleteItemFromCart: (id: CartItem) => void;
   calculateTotalPrice: () => void;
   reset: () => void;
 }

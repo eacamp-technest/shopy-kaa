@@ -1,22 +1,40 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import {normalize} from 'theme/metrics';
 import {Steppers} from './Stepper';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
+import {useCartStore} from 'store/cart/cart.store';
 
 interface ICardProduct {
+  id: number;
   image: ImageSourcePropType | undefined;
   title: string;
+  // onRemove: (id: number) => void;
   price: number;
 }
 
-export const CartProduct: React.FC<ICardProduct> = ({image, price, title}) => {
+export const CartProduct: React.FC<ICardProduct> = ({
+  id,
+  image,
+  price,
+  title,
+  // onRemove,
+}) => {
   const [count, setCount] = useState<number>(1);
+  const {
+    actions: {updateItemQuantity},
+  } = useCartStore();
+
+  useEffect(() => {
+    updateItemQuantity(id, count);
+  }, [count]);
 
   const decrement = () => {
     if (count > 1) {
       setCount(count - 1);
+    } else {
+      // onRemove(id);
     }
   };
 

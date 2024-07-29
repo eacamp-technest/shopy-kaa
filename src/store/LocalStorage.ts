@@ -8,7 +8,7 @@ import {
 } from 'types/local.storage.types';
 import {IUser} from 'types/user';
 import {IAddress} from './address/address.types';
-import {CartItem} from './cart/cart.types';
+import {CartItem} from 'types/cart.types';
 
 const storage = new MMKV();
 
