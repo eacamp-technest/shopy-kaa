@@ -7,7 +7,6 @@ const initial: Omit<IAddressStore, 'actions'> = {
   addresses: [],
   selectedAddress: null,
 };
-
 export const useAddressStore = create<IAddressStore>((set, get) => ({
   ...initial,
   actions: {
