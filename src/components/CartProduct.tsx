@@ -10,7 +10,6 @@ interface ICardProduct {
   id: number;
   image: ImageSourcePropType | undefined;
   title: string;
-  // onRemove: (id: number) => void;
   price: number;
 }
 
@@ -19,22 +18,23 @@ export const CartProduct: React.FC<ICardProduct> = ({
   image,
   price,
   title,
-  // onRemove,
 }) => {
   const [count, setCount] = useState<number>(1);
   const {
-    actions: {updateItemQuantity},
+    actions: {updateItemQuantity, deleteItemFromCart},
   } = useCartStore();
 
   useEffect(() => {
-    updateItemQuantity(id, count);
+    if (count <= 0) {
+      deleteItemFromCart(id);
+    } else {
+      updateItemQuantity(id, count);
+    }
   }, [count]);
 
   const decrement = () => {
-    if (count > 1) {
+    if (count > 0) {
       setCount(count - 1);
-    } else {
-      // onRemove(id);
     }
   };
 

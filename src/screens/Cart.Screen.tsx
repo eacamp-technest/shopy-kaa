@@ -48,22 +48,25 @@ export const CartScreen: React.FC<
   useEffect(() => {
     calculateTotalPrice();
   }, [carts, calculateTotalPrice]);
-  const renderItem = useCallback(
-    ({item}: {item: CartItem}) => {
-      return (
-        <View>
-          <CartProduct
-            id={item.id}
-            image={item.image}
-            price={item.price}
-            key={item.id}
-            title={item.title}
-          />
-        </View>
-      );
-    },
-    [deleteItemFromCart],
-  );
+  useEffect(() => {
+    const {actions} = useAddressStore.getState();
+    actions.initialize();
+  }, []);
+  useEffect(() => {
+    const {actions} = useCartStore.getState();
+    actions.initialize();
+  }, []);
+
+  const renderItem = useCallback(({item}: {item: CartItem}) => {
+    return (
+      <CartProduct
+        id={item.id}
+        image={item.image}
+        price={item.price}
+        title={item.title}
+      />
+    );
+  }, []);
 
   const renderCards = (data: ICardInputForm) => {
     const cardNumber = `Mastercard * * * * ${data.cardNumber.slice(-4)}`;
@@ -129,10 +132,10 @@ export const CartScreen: React.FC<
     }
     return null;
   };
-  let subtotal = 0;
-  for (let item of carts) {
-    subtotal += item.price;
-  }
+
+  useEffect(() => {
+    console.log('Selected Address:', selectedAddress);
+  }, [selectedAddress]);
 
   return (
     <View style={[styles.root, {paddingTop: top}]}>
@@ -155,6 +158,7 @@ export const CartScreen: React.FC<
             <FlatList
               data={carts}
               renderItem={renderItem}
+              keyExtractor={item => item.id.toString()}
               showsVerticalScrollIndicator={false}
               ItemSeparatorComponent={ItemSeparatorComponent}
               scrollEnabled={false}
