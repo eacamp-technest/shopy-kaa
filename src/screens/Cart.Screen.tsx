@@ -1,5 +1,12 @@
-import React, {Fragment, useCallback} from 'react';
-import {FlatList, StyleSheet, Text, View, ScrollView} from 'react-native';
+import React, {Fragment, useCallback, useEffect} from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Pressable,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
@@ -34,14 +41,19 @@ export const CartScreen: React.FC<
 
   const {
     carts,
-    actions: {deleteItemFromCart},
+    totalPrice,
+    actions: {deleteItemFromCart, calculateTotalPrice},
   } = useCartStore(state => state);
 
+  useEffect(() => {
+    calculateTotalPrice();
+  }, [carts, calculateTotalPrice]);
   const renderItem = useCallback(
     ({item}: {item: CartItem}) => {
       return (
         <View>
           <CartProduct
+            id={item.id}
             image={item.image}
             price={item.price}
             key={item.id}
@@ -118,7 +130,7 @@ export const CartScreen: React.FC<
     return null;
   };
   let subtotal = 0;
-  for (const item of carts) {
+  for (let item of carts) {
     subtotal += item.price;
   }
 
@@ -137,7 +149,6 @@ export const CartScreen: React.FC<
       </View>
       <ScrollView
         showsVerticalScrollIndicator={false}
-        bounces={false}
         style={styles.scrollView}>
         <View style={styles.top}>
           <View style={styles.product}>
@@ -167,22 +178,17 @@ export const CartScreen: React.FC<
             {renderSelectedPayment()}
           </View>
 
-          <View style={styles.address}>
-            <Table
-              title3
-              content="Delivery Address"
-              rightType="icon"
-              right={vectors.arrow_right}
-              leftType="views"
-              rightOnPress={() => navigation.navigate(StackRoutes.youraddress)}
-            />
+          <Pressable
+            onPress={() => navigation.navigate(StackRoutes.youraddress)}
+            style={styles.address}>
+            <Text style={styles.deliveryAddress}>Delivery Address</Text>
             {renderAddress()}
-          </View>
+          </Pressable>
         </View>
       </ScrollView>
       <View style={styles.subtotal}>
         <Text style={styles.texts}>Subtotal</Text>
-        <Text style={styles.price}>${subtotal.toFixed(2)}</Text>
+        <Text style={styles.price}>${totalPrice.toFixed(2)}</Text>
       </View>
       <View style={styles.bottom}>
         <Button text="Purchase" />
@@ -244,8 +250,11 @@ const styles = StyleSheet.create({
     paddingBottom: normalize('height', 20),
   },
   view: {
-    height: normalize('font', 12),
+    height: normalize('height', 12),
     backgroundColor: colors.sky.lighter,
-    marginTop: normalize('font', 32),
+    marginTop: normalize('height', 32),
+  },
+  deliveryAddress: {
+    ...TypographyStyles.title3,
   },
 });
