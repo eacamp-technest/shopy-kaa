@@ -107,7 +107,7 @@ export const MainRouter = () => {
         name={Routes.productDetails}
         component={ProductDetailsScreen}
       />
-      <MainStack.Screen name={Routes.cart} component={CartScreen} />
+      {/* <MainStack.Screen name={Routes.cart} component={CartScreen} /> */}
       <MainStack.Screen
         name={Routes.notification}
         component={NotificationScreen}

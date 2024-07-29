@@ -46,7 +46,6 @@ export const TypographyStyles = StyleSheet.create({
   },
   title3: {
     fontSize: fontSize24,
-    lineHeight: 32,
     fontFamily: bebasFonts[700],
     ...commonFontStyling,
   },
