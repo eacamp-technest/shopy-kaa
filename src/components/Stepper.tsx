@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Pressable} from 'react-native';
 import {colors} from 'theme/colors';
 import {SvgImage} from './SvgImage';
 import {TypographyStyles} from 'theme/typography';
@@ -33,25 +33,17 @@ export const Steppers: React.FC<ISteppers> = ({
         type === 'transparent' && styles.transparentContainer,
         type === 'noCounter' && styles.noCounterContainer,
       ]}>
-      <SvgImage
-        source={vectors.minus}
-        isPressable={true}
-        disabled={disabled}
-        onPress={decrement}
-        color={colors.sky.base}
-      />
+      <Pressable onPress={decrement} disabled={disabled}>
+        <SvgImage source={vectors.minus} color={colors.sky.base} />
+      </Pressable>
       {type === 'noCounter' ? (
         <View style={styles.line} />
       ) : (
         <Text style={styles.count}>{count}</Text>
       )}
-      <SvgImage
-        source={vectors.plus}
-        isPressable={true}
-        disabled={disabled}
-        onPress={increment}
-        color={colors.primary.base}
-      />
+      <Pressable onPress={increment} disabled={disabled}>
+        <SvgImage source={vectors.plus} color={colors.primary.base} />
+      </Pressable>
     </View>
   );
 };

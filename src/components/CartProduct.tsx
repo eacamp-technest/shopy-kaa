@@ -1,11 +1,9 @@
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
+import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
 import {normalize} from 'theme/metrics';
 import {Steppers} from './Stepper';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
-import {useCartStoreActions} from 'store/cart';
-import {CartItem} from 'types/cart.types';
 
 interface ICardProduct {
   image: ImageSourcePropType | undefined;
@@ -15,15 +13,11 @@ interface ICardProduct {
 
 export const CartProduct: React.FC<ICardProduct> = ({image, price, title}) => {
   const [count, setCount] = useState<number>(1);
-  const {deleteItemFromCart} = useCartStoreActions();
 
   const decrement = () => {
     if (count > 1) {
       setCount(count - 1);
     }
-    // if (count === 1) {
-    //   deleteItemFromCart(item.id);
-    // }
   };
 
   const increment = () => {
@@ -31,6 +25,7 @@ export const CartProduct: React.FC<ICardProduct> = ({image, price, title}) => {
   };
 
   const totalPrice = price * count;
+
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
@@ -44,7 +39,7 @@ export const CartProduct: React.FC<ICardProduct> = ({image, price, title}) => {
             size="small"
             type="normal"
           />
-          <Text style={styles.price}>{`${totalPrice}$`}</Text>
+          <Text style={styles.price}>${totalPrice.toFixed(2)}</Text>
         </View>
       </View>
     </View>

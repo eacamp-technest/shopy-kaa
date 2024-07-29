@@ -1,59 +1,39 @@
-import {FlatList, StyleSheet, Text, View} from 'react-native';
-import React, {useCallback, useState} from 'react';
-import {NavigationParamList} from 'types/navigation.types';
-import {Routes, StackRoutes} from 'router/routes';
+import React, {Fragment, useCallback} from 'react';
+import {FlatList, StyleSheet, Text, View, ScrollView} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
 import {vectors} from './Account.Screen';
 import {normalize} from 'theme/metrics';
 import {CartProduct} from 'components/CartProduct';
-import {ICardProduct, product} from 'mock/SearchBarMock';
-import {FlashList} from '@shopify/flash-list';
 import {useCartStore} from 'store/cart/cart.store';
 import {CartItem} from 'types/cart.types';
 import {ItemSeparatorComponent} from './Search.Screen';
-import {Divider} from 'components/Divider';
 import {Table} from 'components/Table';
 import {useUserStore} from 'store/user/user.store';
 import {ICardInputForm} from 'types/card-types';
-import {InputController} from 'components/InputController';
-import {Input} from 'components/TextFields';
-import {IAddressInputForm} from 'theme/address';
-import {useForm} from 'react-hook-form';
 import {CommonStyles} from 'theme/common.styles';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
 import {Button} from 'components/Button';
+import {NavigationParamList} from 'types/navigation.types';
+import {Routes, StackRoutes} from 'router/routes';
+import {useAddressStore} from 'store/address/address.store';
 
 export const CartScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.cart>
 > = ({navigation}) => {
-  const formMethods = useForm<IAddressInputForm>({
-    defaultValues: __DEV__
-      ? {
-          name: 'Ali Hilalov',
-          country: 'USA',
-          address: '123 Maple StreetAnytown, CA 12345',
-        }
-      : {},
-  });
-  const {
-    control,
-    handleSubmit,
-    formState: {errors},
-    reset,
-  } = formMethods;
   const {top} = useSafeAreaInsets();
   const {cards, selectedPayment} = useUserStore(state => state);
   const {selectPayment} = useUserStore(state => state.actions);
+  const {selectedAddress} = useAddressStore();
 
   const handlePress = (payment: string) => {
     selectPayment(payment);
   };
+
   const {
     carts,
-    totalPrice,
     actions: {deleteItemFromCart},
   } = useCartStore(state => state);
 
@@ -80,7 +60,9 @@ export const CartScreen: React.FC<
         <Table
           content={cardNumber}
           leftType="image"
-          rightType="radio"
+          rightType="icon"
+          caption="primary"
+          right={vectors.arrow_right}
           left={vectors.masterCard}
           isSelected={selectedPayment === data.cardNumber}
           onSelect={() => handlePress(data.cardNumber)}
@@ -88,6 +70,57 @@ export const CartScreen: React.FC<
       </View>
     );
   };
+
+  const renderSelectedPayment = () => {
+    if (selectedPayment === 'PayPal') {
+      return (
+        <Table
+          content="PayPal"
+          leftType="image"
+          left={vectors.paypal}
+          right={vectors.arrow_right}
+          rightType="icon"
+          isSelected={true}
+          onSelect={() => handlePress('PayPal')}
+        />
+      );
+    } else if (selectedPayment === 'Bank Transfer') {
+      return (
+        <Table
+          content="Bank Transfer"
+          leftType="image"
+          left={vectors.bank}
+          rightType="icon"
+          right={vectors.arrow_right}
+          isSelected={true}
+          onSelect={() => handlePress('Bank Transfer')}
+        />
+      );
+    } else {
+      const selectedCard = cards.find(
+        card => card.cardNumber === selectedPayment,
+      );
+      if (selectedCard) {
+        return renderCards(selectedCard);
+      }
+    }
+    return null;
+  };
+
+  const renderAddress = () => {
+    if (selectedAddress) {
+      return (
+        <Fragment key={selectedAddress.id}>
+          <Text style={styles.delivery}>{selectedAddress.address}</Text>
+        </Fragment>
+      );
+    }
+    return null;
+  };
+  let subtotal = 0;
+  for (const item of carts) {
+    subtotal += item.price;
+  }
 
   return (
     <View style={[styles.root, {paddingTop: top}]}>
@@ -101,55 +134,58 @@ export const CartScreen: React.FC<
           right={vectors.edit}
           onRightPress={() => console.log('This action can edit the cart')}
         />
-        <View style={styles.product}>
-          <FlatList
-            data={carts}
-            renderItem={renderItem}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={ItemSeparatorComponent}
-            scrollEnabled={false}
-          />
-        </View>
       </View>
-      <Divider type="thick" />
-      <View style={styles.inner}>
-        <View style={styles.payment}>
-          <Table
-            title3
-            content="PAYMENT TYPE"
-            rightType="text"
-            right="Change"
-            leftType="views"
-            rightOnPress={() => navigation.navigate(StackRoutes.choosepayment)}
-          />
-          {cards && cards.map(renderCards)}
-        </View>
-        <View style={styles.address}>
-          <Table title3 content="Delivery Address" leftType="views" />
-          <InputController
-            name="country"
-            control={control}
-            rules={{required: 'Country is required'}}
-            style={{height: normalize('height', 48)}}
-            type="select"
-            placeholder="Select Your Country"
-            // onInputPress={() => navigation.navigate(StackRoutes.youraddress)}
-          />
-          <View style={styles.divider}>
-            <Divider type="thin" />
-          </View>
-          <View style={styles.gap}>
-            <View style={styles.subtotal}>
-              <Text style={styles.texts}>Subtotal</Text>
-              <Text style={styles.price}>${totalPrice.toFixed(2)}</Text>
-            </View>
-            <View style={styles.total}>
-              <Text style={styles.texts}>Shipping</Text>
-              <Text style={styles.price}>$23</Text>
-            </View>
-            <Button onPress={() => console.log(totalPrice)} text="Purchase" />
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        bounces={false}
+        style={styles.scrollView}>
+        <View style={styles.top}>
+          <View style={styles.product}>
+            <FlatList
+              data={carts}
+              renderItem={renderItem}
+              showsVerticalScrollIndicator={false}
+              ItemSeparatorComponent={ItemSeparatorComponent}
+              scrollEnabled={false}
+            />
           </View>
         </View>
+        <View style={styles.view} />
+
+        <View style={styles.inner}>
+          <View style={styles.payment}>
+            <Table
+              title3
+              content="PAYMENT TYPE"
+              rightType="text"
+              right="Change"
+              leftType="views"
+              rightOnPress={() =>
+                navigation.navigate(StackRoutes.choosepayment)
+              }
+            />
+            {renderSelectedPayment()}
+          </View>
+
+          <View style={styles.address}>
+            <Table
+              title3
+              content="Delivery Address"
+              rightType="icon"
+              right={vectors.arrow_right}
+              leftType="views"
+              rightOnPress={() => navigation.navigate(StackRoutes.youraddress)}
+            />
+            {renderAddress()}
+          </View>
+        </View>
+      </ScrollView>
+      <View style={styles.subtotal}>
+        <Text style={styles.texts}>Subtotal</Text>
+        <Text style={styles.price}>${subtotal.toFixed(2)}</Text>
+      </View>
+      <View style={styles.bottom}>
+        <Button text="Purchase" />
       </View>
     </View>
   );
@@ -160,10 +196,10 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: normalize('height', 24),
   },
-  product: {
-    paddingTop: normalize('height', 24),
+  scrollView: {
+    flex: 1,
   },
-
+  product: {},
   top: {
     paddingHorizontal: normalize('horizontal', 24),
   },
@@ -171,17 +207,16 @@ const styles = StyleSheet.create({
     gap: normalize('height', 8),
   },
   address: {
-    paddingTop: normalize('height', 24),
+    paddingTop: normalize('height', 32),
     gap: normalize('height', 16),
   },
   inner: {
     paddingHorizontal: normalize('horizontal', 24),
-  },
-  divider: {
     paddingTop: normalize('height', 16),
   },
   subtotal: {
     ...CommonStyles.alignCenterJustifyBetweenRow,
+    paddingHorizontal: normalize('horizontal', 24),
   },
   total: {
     ...CommonStyles.alignCenterJustifyBetweenRow,
@@ -194,7 +229,23 @@ const styles = StyleSheet.create({
     ...TypographyStyles.RegularTightSemibold,
     color: colors.ink.base,
   },
-  gap: {
-    gap: normalize('height', 20),
+
+  text: {
+    ...TypographyStyles.RegularNoneSemiBold,
+    color: colors.ink.base,
+    alignSelf: 'center',
+  },
+  delivery: {
+    ...TypographyStyles.RegularNoneSemiBold,
+    color: colors.ink.base,
+  },
+  bottom: {
+    paddingHorizontal: normalize('horizontal', 24),
+    paddingBottom: normalize('height', 20),
+  },
+  view: {
+    height: normalize('font', 12),
+    backgroundColor: colors.sky.lighter,
+    marginTop: normalize('font', 32),
   },
 });

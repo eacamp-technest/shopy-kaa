@@ -12,9 +12,9 @@ import {Button} from 'components/Button';
 import {ColorPicker} from 'components/ColorPicker';
 import {Divider} from 'components/Divider';
 import {Table} from 'components/Table';
-import {Image, SvgUri} from 'react-native-svg';
 import {useCartStore} from 'store/cart/cart.store';
 import {IProduct} from 'components/Product';
+import {useToast} from 'store/toast';
 
 export const ProductDetailsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.productDetails>
@@ -25,6 +25,7 @@ export const ProductDetailsScreen: React.FC<
   const item: IProduct = route.params.product;
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
+  const showToast = useToast();
 
   const {
     actions: {addToCart},
@@ -32,13 +33,13 @@ export const ProductDetailsScreen: React.FC<
   const handleAddToCart = () => {
     const productWithDetails = {
       ...item,
-      id: item.id, 
+      id: item.id,
       size: selectedSize,
       color: selectedColor,
       price: item.price ?? 0,
     };
     addToCart(productWithDetails);
-    navigation.navigate(Routes.cart);
+    showToast('success', 'Product added to cart');
   };
 
   return (
@@ -52,6 +53,7 @@ export const ProductDetailsScreen: React.FC<
           onLeftPress={navigation.goBack}
           rightActionType="icon"
           right={vectors.shopping_bag}
+          onRightPress={() => navigation.navigate(Routes.cart)}
         />
       </ImageBackground>
       <View style={styles.bottom}>

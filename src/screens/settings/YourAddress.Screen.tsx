@@ -31,8 +31,6 @@ export const YourAddressScreen: React.FC<
     selectAddress(id);
   };
 
-  const handleRadioPress = () => {};
-
   const onButtonPress = () => {
     addresses?.length < 2
       ? navigation.navigate(StackRoutes.addaddress)
@@ -57,7 +55,6 @@ export const YourAddressScreen: React.FC<
             <Fragment key={address.id}>
               <Address
                 onSelect={() => handlePress(address.id)}
-                onRadioPress={handleRadioPress}
                 onPress={() => removeAddress(address.id)}
                 isSelected={selectedAddress?.id === address.id}
                 name={address.name}

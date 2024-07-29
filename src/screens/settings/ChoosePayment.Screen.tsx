@@ -1,5 +1,5 @@
 import {Pressable, StyleSheet, Text, View} from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: normalize('horizontal', 24),
   },
   tables: {
-    paddingTop: 16,
-    gap: 24,
+    paddingTop: normalize('height', 16),
+    gap: normalize('height', 24),
   },
 });
