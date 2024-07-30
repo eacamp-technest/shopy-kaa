@@ -34,7 +34,7 @@ export const CartScreen: React.FC<
   const {cards, selectedPayment} = useUserStore(state => state);
   const {selectPayment} = useUserStore(state => state.actions);
   const {selectedAddress} = useAddressStore();
-  const [deleteMode, setDeleteMode] = useState(false);
+  const [deleteMode, setDeleteMode] = useState<boolean>(false);
 
   const handlePress = (payment: string) => {
     selectPayment(payment);
