@@ -9,6 +9,7 @@ import {
 import {IUser} from 'types/user';
 import {IAddress} from './address/address.types';
 import {CartItem} from 'types/cart.types';
+import {ICardProduct} from 'mock/SearchBarMock';
 
 const storage = new MMKV();
 
@@ -95,5 +96,13 @@ export class LocalStorage {
       return totalPrice ? JSON.parse(totalPrice) : 0;
     }
     this.set(StorageKeys.totalPrice, 'number', data);
+  }
+
+  public static likedItems(method: TFunctionalMethod, data?: ICardProduct[]) {
+    if (method === 'get') {
+      const likedItems = storage.getString(StorageKeys.likedItems);
+      return likedItems ? JSON.parse(likedItems) : [];
+    }
+    this.set(StorageKeys.likedItems, 'array', data);
   }
 }

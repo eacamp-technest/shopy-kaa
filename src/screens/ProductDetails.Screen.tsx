@@ -1,6 +1,12 @@
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import React, {useState} from 'react';
-import {ImageBackground, StyleSheet, Text, View} from 'react-native';
+import {
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View,
+  ImageSourcePropType,
+} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Routes} from 'router/routes';
 import {colors} from 'theme/colors';
@@ -15,12 +21,28 @@ import {Table} from 'components/Table';
 import {useCartStore} from 'store/cart/cart.store';
 import {IProduct} from 'components/Product';
 import {useToast} from 'store/toast';
+import {CartItem} from 'types/cart.types';
+import {useLikeStore} from 'store/like/like.store';
 
 export const ProductDetailsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.productDetails>
 > = ({route, navigation}) => {
   const {top} = useSafeAreaInsets();
   const {product} = route.params;
+  const {likedItems, actions: likeActions} = useLikeStore();
+  const [isLiked, setIsLiked] = useState(
+    likedItems.some(item => item.id === product.id),
+  );
+
+  const handleLike = () => {
+    likeActions.addLikedItem(product);
+    setIsLiked(true);
+  };
+
+  const handleUnlike = () => {
+    likeActions.removeLikedItem(product.id);
+    setIsLiked(false);
+  };
 
   const item: IProduct = route.params.product;
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -30,13 +52,13 @@ export const ProductDetailsScreen: React.FC<
   const {
     actions: {addToCart},
   } = useCartStore();
+
   const handleAddToCart = () => {
-    const productWithDetails = {
+    const productWithDetails: CartItem = {
       ...item,
       id: item.id,
-      size: selectedSize,
-      color: selectedColor,
       price: item.price ?? 0,
+      image: product.image as ImageSourcePropType,
     };
     addToCart(productWithDetails);
     showToast('success', 'Product added to cart');
@@ -45,6 +67,7 @@ export const ProductDetailsScreen: React.FC<
   return (
     <View style={styles.root}>
       <ImageBackground
+        resizeMode="cover"
         source={product.image}
         style={[styles.header, {paddingTop: top}]}>
         <Header
@@ -64,13 +87,14 @@ export const ProductDetailsScreen: React.FC<
             content={product.title}
             leftType="views"
             rightType="icon"
-            right={vectors.like.icon}
+            right={isLiked ? vectors.like : vectors.unlike}
+            rightOnPress={isLiked ? handleUnlike : handleLike}
           />
         </View>
         <View style={styles.stylestableTwo}>
           <View style={{display: 'flex', flexDirection: 'row'}}>
             <Table
-              content={''}
+              content=""
               leftType="views"
               rightType="icon"
               right={vectors.star.icon}
@@ -123,12 +147,10 @@ const vectors = {
     width: 24,
     height: 24,
   },
-  like: {
-    icon: require('../assets/vectors/like.svg'),
-    color: colors.primary.base,
-    width: 26,
-    height: 24,
-  },
+
+  like: require('../assets/vectors/like.svg'),
+  unlike: require('../assets/vectors/unlike.svg'),
+
   star: {
     icon: require('../assets/vectors/star.svg'),
   },
