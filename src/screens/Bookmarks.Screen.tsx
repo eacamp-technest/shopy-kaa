@@ -14,6 +14,8 @@ import {Routes} from 'router/routes';
 import {NavigationParamList} from 'types/navigation.types';
 import {TypographyStyles} from 'theme/typography';
 import {isAndroid} from 'constants/common.consts';
+import {LikedProduct} from 'components/LikedProduct';
+import {ItemSeparatorComponent} from './Search.Screen';
 
 const Board: React.FC = () => {
   useFocusEffect(
@@ -44,22 +46,20 @@ const AllItem: React.FC = () => {
     useNavigation<
       NativeStackScreenProps<NavigationParamList, Routes.home>['navigation']
     >();
+  const [liked, setLiked] = useState<boolean>(false);
 
   const renderItem = ({item}: {item: ICardProduct}) => {
     return (
       <View style={styles.renderItem}>
-        <Product
-          size="middle"
-          imageSize="middle"
-          source={item.image}
+        <LikedProduct
+          id={item.id}
           price={item.price}
-          key={item.id}
           title={item.title}
-          type="savedItems"
           onPress={() =>
             navigation.navigate(Routes.productDetails, {product: item})
           }
-          id={undefined}
+          image={item.image}
+          onLike={liked}
         />
       </View>
     );
@@ -73,6 +73,7 @@ const AllItem: React.FC = () => {
           numColumns={1}
           estimatedItemSize={200}
           renderItem={renderItem}
+          ItemSeparatorComponent={ItemSeparatorComponent}
           keyExtractor={item => item.id.toString()}
         />
       </View>
