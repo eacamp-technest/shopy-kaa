@@ -9,13 +9,14 @@ import {ICardProduct, product} from 'mock/SearchBarMock';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FlashList} from '@shopify/flash-list';
-import {Product} from 'components/Product';
 import {Routes} from 'router/routes';
 import {NavigationParamList} from 'types/navigation.types';
 import {TypographyStyles} from 'theme/typography';
 import {isAndroid} from 'constants/common.consts';
 import {LikedProduct} from 'components/LikedProduct';
 import {ItemSeparatorComponent} from './Search.Screen';
+import {useLikeStore} from 'store/like/like.store';
+import {useLikeStoreActions} from 'store/like';
 
 const Board: React.FC = () => {
   useFocusEffect(
@@ -41,14 +42,23 @@ const Board: React.FC = () => {
 };
 
 const AllItem: React.FC = () => {
-  const [data] = useState<ICardProduct[]>(product);
+  const {likedItems} = useLikeStore(state => state);
+  const {addLikedItem, removeLikedItem} = useLikeStoreActions();
   const navigation =
     useNavigation<
       NativeStackScreenProps<NavigationParamList, Routes.home>['navigation']
     >();
-  const [liked, setLiked] = useState<boolean>(false);
+
+  const handleToggleLike = (item: ICardProduct) => {
+    if (likedItems.some(likedItem => likedItem.id === item.id)) {
+      removeLikedItem(item.id);
+    } else {
+      addLikedItem(item);
+    }
+  };
 
   const renderItem = ({item}: {item: ICardProduct}) => {
+    const isLiked = likedItems.some(likedItem => likedItem.id === item.id);
     return (
       <View style={styles.renderItem}>
         <LikedProduct
@@ -59,7 +69,8 @@ const AllItem: React.FC = () => {
             navigation.navigate(Routes.productDetails, {product: item})
           }
           image={item.image}
-          onLike={liked}
+          onLike={isLiked}
+          onToggleLike={() => handleToggleLike(item)}
         />
       </View>
     );
@@ -69,7 +80,7 @@ const AllItem: React.FC = () => {
     <View style={styles.content}>
       <View style={styles.productListContainer}>
         <FlashList
-          data={data}
+          data={likedItems}
           numColumns={1}
           estimatedItemSize={200}
           renderItem={renderItem}
