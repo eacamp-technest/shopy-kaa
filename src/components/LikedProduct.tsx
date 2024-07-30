@@ -23,6 +23,7 @@ interface ILikedProduct {
   onPress: () => void;
   id: number;
   onToggleLike: () => void;
+  moveToBag: () => void;
 }
 
 const screenWidth = Dimensions.get('window').width;
@@ -34,6 +35,7 @@ export const LikedProduct: React.FC<ILikedProduct> = ({
   onLike,
   onPress,
   onToggleLike,
+  moveToBag,
   id,
 }) => {
   const [liked, setLiked] = useState(onLike);
@@ -47,7 +49,12 @@ export const LikedProduct: React.FC<ILikedProduct> = ({
           <Text style={TypographyStyles.TinyNoneBold}>${price}</Text>
         </View>
         <View style={styles.bottom}>
-          <Button text="Move to Bag" size="small" type="outlined" />
+          <Button
+            text="Move to Bag"
+            size="small"
+            onPress={moveToBag}
+            type="outlined"
+          />
           <Pressable onPress={onToggleLike}>
             {liked ? (
               <PressedLike />

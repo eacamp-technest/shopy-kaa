@@ -1,5 +1,11 @@
-import {View, Text, StyleSheet, StatusBar} from 'react-native';
-import React, {useCallback, useState} from 'react';
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  ImageSourcePropType,
+} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
 import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -17,6 +23,9 @@ import {LikedProduct} from 'components/LikedProduct';
 import {ItemSeparatorComponent} from './Search.Screen';
 import {useLikeStore} from 'store/like/like.store';
 import {useLikeStoreActions} from 'store/like';
+import {useCartStore} from 'store/cart/cart.store';
+import {CartItem} from 'types/cart.types';
+import {useToast} from 'store/toast';
 
 const Board: React.FC = () => {
   useFocusEffect(
@@ -48,6 +57,10 @@ const AllItem: React.FC = () => {
     useNavigation<
       NativeStackScreenProps<NavigationParamList, Routes.home>['navigation']
     >();
+  useEffect(() => {
+    const {actions} = useLikeStore.getState();
+    actions.initialize();
+  }, []);
 
   const handleToggleLike = (item: ICardProduct) => {
     if (likedItems.some(likedItem => likedItem.id === item.id)) {
@@ -57,11 +70,28 @@ const AllItem: React.FC = () => {
     }
   };
 
+  const {
+    actions: {addToCart},
+  } = useCartStore();
+  const showToast = useToast();
+
+  const handleMoveToBag = (item: ICardProduct) => {
+    const productWithDetails: CartItem = {
+      ...item,
+      id: item.id,
+      price: item.price ?? 0,
+      image: item.image as ImageSourcePropType,
+    };
+    addToCart(productWithDetails);
+    showToast('success', 'Product moved to cart');
+  };
+
   const renderItem = ({item}: {item: ICardProduct}) => {
     const isLiked = likedItems.some(likedItem => likedItem.id === item.id);
     return (
       <View style={styles.renderItem}>
         <LikedProduct
+          moveToBag={() => handleMoveToBag(item)}
           id={item.id}
           price={item.price}
           title={item.title}
