@@ -1,4 +1,4 @@
-import React, {Fragment, useCallback, useEffect} from 'react';
+import React, {Fragment, useCallback, useEffect, useState} from 'react';
 import {
   FlatList,
   StyleSheet,
@@ -34,6 +34,7 @@ export const CartScreen: React.FC<
   const {cards, selectedPayment} = useUserStore(state => state);
   const {selectPayment} = useUserStore(state => state.actions);
   const {selectedAddress} = useAddressStore();
+  const [deleteMode, setDeleteMode] = useState(false);
 
   const handlePress = (payment: string) => {
     selectPayment(payment);
@@ -57,16 +58,20 @@ export const CartScreen: React.FC<
     actions.initialize();
   }, []);
 
-  const renderItem = useCallback(({item}: {item: CartItem}) => {
-    return (
-      <CartProduct
-        id={item.id}
-        image={item.image}
-        price={item.price}
-        title={item.title}
-      />
-    );
-  }, []);
+  const renderItem = useCallback(
+    ({item}: {item: CartItem}) => {
+      return (
+        <CartProduct
+          deleteMode={deleteMode}
+          id={item.id}
+          image={item.image}
+          price={item.price}
+          title={item.title}
+        />
+      );
+    },
+    [deleteMode],
+  );
 
   const renderCards = (data: ICardInputForm) => {
     const cardNumber = `Mastercard * * * * ${data.cardNumber.slice(-4)}`;
@@ -147,7 +152,7 @@ export const CartScreen: React.FC<
           onLeftPress={navigation.goBack}
           rightActionType="icon"
           right={vectors.edit}
-          onRightPress={() => console.log('This action can edit the cart')}
+          onRightPress={() => setDeleteMode(!deleteMode)}
         />
       </View>
       <ScrollView
