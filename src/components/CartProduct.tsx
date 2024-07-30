@@ -1,16 +1,26 @@
 import React, {useState, useEffect} from 'react';
-import {Image, ImageSourcePropType, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  ImageSourcePropType,
+  StyleSheet,
+  Text,
+  View,
+  Pressable,
+} from 'react-native';
 import {normalize} from 'theme/metrics';
 import {Steppers} from './Stepper';
 import {TypographyStyles} from 'theme/typography';
 import {colors} from 'theme/colors';
 import {useCartStore} from 'store/cart/cart.store';
+import DeleteIcon from 'assets/vectors/delete.svg';
+import {CommonStyles} from 'theme/common.styles';
 
 interface ICardProduct {
   id: number;
   image: ImageSourcePropType | undefined;
   title: string;
   price: number;
+  deleteMode: boolean;
 }
 
 export const CartProduct: React.FC<ICardProduct> = ({
@@ -18,6 +28,7 @@ export const CartProduct: React.FC<ICardProduct> = ({
   image,
   price,
   title,
+  deleteMode,
 }) => {
   const [count, setCount] = useState<number>(1);
   const {
@@ -48,7 +59,14 @@ export const CartProduct: React.FC<ICardProduct> = ({
     <View style={styles.container}>
       <Image source={image} style={styles.image} />
       <View style={styles.details}>
-        <Text style={styles.title}>{title}</Text>
+        <View style={styles.top}>
+          <Text style={styles.title}>{title}</Text>
+          {deleteMode && (
+            <Pressable style={styles.aa} onPress={() => deleteItemFromCart(id)}>
+              <DeleteIcon style={CommonStyles.alignJustifyCenterRow} />
+            </Pressable>
+          )}
+        </View>
         <View style={styles.actions}>
           <Steppers
             decrement={decrement}
@@ -90,5 +108,16 @@ const styles = StyleSheet.create({
     width: normalize('width', 78),
     height: normalize('height', 78),
     borderRadius: 8,
+  },
+  aa: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    height: normalize('height', 20),
+  },
+  top: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

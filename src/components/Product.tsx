@@ -63,9 +63,9 @@ export const Product: React.FC<IProduct> = ({
     state => state.actions.deleteItemFromCart,
   );
 
-  const handleDeletePress = () => {
-    deleteItemFromCart({id, title, price});
-  };
+  // const handleDeletePress = () => {
+  //   deleteItemFromCart({id, title, price});
+  // };
 
   const getImageSource = (
     source: ImageSourcePropType | string | undefined,
@@ -164,7 +164,7 @@ export const Product: React.FC<IProduct> = ({
               </Pressable>
             </View>
             <Text style={styles.textPrice}>{additionalPrice}$</Text>
-            <Pressable onPress={handleDeletePress}>
+            <Pressable>
               <Text style={styles.edit}>Delete</Text>
             </Pressable>
           </View>

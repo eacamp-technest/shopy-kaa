@@ -46,8 +46,8 @@ export const useCartStore = create<ICartStore>((set, get) => ({
       set({totalPrice: newTotalPrice});
       LocalStorage.totalPrice('set', newTotalPrice);
     },
-    deleteItemFromCart: (item: CartItem) => {
-      const newCarts = get().carts.filter(data => data.id !== item.id);
+    deleteItemFromCart: (id: number) => {
+      const newCarts = get().carts.filter(data => data.id !== id);
       const newTotalPrice = newCarts.reduce(
         (acc, cartItem) =>
           acc + (cartItem.price || 0) * (cartItem.quantity || 1),
