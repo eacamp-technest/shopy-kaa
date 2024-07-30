@@ -45,8 +45,6 @@ export const ProductDetailsScreen: React.FC<
   };
 
   const item: IProduct = route.params.product;
-  const [selectedSize, setSelectedSize] = useState<string | null>(null);
-  const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const showToast = useToast();
 
   const {
