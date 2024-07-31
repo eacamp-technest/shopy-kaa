@@ -30,6 +30,7 @@ import {ProductDetailsScreen} from 'screens/ProductDetails.Screen';
 import {CameraScreen} from 'screens/settings/Camera.Screen';
 import {CartScreen} from 'screens/Cart.Screen';
 import {NotificationScreen} from 'screens/Notification.Screen';
+import {ReviewScreen} from 'screens/Review.Screen';
 
 const MainStack = createNativeStackNavigator<NavigationParamList>();
 
@@ -107,7 +108,7 @@ export const MainRouter = () => {
         name={Routes.productDetails}
         component={ProductDetailsScreen}
       />
-      {/* <MainStack.Screen name={Routes.cart} component={CartScreen} /> */}
+      <MainStack.Screen name={StackRoutes.review} component={ReviewScreen} />
       <MainStack.Screen
         name={Routes.notification}
         component={NotificationScreen}

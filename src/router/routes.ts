@@ -46,4 +46,5 @@ export enum StackRoutes {
   about = 'about',
   permission = 'permission',
   camera = 'camera',
+  review = 'review',
 }

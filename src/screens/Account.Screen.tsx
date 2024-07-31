@@ -110,6 +110,7 @@ export const vectors = {
   ring: require('assets/vectors/ring.svg'),
   avatar: require('assets/vectors/avatar.svg'),
   arrow_right: require('assets/vectors/arrow_right.svg'),
+  empty_star: require('assets/vectors/empty_star.svg'),
   location: require('assets/vectors/location.svg'),
   card: require('assets/vectors/card.svg'),
   logout: require('assets/vectors/logout.svg'),
@@ -118,6 +119,8 @@ export const vectors = {
   masterCard: require('assets/social/mastercard.svg'),
   bank: require('assets/social/bank.svg'),
   paypal: require('assets/social/paypal.svg'),
+  slider: require('assets/vectors/slider.svg'),
+  star: require('../assets/vectors/star.svg'),
 
   camera: require('assets/vectors/camera.svg'),
   edit: {
