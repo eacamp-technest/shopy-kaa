@@ -7,12 +7,25 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {normalize} from 'theme/metrics';
 import {Header} from 'components/Header';
 import {vectors} from './Account.Screen';
-import {Review} from 'components/Review';
+import {IReview, Review} from 'components/Review';
+import {FlashList} from '@shopify/flash-list';
+import {mockReviews} from 'mock/ReviewMock';
+import {ItemSeparatorComponent} from './Search.Screen';
+import {Button} from 'components/Button';
+import {CommonStyles} from 'theme/common.styles';
 
 export const ReviewScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.review>
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
+  const renderItem = ({item}: {item: IReview}) => {
+    return (
+      <View>
+        <Review {...item} />
+      </View>
+    );
+  };
+
   return (
     <View style={[styles.root, {paddingTop: top}]}>
       <Header
@@ -23,13 +36,22 @@ export const ReviewScreen: React.FC<
         right={vectors.slider}
         onLeftPress={navigation.goBack}
       />
-      <Review
-        image={require('assets/images/profile_photo.png')}
-        date="Yesterday"
-        name="Robert"
-        surname="Fox"
-        star={4}
-        description="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      <FlashList
+        data={mockReviews}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+        estimatedItemSize={150}
+        showsVerticalScrollIndicator={false}
+        ItemSeparatorComponent={ItemSeparatorComponent}
+      />
+      <Button
+        size="large"
+        hasIcon
+        iconPosition="left"
+        icon={vectors.write_review}
+        text="Write a review"
+        style={styles.button}
+        // onPress={}
       />
     </View>
   );
@@ -39,5 +61,10 @@ const styles = StyleSheet.create({
   root: {
     flex: 1,
     paddingHorizontal: normalize('horizontal', 24),
+  },
+  button: {
+    gap: normalize('width', 24),
+    justifyContent: 'center',
+    marginBottom: normalize('height', 40),
   },
 });

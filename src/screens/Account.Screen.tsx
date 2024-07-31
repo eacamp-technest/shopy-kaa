@@ -121,6 +121,7 @@ export const vectors = {
   paypal: require('assets/social/paypal.svg'),
   slider: require('assets/vectors/slider.svg'),
   star: require('../assets/vectors/star.svg'),
+  write_review: require('../assets/vectors/write_review.svg'),
 
   camera: require('assets/vectors/camera.svg'),
   edit: {
