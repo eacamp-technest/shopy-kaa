@@ -1,4 +1,4 @@
-import { ISuggestion } from 'components/Suggestion';
+import {ISuggestion} from 'components/Suggestion';
 import {IModal} from 'components/Modal';
 import {ICardProduct, ISuggestionMock} from 'mock/SearchBarMock';
 import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
@@ -33,7 +33,7 @@ export type NavigationParamList = {
     onItemPress?: (item: ICardProduct | ISuggestionMock) => void;
     headerTitle?: string;
   };
-  [Routes.productDetails]: { product: ICardProduct };
+  [Routes.productDetails]: {product: ICardProduct};
   [StackRoutes.kidslists]: undefined;
   [StackRoutes.menlist]: undefined;
   [StackRoutes.womenlists]: undefined;
@@ -56,4 +56,5 @@ export type NavigationParamList = {
   [StackRoutes.about]: undefined;
   [StackRoutes.permission]: undefined;
   [StackRoutes.camera]: undefined;
+  [StackRoutes.review]: undefined;
 };

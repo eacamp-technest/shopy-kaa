@@ -8,7 +8,7 @@ import {
   ImageSourcePropType,
 } from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {Routes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 import {TypographyStyles} from 'theme/typography';
@@ -92,6 +92,7 @@ export const ProductDetailsScreen: React.FC<
         <View style={styles.stylestableTwo}>
           <View style={{display: 'flex', flexDirection: 'row'}}>
             <Table
+              rightOnPress={() => navigation.navigate(StackRoutes.review)}
               content=""
               leftType="views"
               rightType="icon"
