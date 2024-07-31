@@ -76,7 +76,7 @@ export const Header: React.FC<IHeader> = ({
                 side === 'right' && CommonStyles.rowReverse,
               ]}>
               <SvgImage source={icon} {...restOfIcon} />
-              <Text style={TypographyStyles.LargeNoneRegular}>{text}</Text>
+              <Text style={TypographyStyles.TinyNoneBold}>{text}</Text>
             </View>
           );
         }
