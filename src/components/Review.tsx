@@ -10,6 +10,7 @@ import {CommonStyles} from 'theme/common.styles';
 import {vectors} from 'screens/Account.Screen';
 
 export interface IReview {
+  id: number;
   date?: string;
   star?: number;
   name?: string;
