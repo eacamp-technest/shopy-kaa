@@ -107,6 +107,7 @@ export const vectors = {
     icon: require('assets/vectors/cart.svg'),
     color: colors.ink.base,
   },
+  add_photo: require('assets/images/add_photo.png'),
   ring: require('assets/vectors/ring.svg'),
   avatar: require('assets/vectors/avatar.svg'),
   arrow_right: require('assets/vectors/arrow_right.svg'),
