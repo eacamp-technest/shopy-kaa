@@ -13,12 +13,11 @@ import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 import {TypographyStyles} from 'theme/typography';
 import {CommonStyles} from 'theme/common.styles';
-import {SvgImage} from './SvgImage';
 
 interface IAddPhoto {
   title?: string;
   image?: ImageSourcePropType | undefined;
-  icon?: ImageSourcePropType | undefined;
+  icon?: any;
   onPress?: () => void;
   disabled?: boolean;
   style?: StyleProp<ViewStyle>;

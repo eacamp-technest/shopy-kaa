@@ -1,5 +1,12 @@
 import React, {useCallback, useRef, useState} from 'react';
-import {View, Text, StyleSheet, Alert} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+  Image,
+} from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
 import {StackRoutes} from 'router/routes';
@@ -18,10 +25,10 @@ import BottomSheet, {
 import {Input} from 'components/TextFields';
 import {TypographyStyles} from 'theme/typography';
 import {normalize} from 'theme/metrics';
-import RatingStars from 'components/RaitingStars';
 import {colors} from 'theme/colors';
 import {AddPhoto} from 'components/AddPhoto';
 import {launchImageLibrary} from 'react-native-image-picker';
+import RatingStars from 'components/RaitingStars';
 
 export const ReviewScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.review>
@@ -32,6 +39,7 @@ export const ReviewScreen: React.FC<
   const [rating, setRating] = useState<number>(0);
   const [bottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
   const [photos, setPhotos] = useState<string[]>([]);
+  const [reviews, setReviews] = useState<IReview[]>(mockReviews);
 
   const handleSheetChanges = useCallback((index: number) => {
     setBottomSheetOpen(index > -1);
@@ -43,14 +51,16 @@ export const ReviewScreen: React.FC<
   };
 
   const handleSubmitReview = () => {
-    console.log(
-      'Review submitted:',
-      reviewText,
-      'Rating:',
-      rating,
-      'Photos:',
-      photos,
-    );
+    const newReview: IReview = {
+      id: reviews.length + 1,
+      name: 'Ali',
+      surname: 'Hilalov',
+      star: rating,
+      description: reviewText,
+      image: require('assets/images/profile_photo.png'),
+    };
+
+    setReviews(prevReviews => [newReview, ...prevReviews]);
     setReviewText('');
     setRating(0);
     setPhotos([]);
@@ -66,16 +76,33 @@ export const ReviewScreen: React.FC<
   };
 
   const openImageLibrary = async () => {
-    const result = await launchImageLibrary({
-      mediaType: 'photo',
-      includeBase64: false,
-    });
+    try {
+      const result = await launchImageLibrary({
+        mediaType: 'photo',
+        includeBase64: false,
+      });
 
-    if (result.didCancel) {
-      console.log('User cancelled image picker');
-    } else if (result.errorCode) {
-      console.log('ImagePicker Error: ', result.errorCode);
+      console.log('ImagePicker Result:', result);
+
+      if (result.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (result.errorCode) {
+        console.log('ImagePicker Error: ', result.errorCode);
+      } else if (result.assets) {
+        console.log('Selected images:', result.assets);
+
+        const uris = result.assets
+          .map(asset => asset.uri)
+          .filter(uri => uri !== undefined) as string[];
+        setPhotos(prevPhotos => [...prevPhotos, ...uris]);
+      }
+    } catch (error) {
+      console.error('ImagePicker Error:', error);
     }
+  };
+
+  const removeImage = (index: number) => {
+    setPhotos(prevPhotos => prevPhotos.filter((_, i) => i !== index));
   };
 
   return (
@@ -89,7 +116,7 @@ export const ReviewScreen: React.FC<
         onLeftPress={navigation.goBack}
       />
       <FlashList
-        data={mockReviews}
+        data={reviews}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
         estimatedItemSize={150}
@@ -136,20 +163,37 @@ export const ReviewScreen: React.FC<
             autoCorrect={false}
             blurOnSubmit={true}
             style={styles.input}
-            // onFocus={handleOnFocusInput}
             onChangeText={setReviewText}
             placeholder="Write your opinion..."
+            value={reviewText}
           />
-          <View style={styles.bottom}>
+          <ScrollView
+            horizontal
+            contentContainerStyle={styles.photoContainer}
+            showsHorizontalScrollIndicator={false}>
             <AddPhoto
               title="Add photo"
               icon={vectors.add_photo}
               onPress={openImageLibrary}
             />
-          </View>
+            {photos.map((photo, index) => (
+              <View key={index} style={styles.photoWrapper}>
+                <Pressable
+                  onPress={() => removeImage(index)}
+                  style={styles.removeButton}>
+                  <Image
+                    source={require('assets/vectors/x.svg')}
+                    style={styles.removeIcon}
+                  />
+                </Pressable>
+                <AddPhoto image={{uri: photo}} />
+              </View>
+            ))}
+          </ScrollView>
           <Button
             text="Send review"
             size="large"
+            style={styles.review}
             onPress={handleSubmitReview}
           />
         </BottomSheetView>
@@ -197,8 +241,32 @@ const styles = StyleSheet.create({
     ...TypographyStyles.RegularNormalSemiBold,
     textAlign: 'center',
   },
-  bottom: {
-    alignSelf: 'flex-start',
+  photoContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: normalize('height', 20),
+    gap: normalize('width', 16),
   },
   bottomSheetRadius: {borderTopStartRadius: 16},
+  review: {
+    marginTop: normalize('height', 20),
+    width: '100%',
+  },
+  photoWrapper: {
+    position: 'relative',
+  },
+  removeButton: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 10,
+    padding: 4,
+  },
+  removeIcon: {
+    width: 20,
+    height: 20,
+    tintColor: 'white',
+  },
 });
