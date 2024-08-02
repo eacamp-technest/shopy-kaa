@@ -6,6 +6,7 @@ import {
   ScrollView,
   Pressable,
   Image,
+  TextInput,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {NavigationParamList} from 'types/navigation.types';
@@ -28,6 +29,7 @@ import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
 import {AddPhoto} from 'components/AddPhoto';
 import {launchImageLibrary} from 'react-native-image-picker';
+import XIcon from 'assets/vectors/x.svg';
 import RatingStars from 'components/RaitingStars';
 
 export const ReviewScreen: React.FC<
@@ -35,11 +37,12 @@ export const ReviewScreen: React.FC<
 > = ({navigation}) => {
   const {top} = useSafeAreaInsets();
   const bottomSheetRef = useRef<BottomSheet>(null);
-  const [reviewText, setReviewText] = useState('');
   const [rating, setRating] = useState<number>(0);
-  const [bottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
   const [photos, setPhotos] = useState<string[]>([]);
   const [reviews, setReviews] = useState<IReview[]>(mockReviews);
+  const [reviewText, setReviewText] = useState('');
+  const [bottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
+  const [inputFocused, setInputFocused] = useState<boolean>(false);
 
   const handleSheetChanges = useCallback((index: number) => {
     setBottomSheetOpen(index > -1);
@@ -65,6 +68,19 @@ export const ReviewScreen: React.FC<
     setRating(0);
     setPhotos([]);
     bottomSheetRef.current?.close();
+    setInputFocused(false);
+  };
+
+  const handleOnFocusInput = () => {
+    setInputFocused(true);
+  };
+
+  const handleOnBlurInput = () => {
+    setInputFocused(false);
+  };
+
+  const handleOnChangeText = (newText: string) => {
+    setReviewText(newText);
   };
 
   const renderItem = ({item}: {item: IReview}) => {
@@ -82,15 +98,11 @@ export const ReviewScreen: React.FC<
         includeBase64: false,
       });
 
-      console.log('ImagePicker Result:', result);
-
       if (result.didCancel) {
         console.log('User cancelled image picker');
       } else if (result.errorCode) {
         console.log('ImagePicker Error: ', result.errorCode);
       } else if (result.assets) {
-        console.log('Selected images:', result.assets);
-
         const uris = result.assets
           .map(asset => asset.uri)
           .filter(uri => uri !== undefined) as string[];
@@ -157,14 +169,23 @@ export const ReviewScreen: React.FC<
           <Text style={styles.text}>
             Please share your opinion about the product?
           </Text>
-          <Input
-            maxLength={100}
+          <TextInput
             multiline={true}
             autoCorrect={false}
             blurOnSubmit={true}
-            style={styles.input}
-            onChangeText={setReviewText}
+            style={[
+              styles.input,
+              {
+                borderColor: inputFocused
+                  ? colors.primary.base
+                  : colors.ink.lighter,
+              },
+            ]}
             placeholder="Write your opinion..."
+            placeholderTextColor={colors.ink.lighter}
+            onFocus={handleOnFocusInput}
+            onBlur={handleOnBlurInput}
+            onChangeText={handleOnChangeText}
             value={reviewText}
           />
           <ScrollView
@@ -181,10 +202,7 @@ export const ReviewScreen: React.FC<
                 <Pressable
                   onPress={() => removeImage(index)}
                   style={styles.removeButton}>
-                  <Image
-                    source={require('assets/vectors/x.svg')}
-                    style={styles.removeIcon}
-                  />
+                  <XIcon width={16} height={16} />
                 </Pressable>
                 <AddPhoto image={{uri: photo}} />
               </View>
@@ -231,8 +249,12 @@ const styles = StyleSheet.create({
   },
   input: {
     textAlignVertical: 'top',
+    textAlign: 'center',
+    paddingHorizontal: normalize('horizontal', 20),
+    paddingVertical: normalize('vertical', 8),
     width: '100%',
-    padding: 16,
+    borderWidth: 1,
+    borderRadius: 8,
     height: normalize('height', 100),
     ...TypographyStyles.RegularNormalRegular,
     color: colors.ink.base,
@@ -256,13 +278,12 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   removeButton: {
+    width: 16,
+    height: 16,
     position: 'absolute',
     top: 0,
     right: 0,
     zIndex: 1,
-    backgroundColor: 'rgba(0,0,0,0.5)',
-    borderRadius: 10,
-    padding: 4,
   },
   removeIcon: {
     width: 20,
