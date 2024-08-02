@@ -23,7 +23,6 @@ import BottomSheet, {
   BottomSheetBackdrop,
   BottomSheetView,
 } from '@gorhom/bottom-sheet';
-import {Input} from 'components/TextFields';
 import {TypographyStyles} from 'theme/typography';
 import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
@@ -31,6 +30,8 @@ import {AddPhoto} from 'components/AddPhoto';
 import {launchImageLibrary} from 'react-native-image-picker';
 import XIcon from 'assets/vectors/x.svg';
 import RatingStars from 'components/RaitingStars';
+import {useToastStore} from 'store/toast/toast.store';
+import {useToast} from 'store/toast';
 
 export const ReviewScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, StackRoutes.review>
@@ -43,6 +44,8 @@ export const ReviewScreen: React.FC<
   const [reviewText, setReviewText] = useState('');
   const [bottomSheetOpen, setBottomSheetOpen] = useState<boolean>(false);
   const [inputFocused, setInputFocused] = useState<boolean>(false);
+
+  const showToast = useToast();
 
   const handleSheetChanges = useCallback((index: number) => {
     setBottomSheetOpen(index > -1);
@@ -63,6 +66,7 @@ export const ReviewScreen: React.FC<
       image: require('assets/images/profile_photo.png'),
     };
 
+    showToast('success', 'Thank you for your review');
     setReviews(prevReviews => [newReview, ...prevReviews]);
     setReviewText('');
     setRating(0);
