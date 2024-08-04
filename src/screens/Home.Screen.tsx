@@ -39,22 +39,36 @@ const ItemSeparatorComponent = () => {
   return <View style={styles.flashVertical} />;
 };
 const AllStore: React.FC = () => {
-  const [data, setData] = useState<ICardProduct[]>([]);
+  const [categories, setCategories] = useState<{id: number; name: string}[]>(
+    [],
+  );
+  const [products, setProducts] = useState<ICardProduct[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<ICardProduct[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
   const navigation =
     useNavigation<
       NativeStackScreenProps<NavigationParamList, Routes.home>['navigation']
     >();
 
-  const navigateToItemList = () => navigation.navigate(Routes.itemList);
-
-  const handleProduct = async () => {
+  const fetchCategories = async () => {
     try {
-      const res = await axios({
-        url: EndpointResources.main.product,
-        method: 'GET',
-      });
+      const res = await axios.get(EndpointResources.main.categories);
       if (res.status === 200) {
-        setData(res.data);
+        setCategories(res.data);
+      } else {
+        console.error('Failed to fetch categories, status:', res.status);
+      }
+    } catch (error) {
+      console.error('Error fetching categories:', error);
+    }
+  };
+
+  const fetchProducts = async () => {
+    try {
+      const res = await axios.get(EndpointResources.main.product);
+      if (res.status === 200) {
+        setProducts(res.data);
+        setFilteredProducts(res.data);
       } else {
         console.error('Failed to fetch products, status:', res.status);
       }
@@ -64,27 +78,44 @@ const AllStore: React.FC = () => {
   };
 
   useEffect(() => {
-    handleProduct();
+    fetchCategories();
+    fetchProducts();
   }, []);
 
-  const renderItem = ({item}: {item: ICardProduct}) => {
-    return (
-      <View style={styles.renderItem}>
-        <Product
-          imageSize="large"
-          size="large"
-          source={item.images[0]}
-          price={item.price}
-          key={item.id}
-          title={item.title}
-          url={item.url}
-          onPress={() =>
-            navigation.navigate(Routes.productDetails, {product: item})
-          }
-        />
-      </View>
-    );
+  useEffect(() => {
+    if (selectedCategory === null) {
+      setFilteredProducts(products);
+    } else {
+      setFilteredProducts(
+        products.filter(product => product.category.id === selectedCategory),
+      );
+    }
+  }, [selectedCategory, products]);
+
+  const handleCategoryPress = (categoryId: number | null) => {
+    if (categoryId === selectedCategory) {
+      setSelectedCategory(null);
+    } else {
+      setSelectedCategory(categoryId);
+    }
   };
+
+  const renderItem = ({item}: {item: ICardProduct}) => (
+    <View style={styles.renderItem}>
+      <Product
+        imageSize="large"
+        size="large"
+        source={item.images[0]}
+        price={item.price}
+        key={item.id}
+        title={item.title}
+        url={item.url}
+        onPress={() =>
+          navigation.navigate(Routes.productDetails, {product: item})
+        }
+      />
+    </View>
+  );
 
   return (
     <View style={styles.content}>
@@ -95,33 +126,37 @@ const AllStore: React.FC = () => {
           leftType="views"
           rightType="text"
           right="See All"
-          rightOnPress={navigateToItemList}
+          rightOnPress={() => console.log('See All pressed')}
         />
       </View>
       <ScrollView
-        style={{flexGrow: 0.06}}
+        style={styles.scroll}
         horizontal
         showsHorizontalScrollIndicator={false}>
-        {['All', 'Shoes', 'T-Shirt', 'Tops', 'Kids'].map(category => (
+        {[{id: null, name: 'All'}, ...categories].map(category => (
           <ChipPill
-            key={category}
+            key={category.id ?? 'all'}
+            content={category.name}
             iconPosition="left"
-            content={category}
             type="solid"
             size="auto layout"
-            onPress={() => console.log(`${category} pressed`)}
+            onPress={() => handleCategoryPress(category.id)}
+            selected={
+              category.id === selectedCategory ||
+              (category.id === null && selectedCategory === null)
+            }
             style={styles.chip}
           />
         ))}
       </ScrollView>
       <FlashList
-        data={data}
+        data={filteredProducts}
         numColumns={2}
         estimatedItemSize={200}
         renderItem={renderItem}
         keyExtractor={item => item.id.toString()}
-        contentContainerStyle={styles.listContent}
         ItemSeparatorComponent={ItemSeparatorComponent}
+        contentContainerStyle={styles.listContent}
       />
     </View>
   );
@@ -290,4 +325,5 @@ const styles = StyleSheet.create({
   flashVertical: {
     height: normalize('height', 24),
   },
+  scroll: {flexGrow: 0.06, paddingHorizontal: normalize('horizontal', 10)},
 });
