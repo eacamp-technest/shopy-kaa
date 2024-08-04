@@ -8,6 +8,7 @@ export interface ICardProduct {
   price: number;
   images: any;
   url: string;
+  category?: any;
 }
 
 export interface ISuggestionMock {

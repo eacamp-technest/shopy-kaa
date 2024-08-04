@@ -6,7 +6,7 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import React, {useState} from 'react';
+import React from 'react';
 import {normalize} from 'theme/metrics';
 import {SvgImage} from './SvgImage';
 import {colors} from 'theme/colors';
@@ -37,27 +37,19 @@ export const ChipPill: React.FC<IChipPill> = ({
   iconPosition,
   style,
 }) => {
-  const [isSelected, setIsSelected] = useState(selected);
-
-  const handlePress = () => {
-    setIsSelected(!isSelected);
-    onPress();
-  };
-
   return (
     <Pressable
-      onPress={handlePress}
+      onPress={onPress}
       style={[
         styles.chipPill,
         type === 'transparent' ? styles.outline : styles.solid,
         size === 'full width' ? styles.fullWidth : styles.autoLayout,
-        isSelected && [styles.selected, style],
+        selected && [styles.selected, style],
       ]}>
       {icon && iconPosition === 'left' && (
         <SvgImage source={icon} style={styles.icon} />
       )}
-      <Text
-        style={[styles.content, isSelected && [styles.contentSelect, style]]}>
+      <Text style={[styles.content, selected && [styles.contentSelect, style]]}>
         {content}
       </Text>
       {icon && iconPosition === 'right' && (
