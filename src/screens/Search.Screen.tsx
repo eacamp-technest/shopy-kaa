@@ -54,7 +54,7 @@ export const SearchScreen: React.FC<
       return (
         <View style={styles.renderItem}>
           <Product
-            source={item.image}
+            source={item.images[1]}
             price={item.price}
             key={item.id}
             title={item.title}

@@ -16,7 +16,7 @@ import PressedLike from 'assets/vectors/like.svg';
 import {colors} from 'theme/colors';
 
 interface ILikedProduct {
-  image: ImageSourcePropType | undefined;
+  image: {uri: string} | undefined;
   title: string;
   price: number;
   onLike: boolean;
@@ -42,7 +42,7 @@ export const LikedProduct: React.FC<ILikedProduct> = ({
 
   return (
     <Pressable onPress={onPress} style={styles.container}>
-      <Image source={image} style={styles.image} />
+      {image && <Image source={image} style={styles.image} />}
       <View style={styles.right}>
         <View style={styles.top}>
           <Text style={TypographyStyles.RegularTightSemibold}>{title}</Text>

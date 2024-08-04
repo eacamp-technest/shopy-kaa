@@ -11,7 +11,7 @@ import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import {ICardProduct, product} from 'mock/SearchBarMock';
+import {ICardProduct} from 'mock/SearchBarMock';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FlashList} from '@shopify/flash-list';
@@ -26,6 +26,7 @@ import {useLikeStoreActions} from 'store/like';
 import {useCartStore} from 'store/cart/cart.store';
 import {CartItem} from 'types/cart.types';
 import {useToast} from 'store/toast';
+import {IProduct} from 'components/Product';
 
 const Board: React.FC = () => {
   useFocusEffect(
@@ -79,8 +80,8 @@ const AllItem: React.FC = () => {
     const productWithDetails: CartItem = {
       ...item,
       id: item.id,
-      price: item.price ?? 0,
-      image: item.image as ImageSourcePropType,
+      price: item.price,
+      image: {uri: item.images[1]},
     };
     addToCart(productWithDetails);
     showToast('success', 'Product moved to cart');
@@ -98,7 +99,7 @@ const AllItem: React.FC = () => {
           onPress={() =>
             navigation.navigate(Routes.productDetails, {product: item})
           }
-          image={item.image}
+          image={{uri: item.images[0]}}
           onLike={isLiked}
           onToggleLike={() => handleToggleLike(item)}
         />
