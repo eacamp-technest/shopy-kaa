@@ -1,7 +1,7 @@
 import {FlashList} from '@shopify/flash-list';
 import {Header} from 'components/Header';
 import {Table} from 'components/Table';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {StatusBar, StyleSheet, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from 'react-native-screens/lib/typescript/native-stack/types';
@@ -10,26 +10,46 @@ import {colors} from 'theme/colors';
 import {normalize} from 'theme/metrics';
 import {NavigationParamList} from 'types/navigation.types';
 import {ICardProduct} from './Search.Screen';
-import {product} from 'mock/SearchBarMock';
 import {Product} from 'components/Product';
 import {Brand} from 'components/Brand';
 import {IBrand, brand} from 'mock/BrandMock';
+import axios from 'axios';
+import {EndpointResources} from 'services/EndpointResources';
 
 export const ItemListsScreen: React.FC<
   NativeStackScreenProps<NavigationParamList, Routes.itemList>
 > = ({navigation}) => {
-  const [data] = useState<ICardProduct[]>(product);
+  const [data, setData] = useState<ICardProduct[]>();
   const [brandData] = useState<IBrand[]>(brand);
   const {top} = useSafeAreaInsets();
   const navigateToFilter = () => navigation.navigate(Routes.filter);
 
+  const handleProduct = async () => {
+    try {
+      const res = await axios({
+        url: EndpointResources.main.product,
+        method: 'GET',
+      });
+      if (res.status === 200) {
+        setData(res.data);
+      } else {
+        console.error('Failed to fetch products, status:', res.status);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    handleProduct();
+  }, []);
   const renderItem = ({item}: {item: ICardProduct}) => {
     return (
       <View style={styles.renderItem}>
         <Product
           size="small"
           imageSize="small"
-          source={item.image}
+          source={item.images[1]}
           price={item.price}
           key={item.id}
           title={item.title}
