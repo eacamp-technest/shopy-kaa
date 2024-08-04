@@ -6903,10 +6903,10 @@ react-native-country-codes-picker@2.3.4:
   resolved "https://registry.yarnpkg.com/react-native-country-codes-picker/-/react-native-country-codes-picker-2.3.4.tgz#ac6196199cb76a30997a98ed095243c9af34994f"
   integrity sha512-2TZwEm7jwes65ROs2CLvJMINpswCTKAMUX5qeDK5fQmRH+Zv1ShqcysplBzcZurdT8v9WUg/TeI2C6abE6gQQA==
 
-react-native-date-picker@^5.0.3:
-  version "5.0.3"
-  resolved "https://registry.npmjs.org/react-native-date-picker/-/react-native-date-picker-5.0.3.tgz"
-  integrity sha512-pA/HcnB7RBac/CigQcqvM95JiD4c7mN5DPie3c/LFBol55ntvpxyxxr5ixAonB5PYLTjop21EIajAHKAP7/JeQ==
+react-native-date-picker@^5.0.4:
+  version "5.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-date-picker/-/react-native-date-picker-5.0.4.tgz#5965141617463bc11ebe0b16e2b0ea7239758e37"
+  integrity sha512-UycNfXGd4ipgdU2a+oZGj7h1nvp8Gz49f/Ko+YdWh6nrBKB49MEp0n9eF1QngbxMKqdK0AdY4udb4IdVVWji4g==
 
 react-native-element-dropdown@^2.12.0:
   version "2.12.0"
