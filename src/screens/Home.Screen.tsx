@@ -6,7 +6,6 @@ import {
   TextStyle,
   Text,
   ScrollView,
-  ImageSourcePropType,
 } from 'react-native';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
@@ -19,23 +18,14 @@ import {SceneMap, TabView, TabBar} from 'react-native-tab-view';
 import {TypographyStyles} from 'theme/typography';
 import {ChipPill} from 'components/ChipPill';
 import {NavigationParamList} from 'types/navigation.types';
-import {Routes, StackRoutes} from 'router/routes';
+import {Routes} from 'router/routes';
 import {ICardProduct, suggestionMock} from 'mock/SearchBarMock';
 import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
 import {isAndroid} from 'constants/common.consts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Suggestion} from 'components/Suggestion';
 import {EndpointResources} from 'services/EndpointResources';
 import axios from 'axios';
-
-interface IData {
-  id: number;
-  title: string;
-  price: number;
-  images: ImageSourcePropType | string;
-  url: string;
-}
 
 const InStore: React.FC = () => {
   return (
@@ -153,6 +143,27 @@ export const HomeScreen: React.FC<
   const [index, setIndex] = useState<number>(0);
 
   const {top} = useSafeAreaInsets();
+  const [data, setData] = useState<ICardProduct[]>([]);
+
+  const handleProduct = async () => {
+    try {
+      const res = await axios({
+        url: EndpointResources.main.product,
+        method: 'GET',
+      });
+      if (res.status === 200) {
+        setData(res.data);
+      } else {
+        console.error('Failed to fetch products, status:', res.status);
+      }
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+  };
+
+  useEffect(() => {
+    handleProduct();
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -190,7 +201,7 @@ export const HomeScreen: React.FC<
           placeholder="Search brand, products..."
           onInputPress={() =>
             navigation.navigate(Routes.search, {
-              // items: product,
+              items: data,
               suggestion: suggestionMock,
               onItemPress: item => console.log('item pressed: -', item),
               headerTitle: 'Mock items',
