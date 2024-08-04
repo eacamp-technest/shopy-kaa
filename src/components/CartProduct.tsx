@@ -63,7 +63,12 @@ export const CartProduct: React.FC<ICardProduct> = ({
           <Text style={styles.title}>{title}</Text>
           {deleteMode && (
             <Pressable style={styles.aa} onPress={() => deleteItemFromCart(id)}>
-              <DeleteIcon style={CommonStyles.alignJustifyCenterRow} />
+              <DeleteIcon
+                style={[
+                  CommonStyles.alignJustifyCenterRow,
+                  {zIndex: 1, position: 'absolute', right: 0},
+                ]}
+              />
             </Pressable>
           )}
         </View>
