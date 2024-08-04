@@ -938,7 +938,7 @@ PODS:
   - React-Mapbuffer (0.74.0):
     - glog
     - React-debug
-  - react-native-date-picker (5.0.3):
+  - react-native-date-picker (5.0.4):
     - React-Core
   - react-native-image-picker (7.1.2):
     - DoubleConversion
@@ -1581,7 +1581,7 @@ SPEC CHECKSUMS:
   React-jsitracing: 36a2bbc272300313653d980de5ab700ec86c534a
   React-logger: 03f2f7b955cfe24593a2b8c9705c23e142d1ad24
   React-Mapbuffer: 5e05d78fe6505f4a054b86f415733d4ad02dd314
-  react-native-date-picker: 682417ada6f9c334b969f7df6dd331a56983c63c
+  react-native-date-picker: 6891317e850deae5b53d51355226e07a495aba61
   react-native-image-picker: c3afe5472ef870d98a4b28415fc0b928161ee5f7
   react-native-mmkv: 8c9a677e64a1ac89b0c6cf240feea528318b3074
   react-native-pager-view: e2b7c31147cdc1750cb3867d37a145e487653c34

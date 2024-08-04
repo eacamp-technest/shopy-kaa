@@ -40,6 +40,13 @@ export const ItemListsScreen: React.FC<
     }
   };
 
+  const adddot = (str: string, num: number) => {
+    if (str.length > num) {
+      return str.slice(0, num) + '...';
+    }
+    else return str
+  };
+
   useEffect(() => {
     handleProduct();
   }, []);
@@ -52,7 +59,7 @@ export const ItemListsScreen: React.FC<
           source={item.images[1]}
           price={item.price}
           key={item.id}
-          title={item.title}
+          title={adddot(item.title, 20)}
           onPress={() =>
             navigation.navigate(Routes.productDetails, {product: item})
           }

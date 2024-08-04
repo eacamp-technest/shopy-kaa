@@ -20,7 +20,7 @@ type TImageSize = 'small' | 'middle' | 'large';
 export interface IProduct {
   id?: any;
   source?: ImageSourcePropType | string | undefined;
-  title: string;
+  title: string | undefined;
   price: number;
   url?: string;
   onPress?: () => void;
@@ -235,6 +235,7 @@ const styles = StyleSheet.create({
   },
   smallTexts: {
     justifyContent: 'center',
+    maxWidth:231,
   },
   savedItems: {
     display: 'flex',

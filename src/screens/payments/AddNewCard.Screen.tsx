@@ -31,15 +31,8 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
     setValue,
     reset,
     formState: {errors},
-  } = useForm<ICardInputForm>({
-    defaultValues: __DEV__
-      ? {
-          cardNumber: '4169 1234 1341 8912',
-          holderName: 'Ali Hilalov',
-          cvv: '123',
-        }
-      : {},
-  });
+  } = useForm<ICardInputForm>();
+  
   const onDateConfirm = (date: Date) => {
     const month = date.getMonth() + 1;
     const year = String(date.getFullYear()).slice(2);
@@ -56,6 +49,11 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
     data.id = String(Math.random() * 10000).slice(0, 4);
     addCard(data);
     jumpTo(Routes.paymentMethod);
+    setValue('cardNumber', '');
+    setValue('holderName', '');
+    setValue('expiration', '');
+    setValue('cvv', '');
+    setPicker(null); 
     reset();
     console.log(data);
   };
@@ -168,16 +166,15 @@ export const AddNewCard: React.FC<SceneRendererProps> = ({jumpTo}) => {
         <View style={styles.buttons}>
           <Button onPress={handleSubmit(onSubmit)} text="Add card"></Button>
         </View>
+
         <DatePicker
-          modal={true}
-          title={'Select Expiration Date'}
+          modal
+          title={"Set Expiration Date"}
           open={open}
-          mode="date"
           date={picker || new Date()}
-          onCancel={() => {
-            setOpen(false);
-          }}
+          mode="date"
           onConfirm={onDateConfirm}
+          onCancel={() => setOpen(false)}
         />
       </Animated.ScrollView>
     </FormProvider>
