@@ -154,13 +154,15 @@ export const Product: React.FC<IProduct> = ({
               <Pressable onPress={handleMinusPress}>
                 <SvgImage
                   style={{width: 24, height: 24}}
-                  source={vectors.minus.icon}></SvgImage>
+                  source={vectors.minus.icon}
+                />
               </Pressable>
               <Text style={{alignContent: 'center'}}>{count}</Text>
               <Pressable onPress={handlePlusPress}>
                 <SvgImage
                   style={{width: 24, height: 24}}
-                  source={vectors.plus.icon}></SvgImage>
+                  source={vectors.plus.icon}
+                />
               </Pressable>
             </View>
             <Text style={styles.textPrice}>{additionalPrice}$</Text>

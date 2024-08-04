@@ -126,7 +126,7 @@ const AllStore: React.FC = () => {
           leftType="views"
           rightType="text"
           right="See All"
-          rightOnPress={() => console.log('See All pressed')}
+          rightOnPress={() => navigation.navigate(Routes.itemList)}
         />
       </View>
       <ScrollView
