@@ -57,8 +57,9 @@ export const ProductDetailsScreen: React.FC<
       id: item.id,
       price: item.price ?? 0,
       title: item.title ?? 'Unknown Title',
-      image: product.images as ImageSourcePropType,
+      image: {uri: product.images[0]} as ImageSourcePropType,
     };
+
     addToCart(productWithDetails);
     showToast('success', 'Product added to cart');
   };
@@ -67,7 +68,7 @@ export const ProductDetailsScreen: React.FC<
     <View style={styles.root}>
       <ImageBackground
         resizeMode="cover"
-        source={product.images}
+        source={{uri: product.images[0]}}
         style={[styles.header, {paddingTop: top}]}>
         <Header
           left={vectors.arrow_left}
