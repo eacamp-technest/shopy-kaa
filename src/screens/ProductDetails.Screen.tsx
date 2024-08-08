@@ -56,6 +56,7 @@ export const ProductDetailsScreen: React.FC<
       ...item,
       id: item.id,
       price: item.price ?? 0,
+      title: item.title ?? 'Unknown Title',
       image: product.images as ImageSourcePropType,
     };
     addToCart(productWithDetails);

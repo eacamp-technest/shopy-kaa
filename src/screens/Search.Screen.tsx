@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import {Routes} from 'router/routes';
+import {Routes, StackRoutes} from 'router/routes';
 import {searchScreenOptions} from 'configs/navigation.configs';
 import {NavigationParamList} from 'types/navigation.types';
 import {Product} from 'components/Product';
@@ -62,6 +62,7 @@ export const SearchScreen: React.FC<
             onPress={() => {
               onItemPress?.(item);
               navigation.pop();
+              navigation.navigate(Routes.productDetails, {product: item});
             }}
           />
         </View>

@@ -1,17 +1,10 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  StatusBar,
-  ImageSourcePropType,
-} from 'react-native';
+import {View, Text, StyleSheet, StatusBar} from 'react-native';
 import React, {useCallback, useEffect, useState} from 'react';
 import {normalize} from 'theme/metrics';
 import {colors} from 'theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {Header} from 'components/Header';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import {ICardProduct} from 'mock/SearchBarMock';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {FlashList} from '@shopify/flash-list';
@@ -24,9 +17,8 @@ import {ItemSeparatorComponent} from './Search.Screen';
 import {useLikeStore} from 'store/like/like.store';
 import {useLikeStoreActions} from 'store/like';
 import {useCartStore} from 'store/cart/cart.store';
-import {CartItem} from 'types/cart.types';
+import {CartItem, ICardProduct} from 'types/cart.types';
 import {useToast} from 'store/toast';
-import {IProduct} from 'components/Product';
 
 const Board: React.FC = () => {
   useFocusEffect(

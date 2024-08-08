@@ -19,13 +19,14 @@ import {TypographyStyles} from 'theme/typography';
 import {ChipPill} from 'components/ChipPill';
 import {NavigationParamList} from 'types/navigation.types';
 import {Routes} from 'router/routes';
-import {ICardProduct, suggestionMock} from 'mock/SearchBarMock';
+import {suggestionMock} from 'mock/SearchBarMock';
 import {FlashList} from '@shopify/flash-list';
 import {Product} from 'components/Product';
 import {isAndroid} from 'constants/common.consts';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {EndpointResources} from 'services/EndpointResources';
 import axios from 'axios';
+import {ICardProduct} from 'types/cart.types';
 
 const InStore: React.FC = () => {
   return (
@@ -34,6 +35,8 @@ const InStore: React.FC = () => {
     </View>
   );
 };
+// error while updating property 'src' of view managed by RCTImageView null
+// java.lang.String cannot cast to com.facebook.react.bridge.ReadableNativeMap
 
 const ItemSeparatorComponent = () => {
   return <View style={styles.flashVertical} />;

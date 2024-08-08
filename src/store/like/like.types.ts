@@ -1,4 +1,4 @@
-import {ICardProduct} from 'mock/SearchBarMock';
+import {ICardProduct} from 'types/cart.types';
 
 interface ILikeStoreActions {
   addLikedItem: (item: ICardProduct) => void;

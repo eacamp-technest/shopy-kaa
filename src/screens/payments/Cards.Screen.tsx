@@ -14,7 +14,6 @@ import {normalize} from 'theme/metrics';
 import {Button} from 'components/Button';
 import {useForm} from 'react-hook-form';
 import {InputController} from 'components/InputController';
-import {FormValidate} from 'constants/formValidation';
 import {SceneRendererProps} from 'react-native-tab-view';
 import {useUserStore} from 'store/user/user.store';
 import {useUserStoreActions} from 'store/user';
@@ -70,7 +69,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
         <View style={styles.inputs}>
           <InputController
             type="text"
-            rules={FormValidate.cardNumber}
+            // rules={FormValidate.cardNumber}
             name="cardNumber"
             control={control}
             label="Card Number"
@@ -78,7 +77,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
           />
           <InputController
             type="text"
-            rules={FormValidate.holder}
+            // rules={FormValidate.holder}
             name="holder"
             control={control}
             label="CardHolder Name"
@@ -87,7 +86,7 @@ export const CardsScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
           <InputController
             label="Expiration Date"
             type="phone"
-            rules={FormValidate.expirationDate}
+            // rules={FormValidate.expirationDate}
             name="expirationDate"
             control={control}
             value={selectedCard?.expiration}

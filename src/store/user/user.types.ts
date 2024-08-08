@@ -1,4 +1,3 @@
-import {ICardProduct} from 'mock/SearchBarMock';
 import {ICardInputForm} from 'types/card-types';
 import {IUser} from 'types/user';
 

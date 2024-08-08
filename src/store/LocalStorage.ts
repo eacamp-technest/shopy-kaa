@@ -8,8 +8,7 @@ import {
 } from 'types/local.storage.types';
 import {IUser} from 'types/user';
 import {IAddress} from './address/address.types';
-import {CartItem} from 'types/cart.types';
-import {ICardProduct} from 'mock/SearchBarMock';
+import {CartItem, ICardProduct} from 'types/cart.types';
 
 const storage = new MMKV();
 
