@@ -35,8 +35,6 @@ const InStore: React.FC = () => {
     </View>
   );
 };
-// error while updating property 'src' of view managed by RCTImageView null
-// java.lang.String cannot cast to com.facebook.react.bridge.ReadableNativeMap
 
 const ItemSeparatorComponent = () => {
   return <View style={styles.flashVertical} />;
@@ -209,13 +207,14 @@ export const HomeScreen: React.FC<
       if (isAndroid) {
         StatusBar.setBackgroundColor(colors.bdazzledBlue.darkest);
       }
+
       return () => {
         StatusBar.setBarStyle('dark-content');
         if (isAndroid) {
           StatusBar.setBackgroundColor('transparent');
         }
       };
-    }, []),
+    }, [isAndroid]),
   );
 
   return (
