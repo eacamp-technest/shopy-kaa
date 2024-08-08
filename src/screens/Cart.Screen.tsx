@@ -64,7 +64,7 @@ export const CartScreen: React.FC<
         <CartProduct
           deleteMode={deleteMode}
           id={item.id}
-          image={item.image}
+          image={{uri: item.images[1]}}
           price={item.price}
           title={item.title}
         />

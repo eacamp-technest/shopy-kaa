@@ -6,6 +6,7 @@ export type CartItem = {
   image: ImageSourcePropType | undefined;
   title: string;
   quantity?: number;
+  images?: any;
 };
 
 export interface ICardProduct {

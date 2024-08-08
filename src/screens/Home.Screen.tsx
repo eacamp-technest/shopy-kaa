@@ -108,7 +108,7 @@ const AllStore: React.FC = () => {
       <Product
         imageSize="large"
         size="large"
-        source={item.images[0]}
+        source={{uri: item.images[0]}}
         price={item.price}
         key={item.id}
         title={item.title}
