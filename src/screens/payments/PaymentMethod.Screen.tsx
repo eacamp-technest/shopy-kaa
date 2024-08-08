@@ -26,8 +26,7 @@ export const PaymentMethodScreen: React.FC<SceneRendererProps> = ({jumpTo}) => {
 
   const mockUserData = {
     username: 'mockUser',
-    token: 'mockToken123', // Mock token
-    // Add other user data as needed
+    token: 'mockToken123',
   };
 
   const storeUserData = async (userData: typeof mockUserData) => {

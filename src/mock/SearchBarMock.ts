@@ -2,15 +2,6 @@ import {ImageSourcePropType} from 'react-native';
 import {StackRoutes} from 'router/routes';
 import {NavigationParamList} from 'types/navigation.types';
 
-export interface ICardProduct {
-  id: number;
-  title: string;
-  price: number;
-  images: any;
-  url: string;
-  category?: any;
-}
-
 export interface ISuggestionMock {
   id: number;
   title: string;

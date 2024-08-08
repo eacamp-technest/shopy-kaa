@@ -7,3 +7,12 @@ export type CartItem = {
   title: string;
   quantity?: number;
 };
+
+export interface ICardProduct {
+  id: number;
+  title: string;
+  price: number;
+  images: any;
+  url: string;
+  category?: any;
+}

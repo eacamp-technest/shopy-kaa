@@ -4,7 +4,7 @@ export class EndpointResources {
   };
   public static main = {
     product: 'https://api.escuelajs.co/api/v1/products',
-    shopify: 'https://fakestoreapi.com/products',
+    dummy: 'https://dummyjson.com/products',
     categories: 'https://api.escuelajs.co/api/v1/categories',
   };
 }

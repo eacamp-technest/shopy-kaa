@@ -43,8 +43,7 @@ export const ItemListsScreen: React.FC<
   const adddot = (str: string, num: number) => {
     if (str.length > num) {
       return str.slice(0, num) + '...';
-    }
-    else return str
+    } else return str;
   };
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 import {create} from 'zustand';
 import {LocalStorage} from 'store/LocalStorage';
-import {ICardProduct} from 'mock/SearchBarMock';
 import {ILikeStore} from './like.types';
+import {ICardProduct} from 'types/cart.types';
 
 export const useLikeStore = create<ILikeStore>((set, get) => ({
   likedItems: [],

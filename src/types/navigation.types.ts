@@ -1,8 +1,9 @@
 import {ISuggestion} from 'components/Suggestion';
 import {IModal} from 'components/Modal';
-import {ICardProduct, ISuggestionMock} from 'mock/SearchBarMock';
+import {ISuggestionMock} from 'mock/SearchBarMock';
 import {NativeStackNavigationProp} from 'react-native-screens/lib/typescript/native-stack/types';
 import {Routes, StackRoutes} from 'router/routes';
+import {ICardProduct} from './cart.types';
 
 export type AppNavigation = NativeStackNavigationProp<NavigationParamList>;
 
