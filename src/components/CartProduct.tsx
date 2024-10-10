@@ -61,7 +61,7 @@ export const CartProduct: React.FC<ICardProduct> = ({
       <View style={styles.details}>
         <View style={styles.top}>
           <Text style={styles.title}>{title}</Text>
-          {deleteMode && (
+          {(
             <Pressable style={styles.aa} onPress={() => deleteItemFromCart(id)}>
               <DeleteIcon
                 style={[
