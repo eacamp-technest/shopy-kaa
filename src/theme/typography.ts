@@ -134,6 +134,11 @@ export const TypographyStyles = StyleSheet.create({
     fontFamily: montserratFonts[700],
     ...commonFontStyling,
   },
+  TinyNormalBold:{
+    fontSize:fontSize12,
+    fontFamily:montserratFonts[700],
+    lineHeight:lineHeight18
+  },
   SmallTightRegular: {
     fontSize: fontSize14,
     fontFamily: montserratFonts[400],

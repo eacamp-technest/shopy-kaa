@@ -222,10 +222,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   text: {
-    ...TypographyStyles.RegularNoneSemiBold,
+    ...TypographyStyles.RegularTightSemibold,
   },
   textPrice: {
-    ...TypographyStyles.TinyNoneBold,
+    ...TypographyStyles.TinyNormalBold,
   },
   textUrl: {
     ...TypographyStyles.SmallNoneRegular,
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
   },
   smallTexts: {
     justifyContent: 'center',
-    maxWidth: 231,
+    width: 231,
   },
   savedItems: {
     display: 'flex',
