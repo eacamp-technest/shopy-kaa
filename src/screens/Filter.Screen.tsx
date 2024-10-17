@@ -1,5 +1,5 @@
 import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
+import React, {useState} from 'react';
 import {Header} from 'components/Header';
 import {colors} from 'theme/colors';
 import {TypographyStyles} from 'theme/typography';
@@ -20,6 +20,9 @@ export const FilterScreen: React.FC<
 > = ({navigation}) => {
   const colorOptions = ['red', 'black', 'gray', 'blue', 'green', 'white'];
   const {top} = useSafeAreaInsets();
+  const [selectedCategory, setSelectedCategory] = useState<number | null>(null);
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+
   return (
     <View style={[styles.root, {paddingTop: top}]}>
       <Header
@@ -54,14 +57,17 @@ export const FilterScreen: React.FC<
         <View style={styles.selection}>
           <Text style={styles.texts}>Sizes</Text>
           <View style={CommonStyles.alignCenterJustifyBetweenRow}>
-            {['XS', 'S', 'M', 'L', 'XL'].map(category => (
+            {['XS', 'S', 'M', 'L', 'XL'].map((category, index) => (
               <ChipPill
                 key={category}
                 iconPosition="left"
                 content={category}
                 type="solid"
                 size="auto layout"
-                onPress={() => console.log(`${category} pressed`)}
+                onPress={() => {
+                  setSelectedSize(index);
+                }}
+                selected={selectedSize === index}
                 style={styles.chipColor}
               />
             ))}
@@ -71,7 +77,7 @@ export const FilterScreen: React.FC<
         <View style={styles.selection}>
           <Text style={styles.texts}>Category</Text>
           <View style={CommonStyles.alignCenterJustifyBetweenRow}>
-            {['All', 'Women', 'Men', 'Boys'].map(category => (
+            {['All', 'Women', 'Men', 'Boys'].map((category, index) => (
               <ChipPill
                 key={category}
                 iconPosition="left"
@@ -79,11 +85,13 @@ export const FilterScreen: React.FC<
                 type="solid"
                 size="auto layout"
                 style={styles.chipColor}
-                onPress={() => console.log(`${category} pressed`)}
+                onPress={() => setSelectedCategory(index)}
+                selected={selectedCategory === index}
               />
             ))}
           </View>
         </View>
+
         <Button style={styles.button} text="Apply filters" />
       </View>
     </View>
